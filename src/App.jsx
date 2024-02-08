@@ -1,20 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import SearchBar from './components/searchBar';
+import React, { useState, useEffect, useRef } from 'react';
+import SearchBar from './components/SearchBar';
+import Choices from './components/Choices';
 
 const App = () => {
-  const [heading, setHeading] = useState("Mangnificent Monkeys");
+  const [choice, setChoice] = useState(false);
+  const [searchText, setSearchText] = useState()
+   const mounted = useRef();
 
-  const clickHandler = () => {
-    setHeading("Radical Rhinos");
-  };
+  function onEnter(text){
+    setSearchText(() => text)
+    setChoice(() => true)
+  }
+/*
+  useEffect(() => {
+    if(mounted.current){
+      console.log(searchText)
+    } else {
+        mounted.current = true;
+    }
+  }, [choice]) */
+ 
 
   return (
     <>
-      <SearchBar />
-      <button type="button" onClick={clickHandler}>
-        Click Me
-      </button>
-      <h1>{heading}</h1>
+      <SearchBar
+        onEnter={onEnter}
+      />
+      <Choices 
+        show={choice}
+        searchedWord={searchText}
+      />
     </>
     
   )

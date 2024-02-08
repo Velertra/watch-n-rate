@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ApiFunction from '../utilities/ApiFunction';
 
-const SearchBar = () => {
+
+const SearchBar = ( { onEnter } ) => {
     const [text, setText] = useState("");
 
     function handleChange(e){
@@ -11,21 +12,23 @@ const SearchBar = () => {
     function handleKeyDown(e){
         if(e.key === 'Enter') {
             const search = sanitizeText(text)
-            console.log(search)
-            ApiFunction(text/* search */);
+            //ApiFunction(search);
+            onEnter(search);
+            setText(() => "")
         }
     }
 
+    //also updates words for API use
     function sanitizeText(result){
         const map = {
             '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
             '"': '&quot;',
-           /*  "'": '&#x27;', */
             "/": '&#x2F;',
+            " ": '%20;'
         }
-        const reg = /[&<>"/]/ig;
+        const reg = /[&<>"/ ]/ig;
         return result.replace(reg, (match) => (map[match]));
     }
 
@@ -38,6 +41,7 @@ const SearchBar = () => {
                 onChange={(e) => handleChange(e)}
                 onKeyDown={(e)=> handleKeyDown(e)}
             />
+            
         </>
      );
 }
