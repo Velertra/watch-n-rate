@@ -9,12 +9,12 @@ const SearchBar = ( { onEnter } ) => {
         setText(e.target.value);
     }
 
-    function handleKeyDown(e){
+    async function handleKeyDown(e){
         if(e.key === 'Enter') {
-            const search = sanitizeText(text)
-            //ApiFunction(search);
-            onEnter(search);
-            setText(() => "")
+            const search = sanitizeText(text);
+            const result = await ApiFunction(search);
+            onEnter(result.results);
+            setText(() => "");
         }
     }
 

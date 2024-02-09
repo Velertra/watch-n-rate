@@ -14,7 +14,8 @@ export default async function ApiFunction(movieTitle){
     )
         if (response.ok) {
             const data = await response.json();
-            console.log(data.results);
+            return data;
+            //console.log(data.results);
         } else {
             console.error('API Error:', response.status, response.statusText);
         }

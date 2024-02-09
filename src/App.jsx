@@ -3,23 +3,17 @@ import SearchBar from './components/SearchBar';
 import Choices from './components/Choices';
 
 const App = () => {
-  const [choice, setChoice] = useState(false);
-  const [searchText, setSearchText] = useState()
-   const mounted = useRef();
+  const [choice, setChoice] = useState({
+    program: "",
+    display: false
+  });
 
   function onEnter(text){
-    setSearchText(() => text)
-    setChoice(() => true)
+    setChoice({
+      program: text,
+      display: true
+    })
   }
-/*
-  useEffect(() => {
-    if(mounted.current){
-      console.log(searchText)
-    } else {
-        mounted.current = true;
-    }
-  }, [choice]) */
- 
 
   return (
     <>
@@ -27,8 +21,8 @@ const App = () => {
         onEnter={onEnter}
       />
       <Choices 
-        show={choice}
-        searchedWord={searchText}
+        show={choice.display}
+        searchedWord={choice.program}
       />
     </>
     

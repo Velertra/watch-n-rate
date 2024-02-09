@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import ApiFunction from "../utilities/ApiFunction";
 
 const Choices = ( { show, searchedWord } ) => {
     
     return ( 
         <>
-            {show ? <div>{searchedWord}</div> : <>no</>}
+            {show ? <div>{searchedWord.map((selection, index) => {
+                return (
+                    <div key={index}>
+                        <div>{selection.title}{console.log(selection)}</div>
+                    </div>
+                )
+            })}</div> : <>no</>}
         </>
      );
 
