@@ -10,15 +10,15 @@ const Choices = ( { show, searchedWord } ) => {
     
     return ( 
         <>
-            {show ? <div>{searchedWord.map((selection, index) => {
+            {show ? <div>{console.log(searchedWord)}{searchedWord.map((selection, index) => {
                 return (
                     <div style={{display: 'flex'}} key={index}>
                         <img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + selection.poster_path}></img>
                         <ul key={index}>
                             <li>
                                 <h3 style={{fontSize: '2vh'}}>{selection.title || selection.name}{console.log(selection)}</h3>
-                                <p style={{fontSize: '1.4'}}>{selection.vote_average}</p>
-                                <p style={{fontSize: '1.5vh'}}>{shortSummery(selection.overview)}</p>
+                                <p style={{width: '1vh'}}>{selection.popularity}</p>
+                                <p style={{fontSize: '1.5vh'}}>{selection.overview}</p>
                             </li>
                         </ul>
                     </div>

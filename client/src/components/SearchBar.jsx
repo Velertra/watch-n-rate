@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import ApiFunction from '../utilities/ApiFunction';
+import { Form } from 'react-router-dom';
+import { useNavigate, redirect, useActionData } from 'react-router-dom';
+import { ApiFunction } from '../utilities/ApiFunction';
 
-
-const SearchBar = ( { onEnter } ) => {
+const SearchBar = ( ) => {
     const [text, setText] = useState("");
+    const navigate = useNavigate();
+    
 
     function handleChange(e){
         setText(e.target.value);
     }
 
-    async function handleKeyDown(e){
+    function handleKeyDown(e){
         if(e.key === 'Enter') {
-            const search = sanitizeText(text);
-            const result = await ApiFunction(search);
-            onEnter(result.results);
-            setText(() => "");
+            e.preventDefault();
+            const search = sanitizeText(text)
+            navigate(`/search/${search}`)
+            setText(() => '');
         }
     }
 
@@ -33,17 +36,17 @@ const SearchBar = ( { onEnter } ) => {
     }
 
     return ( 
-        <>
+        <form /* Form method='post' action={'/search/' + text} */>
             <label htmlFor="search-bar"></label>
             <input
                 id='search-bar'
+                name='search'
                 value={text}
                 onChange={(e) => handleChange(e)}
                 onKeyDown={(e)=> handleKeyDown(e)}
             />
-            
-        </>
+        </form>
      );
 }
- 
+
 export default SearchBar;
