@@ -6,6 +6,12 @@ const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const cors = require("cors");
+const signUpRoute = require("./route/signUpRoute");
+const diffUser = require("./model/signUpModel");
+const signUpController = require("./controllers/signUpController");
+const User = require("./model/signUpModel")
+//require('dotenv').config()
 
 //cFhw47Gl4WEjnOYR
 
@@ -14,103 +20,66 @@ mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
-const User = mongoose.model(
-  "User",
-  new Schema({
-    username: { type: String, required: true },
-    password: { type: String, required: true }
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+      console.log("passport happened")
+    try {
+      const user = await User.findOne({ username: username });
+      
+      if (!user) {
+          console.log("didnt find user")
+        return done(null, false, { message: "Incorrect username" });
+      };
+      const match = await bcrypt.compare(password, user.password);
+      if (!match) {
+        return done(null, false, { message: "Incorrect password" });
+      };
+      return done(null, user);
+    } catch(err) {
+      return done(err);
+    };
   })
 );
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch(err) {
+    done(err);
+  };
+});
+
+
+
 const app = express();
+app.use(express.json());
 app.set("views", __dirname);
 app.set("view engine", "ejs");
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(session({ secret: "dogs", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+app.use('*', cors())
 
-passport.use(
-    new LocalStrategy(async (username, password, done) => {
-      try {
-        const user = await User.findOne({ username: username });
-        
-        if (!user) {
-          return done(null, false, { message: "Incorrect username" });
-        };
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) {
-          return done(null, false, { message: "Incorrect password" });
-        };
-        return done(null, user);
-      } catch(err) {
-        return done(err);
-      };
-    })
-  );
+app.use("/", signUpRoute);
+app.post("/login", signUpController.login);
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  
-  passport.deserializeUser(async (id, done) => {
-    try {
-      const user = await User.findById(id);
-      done(null, user);
-    } catch(err) {
-      done(err);
-    };
-  });
-
-  app.use((req, res, next) => {
+app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     //console.log(res.locals.currentUser);
     next();
-  });
-  
+});
+
 
 app.get("/", (req, res) => {
     res.render("index", { user: req.user });
-  });
+});
 
-app.get("/sign-up", (req, res) => res.render("./ejs/sign-up-form.ejs"));
 
-app.get("/log-out", (req, res, next) => {
-    req.logout((err) => {
-      if (err) {
-        return next(err);
-      }
-      res.redirect("/");
-    });
-  });
-
-app.post(
-    "/log-in",
-    passport.authenticate("local", {
-      successRedirect: "/",
-      failureRedirect: "/"
-    })
-);
-
-app.post("/sign-up", async (req, res, next) => {
-    try {
-        bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-            if(err){
-                console.log(err);
-            }
-            const user = new User({
-                username: req.body.username,
-                password: hashedPassword
-              });
-      const result = await user.save();
-      res.redirect("/");
-    })
-    } catch(err) {
-      return next(err);
-    };
-  });
-
-  
-  
 
 app.listen(3000, () => console.log("app listening on port 3000!"));

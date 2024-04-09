@@ -14,6 +14,7 @@ const NavBar = () => {
       <>
         <section>
             <NavLink to="/">Home</NavLink>
+            <NavLink to="sign-up">sign-up</NavLink>
             <SearchBar />
         </section>
         <Outlet />
