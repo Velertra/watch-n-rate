@@ -7,10 +7,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const cors = require("cors");
-const signUpRoute = require("./route/signUpRoute");
-const diffUser = require("./model/signUpModel");
-const signUpController = require("./controllers/signUpController");
-const User = require("./model/signUpModel")
+const userRoute = require("./route/userRoute");
+const diffUser = require("./model/userModel");
+const userController = require("./controllers/userController");
+const User = require("./model/userModel");
+const verifyToken = require("./middleware/requireAuth");
 //require('dotenv').config()
 
 //cFhw47Gl4WEjnOYR
@@ -66,8 +67,9 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use('*', cors())
 
-app.use("/", signUpRoute);
-app.post("/login", signUpController.login);
+app.use("/", userRoute);
+app.post("/favMovies/:userId", verifyToken, userController.addMovie);
+app.post("/login", userController.login);
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;

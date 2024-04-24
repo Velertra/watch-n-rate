@@ -1,7 +1,8 @@
 const express = require("express");
-const User = require("../model/signUpModel");
+const User = require("../model/userModel");
 const router = express.Router();
-const signUp = require("../controllers/signUpController");
+const signUp = require("../controllers/userController");
+const bcrypt = require("bcryptjs");
 
 router.get("/sign-up", (req, res) => res.render("./ejs/sign-up-form.ejs"));
 
@@ -17,12 +18,6 @@ router.get("/log-out", (req, res, next) => {
 router.get("/", (req, res) => {
     res.render("index", { user: req.user });
 });
-
-
-
-
-
-//app.use("/", signUpRoute);
 
 
 router.post("/sign-up", async (req, res, next) => {
