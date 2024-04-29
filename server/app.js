@@ -68,8 +68,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use('*', cors())
 
 app.use("/", userRoute);
-app.post("/favMovies/:userId", verifyToken, userController.addMovie);
 app.post("/login", userController.login);
+app.post("/addFav", verifyToken, userController.addMovie)
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;

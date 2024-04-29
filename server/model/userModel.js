@@ -6,19 +6,31 @@ const user = new Schema(
     {
         username: {
             type: String,
-            required: true,
+            required: false,
             unique: true,
             trim: true
         },
         password: {
             type: String, 
-            required: true,
+            required: false,
             trim: true
         },
-        favMoives: {
-            type: Array,
-            required: false
-        }
+        favFeatures: [
+            {
+                title: {
+                    type: Array,
+                    require: false
+                },
+                type: {
+                    type: Array,
+                    require: false
+                },
+                featureId: {
+                    type: Array,
+                    require: false
+                }
+            }
+        ]
     }
 );
 

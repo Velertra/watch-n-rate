@@ -25,11 +25,10 @@ const login = async (req, res, next) => {
 
     //const { username, password } = req.body;
     passport.authenticate("local", function(err, user, info) {
-        if(err) { /* console.log(next(err)) */ ;return next(err); }
+        if(err) { return next(err) }
         if(!user) {
             return res.status(401).json({ message: "Authentication failed" });
         }
-        //console.log(req.body);
         const { username, password } = req.body;
         const token = jwt.sign({username}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h'} )
             
@@ -38,32 +37,28 @@ const login = async (req, res, next) => {
     })(req, res, next);
 }
 
-const getUser = async (req, res) => {
-    const { userId } = req.params;
-    
-    const user = await User.findOne({ username: req.user.username}, '-password');
-    console.log(user.favMoives)
-    //console.log(req.user)
-
-    if (!user){
-        res.status(400);
-        throw new Error('user not found');
-    }
-/*
-    res.status(200).json({
-        user:user
-    }) */
-}
-
-const addMovie = async(req, res) => {
-    const { userId } = req.params;
-
+const addMovie = async(req, res, next) => {
+    const { title, type, featureId } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
 
-    user.favMoives.push(userId);
+    if(!featureId){
+        return res.status(401).json({ message: "Adding to Favorites failed" });
+    }
+
+    const newFav = { title, type, featureId }
+    user.favFeatures.push(newFav);
 
     await user.save();
 }
 
+const getUser = async (req, res, next) => {
+    const user = await User.findOne({ username: req.user.username }, '-password');
+    
+    if (!user){
+        res.status(400);
+        throw new Error('user not found');
+    }
+    res.json({ user })
+}
 
-module.exports = {signUpController, login, getUser, addMovie};
+module.exports = {signUpController, login, getUser, addMovie, getUser};

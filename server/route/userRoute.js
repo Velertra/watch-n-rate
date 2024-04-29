@@ -1,8 +1,9 @@
 const express = require("express");
 const User = require("../model/userModel");
 const router = express.Router();
-const signUp = require("../controllers/userController");
+const userController = require("../controllers/userController");
 const bcrypt = require("bcryptjs");
+const verifyToken = require("../middleware/requireAuth");
 
 router.get("/sign-up", (req, res) => res.render("./ejs/sign-up-form.ejs"));
 
@@ -40,5 +41,6 @@ router.post("/sign-up", async (req, res, next) => {
     };
 });
 
+router.get("/getuser", verifyToken, userController.getUser);
 
 module.exports = router;

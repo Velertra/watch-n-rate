@@ -67,3 +67,26 @@ try {
 }
 }
 
+export async function FullDetails(type, id){
+    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+    /* const movieTitle = "star%20wars" */
+
+    const response = await fetch(
+        `https://api.themoviedb.org/3/${type}/${id}?language=en-US`,
+        {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer '+ apiKey 
+            }
+        }
+    )
+        if (response.ok) {
+            const data = await response.json();
+            
+            return data;
+            
+        } else {
+            console.error('API Error:', response.status, response.statusText);
+        }
+}
