@@ -37,7 +37,7 @@ const login = async (req, res, next) => {
     })(req, res, next);
 }
 
-const addMovie = async(req, res, next) => {
+const addFav = async(req, res, next) => {
     const { title, type, featureId } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
 
@@ -45,15 +45,29 @@ const addMovie = async(req, res, next) => {
         return res.status(401).json({ message: "Adding to Favorites failed" });
     }
 
-    const newFav = { title, type, featureId }
-    user.favFeatures.push(newFav);
+    const watchList = { title, type, featureId }
+    user.favFeatures.push(watchList);
 
     await user.save();
 }
 
-const getUser = async (req, res, next) => {
+const addWatchList = async(req, res, next) => {
+    const { title, type, featureId } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
-    
+
+    if(!featureId){
+        return res.status(401).json({ message: "Adding to Favorites failed" });
+    }
+
+    const watchListPick = { title, type, featureId }
+    user.watchList.push(watchListPick);
+
+    await user.save();
+}
+
+const getUserProfile = async (req, res, next) => {
+    const user = await User.findOne({ username: req.params.user }, '-password');
+
     if (!user){
         res.status(400);
         throw new Error('user not found');
@@ -61,4 +75,22 @@ const getUser = async (req, res, next) => {
     res.json({ user })
 }
 
-module.exports = {signUpController, login, getUser, addMovie, getUser};
+const followList = async (req, res, next) => {
+    const user = await User.findOne({ username: req.user.username }, '-password');
+    const userTwo = await User.findOne({ username: req.body.userTwo }, '-password');
+
+    //console.log(user)
+    if(!user){
+        return res.status(401).json({ message: "Following user failed" });
+    }
+
+    //const follow = { title, type, featureId }
+    user.following.push(userTwo._id);
+    userTwo.followers.push(user._id);
+
+    await user.save();
+    await userTwo.save();
+    //res.json({ user })
+}
+
+module.exports = {signUpController, login, getUserProfile, addFav, addWatchList, followList};

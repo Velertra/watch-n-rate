@@ -5,12 +5,7 @@ import SearchBar from "./SearchBar";
 import { ApiFunction } from "../utilities/ApiFunction";
 import LogOut from "./LogOut";
 
-/* export async function loader(){
-  const choice = await ApiFunction()
-} */
-
 const NavBar = () => {
-
     return ( 
       <>
         <section>
@@ -20,7 +15,6 @@ const NavBar = () => {
             <NavLink to="sign-up">sign-up</NavLink>
             <LogOut />
             <SearchBar />
-            
         </section>
         <Outlet />
       </>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FullDetails } from "../utilities/ApiFunction";
 import FavsBtn from "../components/FavsBtn"
+import WatchList from "../components/WatchList";
+import Review from "../components/Review";
 
 const Feature = () => {
     const [details, setDetails] = useState();
@@ -9,9 +11,7 @@ const Feature = () => {
     const [type, id] = content.split("-");
 
     useEffect(()=> {
-        let abortController = new AbortController();    
-
-        
+        let abortController = new AbortController();  
 
         async function getDetails(){
             let response = await FullDetails(type, id, {
@@ -40,7 +40,7 @@ const Feature = () => {
             <div>
                 <div id="details-content" style={{display: 'flex'}}>
                     <img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + details.poster_path}></img>
-                    <div id="details-details">{console.log(details)}
+                    <div id="feature-details">
                         <ul>
                             <li>
                                 <h3 style={{fontSize: '2vh'}}>{details.title || details.name}</h3>
@@ -53,6 +53,12 @@ const Feature = () => {
                             type={type}
                             featureId={details.id}
                         />
+                        <WatchList
+                            title={details.title || details.name}
+                            type={type}
+                            featureId={details.id}
+                        />
+                        <Review />
                     </div>
                 </div>
             </div>}

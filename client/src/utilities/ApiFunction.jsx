@@ -21,12 +21,12 @@ export async function ApiFunction(movieTitle){
         }
 }
 
-export async function UpComing(){
+export async function Upcoming(){
     const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
     /* const movieTitle = "star%20wars" */
 
     const response = await fetch(
-        `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=2`,
         {
             method: 'GET',
             headers: {
@@ -37,6 +37,7 @@ export async function UpComing(){
     )
         if (response.ok) {
             const data = await response.json();
+            console.log(data)
             return data;
             
         } else {
@@ -46,9 +47,9 @@ export async function UpComing(){
 }
 
 
-export async function UpComingMovies(){
+/* export async function Upcoming(){
     //const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
-    /* const movieTitle = "star%20wars" */
+    //const movieTitle = "star%20wars"
 
     const url = 'https://imdb188.p.rapidapi.com/api/v1/getUpcomingMovies?region=US';
 const options = {
@@ -62,9 +63,52 @@ const options = {
 try {
 	const response = await fetch(url, options);
 	const result = await response.json();
+    console.log(result)
 } catch (error) {
 	console.error(error);
 }
+} */
+
+export async function PopularTv(){
+    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+
+    const url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer '+ apiKey
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        return result
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function PopularMovies(){
+    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+
+    const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer '+ apiKey
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        return result
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 export async function FullDetails(type, id){
@@ -90,3 +134,23 @@ export async function FullDetails(type, id){
             console.error('API Error:', response.status, response.statusText);
         }
 }
+
+/* export async function Upcoming(){
+    const url = 'https://movies-tv-shows-database.p.rapidapi.com/?page=1';
+    const options = {
+        method: 'GET',
+        headers: {
+            Type: 'get-upcoming-movies',
+            'X-RapidAPI-Key': '0b6e4f08a7msh8b885a9d51d61dbp11d9e4jsnbb5913d5fbfd',
+            'X-RapidAPI-Host': 'movies-tv-shows-database.p.rapidapi.com'
+        }
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+    console.log(result)
+} catch (error) {
+	console.error(error);
+}
+} */

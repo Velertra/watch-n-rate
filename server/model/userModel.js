@@ -15,7 +15,31 @@ const user = new Schema(
             required: false,
             trim: true
         },
+        following: [{
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }],
+        followers: [{
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }],
         favFeatures: [
+            {
+                title: {
+                    type: Array,
+                    require: false
+                },
+                type: {
+                    type: Array,
+                    require: false
+                },
+                featureId: {
+                    type: Array,
+                    require: false
+                }
+            }
+        ],
+        watchList: [
             {
                 title: {
                     type: Array,

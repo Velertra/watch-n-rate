@@ -41,6 +41,11 @@ router.post("/sign-up", async (req, res, next) => {
     };
 });
 
-router.get("/getuser", verifyToken, userController.getUser);
+router.get("/getUserProfile/:user", verifyToken, userController.getUserProfile);
+
+router.post("/login", userController.login);
+router.post("/addFav", verifyToken, userController.addFav)
+router.post("/addWatchList/", verifyToken, userController.addWatchList)
+router.post("/followList", verifyToken, userController.followList)
 
 module.exports = router;

@@ -40,12 +40,6 @@ const SearchPage = () => {
     function handleContentClick(agent) {
         console.log(agent.title || agent.name)
         navigate(`/feature/${(agent.media_type || agent.media_type)+ - + agent.id}`)
-
-    }
-
-    function handleFavClick(agent) {
-        console.log(agent.title || agent.name)
-        console.log(agent)
     }
 
     return ( 
@@ -62,11 +56,11 @@ const SearchPage = () => {
                                 <p style={{fontSize: '1.5vh'}}>{movie.overview}</p>
                             </li>
                         </ul>
-                        <FavsBtn
+                        {/* <FavsBtn
                             title={movie.title || movie.name}
                             type={movie.media_type}
                             featureId={movie.id}
-                        />
+                        /> */}
                     </div>
                 </div>
             )

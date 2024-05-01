@@ -8,15 +8,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const cors = require("cors");
 const userRoute = require("./route/userRoute");
+const reviewRouter = require("./route/reviewRoute");
 const diffUser = require("./model/userModel");
 const userController = require("./controllers/userController");
 const User = require("./model/userModel");
 const verifyToken = require("./middleware/requireAuth");
-//require('dotenv').config()
+require('dotenv').config()
 
 //cFhw47Gl4WEjnOYR
 
-const mongoDb = "mongodb+srv://velertra43:cFhw47Gl4WEjnOYR@watchnrate.b0j8pyp.mongodb.net/watcherz?retryWrites=true&w=majority&appName=watchNrate";
+const mongoDb = process.env.DATABASE_URI;
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
@@ -68,8 +69,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('*', cors())
 
 app.use("/", userRoute);
-app.post("/login", userController.login);
-app.post("/addFav", verifyToken, userController.addMovie)
+app.use("/review", reviewRouter);
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;

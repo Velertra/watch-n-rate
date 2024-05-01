@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FeatureIcon from "../components/FeatureIcon";
+import FollowBtn from "../components/FollowBtn";
 
 const Profile = () => {
     const { userName } = useParams();
@@ -11,7 +12,7 @@ const Profile = () => {
       const token = JSON.parse(localStorage.getItem("user"));
 
         async function getUser(){
-          const response = await fetch(`http://localhost:3000/getuser`, {
+          const response = await fetch(`http://localhost:3000/getUserProfile/${userName}`, {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${token.token}`
@@ -40,12 +41,15 @@ const Profile = () => {
         (
           <div>
             <h1>welcome {user.user.username}</h1>
-            {user.user.favFeatures.map((feature, index) => (
-            <FeatureIcon 
-              key={index}
-              type={feature.type}
-              id={feature.featureId}
+            <FollowBtn 
+              userTwo={userName}
             />
+            {user.user.favFeatures.map((feature, index) => (
+              <FeatureIcon 
+                key={index}
+                type={feature.type}
+                id={feature.featureId}
+              />
           ))}
           </div>
         )}        
