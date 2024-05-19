@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Review = () => {
+const Review = ({ title, type, featureId }) => {
     const [review, setReview] = useState(false)
     const [content, setContent] = useState('');
     const token = JSON.parse(localStorage.getItem("user"));
@@ -13,24 +13,23 @@ const Review = () => {
         e.preventDefault();
     
         try {
-          const response = await fetch('http://localhost:3000/review/addReview', {
+          const response = await fetch('http://localhost:3000/feature/addreview', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token.token}`
             },
-            body: JSON.stringify({ content }),
+            body: JSON.stringify({ content, title, type, featureId }),
           });
     
           const data = await response.json();
-          console.log(data)
+          
           
         } catch (error) {
           console.error('Error occurred:', error);
         }
       };
 
-    
     return (  
         <>
          <button onClick={handleOnClick}>review</button>

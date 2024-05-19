@@ -37,36 +37,9 @@ const login = async (req, res, next) => {
     })(req, res, next);
 }
 
-const addFav = async(req, res, next) => {
-    const { title, type, featureId } = req.body;
-    const user = await User.findOne({ username: req.user.username }, '-password');
-
-    if(!featureId){
-        return res.status(401).json({ message: "Adding to Favorites failed" });
-    }
-
-    const watchList = { title, type, featureId }
-    user.favFeatures.push(watchList);
-
-    await user.save();
-}
-
-const addWatchList = async(req, res, next) => {
-    const { title, type, featureId } = req.body;
-    const user = await User.findOne({ username: req.user.username }, '-password');
-
-    if(!featureId){
-        return res.status(401).json({ message: "Adding to Favorites failed" });
-    }
-
-    const watchListPick = { title, type, featureId }
-    user.watchList.push(watchListPick);
-
-    await user.save();
-}
-
 const getUserProfile = async (req, res, next) => {
-    const user = await User.findOne({ username: req.params.user }, '-password');
+    const user = await User.findOne({ username: req.user.username }, '-password');
+    /* const userWithFavs =  */await user.populate('faved')
 
     if (!user){
         res.status(400);
@@ -93,4 +66,4 @@ const followList = async (req, res, next) => {
     //res.json({ user })
 }
 
-module.exports = {signUpController, login, getUserProfile, addFav, addWatchList, followList};
+module.exports = {signUpController, login, getUserProfile, followList};

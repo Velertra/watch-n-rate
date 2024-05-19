@@ -7,32 +7,34 @@ import Review from "../components/Review";
 
 const Feature = () => {
     const [details, setDetails] = useState();
+    const [featureDetails, setFeatureDetails] = useState();
     const { content } = useParams();
     const [type, id] = content.split("-");
+    //const token = JSON.parse(localStorage.getItem("user"));
 
     useEffect(()=> {
-        let abortController = new AbortController();  
-
-        async function getDetails(){
-            let response = await FullDetails(type, id, {
-                signal: abortController.signal
+        async function getApiData(){
+            let tmdbDetails = await FullDetails(type, id,);
+            let data = await tmdbDetails;
+            setDetails(data);
+        }
+        async function getfeatureData(){
+            let featureDB = await fetch(`http://localhost:3000/feature/getfeaturereviews/?type=${type}&featureId=${id}`, {
+                method: 'GET',
             });
+
+            let featureData = await featureDB.json(); 
+            setFeatureDetails(featureData.feature.reviews && featureData.feature.reviews)
             
-            if(!abortController.signal.aborted){
-                let data = await response;
-                setDetails(data);
-            }
         }
         
-        if(content){
-            getDetails();
-        }
 
         return() => {
-            abortController.abort();
+            getApiData();
+            getfeatureData();
         }
     }, [])
-
+    
     return ( 
         <>
             {details 
@@ -58,10 +60,24 @@ const Feature = () => {
                             type={type}
                             featureId={details.id}
                         />
-                        <Review />
+                        <Review 
+                            title={details.title || details.name}
+                            type={type}
+                            featureId={details.id}
+                        />
                     </div>
                 </div>
             </div>}
+            {featureDetails 
+            &&
+            featureDetails.map((review, index) => (
+                <div key={index}>
+                    <h5>{review.author[0].username}</h5>
+                    <p>{review.content}</p>
+                    <h5>*/ Where likes will go /*</h5>
+                </div>
+            ))
+            }
         </>    
     );
 }

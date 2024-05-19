@@ -14,7 +14,7 @@ const FavsBtn = ({ title, type, featureId}) => {
         }
 
         console.log(featureId)
-        let response = await fetch('http://localhost:3000/addFav', 
+        let response = await fetch('http://localhost:3000/feature/addfav', 
         {
             method: 'POST',
             headers: {

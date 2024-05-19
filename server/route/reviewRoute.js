@@ -3,6 +3,6 @@ const router = express.Router();
 const verifyToken = require("../middleware/requireAuth");
 const reviewController = require("../controllers/reviewController");
 
-router.post("/addreview", verifyToken, reviewController.addReview);
+router.get("/getuserreviews", verifyToken, reviewController.getUserReviews);
 
 module.exports = router;

@@ -1,26 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute"
 import ErrorPage from "../pages/ErrorPage";
-import NavBar from "../components/NavBar";
+import NavBar, { loader as navBarLoader } from "../components/NavBar";
+import Header from "../components/header/Header";
 import Search from "../pages/Search";
 import HomePage from "../pages/HomePage";
 import SignUp from "../pages/SignUp";
-import SignIn from "../pages/SignIn";
+
 import Profile from "../pages/Profile";
 import Feature from "../pages/Feature";
 import NewTest from "../pages/NewTest";
-import newTest from "../pages/NewTest";
+import LogIn from "../pages/LogIn";
+import Reviews from "../pages/Reviews";
 
 const Router = () => {
     const router = createBrowserRouter([
-        { path: "/", element: <NavBar />, errorElement: <ErrorPage />,
+        { path: "/", element: <Header />, errorElement: <ErrorPage />, loader: navBarLoader,
             children: [
-                { index: true, element: <HomePage />},
+                { index: true, element: <HomePage />, loader: navBarLoader,},
                 { path:"search/:code", element: <Search /> },
                 { path:"sign-up", element: <SignUp /> },
-                { path:"login", element: <SignIn />},
+                { path:"logIn", element: <LogIn />},
                 { path: "feature/:content", element: < Feature/> },
                 { path: "profile/:userName", element:<Profile />},
+                { path: "review" , element:<Reviews /> },
                 /* set up protected routes, use "NewTest" as a page */
                 
                 /* { element: <ProtectedRoute />,

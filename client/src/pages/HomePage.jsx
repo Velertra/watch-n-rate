@@ -1,39 +1,18 @@
-import { useEffect, useState } from "react";
-import { PopularMovies, PopularTv, Upcoming } from "../utilities/ApiFunction"
+//import { Upcoming } from "../utilities/ApiFunction"
 import FeatureIcon from "../components/FeatureIcon";
+import { useLoaderData } from "react-router-dom";
 
 const HomePage = () => {
-    const [popularTv, setPopularTv] = useState();
-    const [popularMovies, setPopularMovies] = useState();
-
-    Upcoming();
-
-    useEffect(()=> {
-        async function getPopularTv(){
-            let response = await PopularTv();
-            let movies = await PopularMovies();
-            
-            let data = await response;
-            
-            setPopularTv(data);
-            setPopularMovies(movies)
-        }
-
-        return() => {
-            getPopularTv();
-            //abortController.abort();
-        }
-    }, [])
+    const { series, movies, Upcoming } = useLoaderData();
 
     return ( 
         <>
-            <div>front page</div>
-            <h1 style={{color:"red"}}>Tv</h1>
-            <div style={{display:"flex"}} id="hp-popular-tv">\
-                {popularTv 
+            <h1 style={{color:"red"}}>Tv</h1>{/* {console.log(Upcoming)} */}
+            <div style={{display:"flex"}} id="hp-popular-tv">
+                {series 
                 && 
                 (
-                    popularTv.results.map((show, index) => 
+                    series.results.map((show, index) => 
                         <div id="" key={index}>
                             <FeatureIcon
                                 type={'tv'}
@@ -45,10 +24,10 @@ const HomePage = () => {
             </div>
             <h1 style={{color:"red"}}>Movies</h1>
             <div style={{display:"flex"}} id="hp-popular-movies">
-                {popularMovies 
+                {movies 
                 && 
                 (
-                    popularMovies.results.map((show, index) => 
+                    movies.results.map((show, index) => 
                         <div id="" key={index}>
                             <FeatureIcon
                                 type={'movie'}

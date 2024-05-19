@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const cors = require("cors");
 const userRoute = require("./route/userRoute");
+const featureRouter = require("./route/featureRoute");
 const reviewRouter = require("./route/reviewRoute");
 const diffUser = require("./model/userModel");
 const userController = require("./controllers/userController");
@@ -69,11 +70,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use('*', cors())
 
 app.use("/", userRoute);
-app.use("/review", reviewRouter);
+app.use("/", reviewRouter);
+app.use("/feature", featureRouter);
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
-    //console.log(res.locals.currentUser);
     next();
 });
 

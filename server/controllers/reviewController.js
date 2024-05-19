@@ -1,17 +1,15 @@
-const User = require('../model/userModel');
+const User = require("../model/userModel");
+const Review = require("../model/reviewModel");
+const Feature = require("../model/featureModel");
 
-const addReview = async (req, res) => {
-    const { content } = req.body;
-    const user = await User.findOne({ username: req.user.username }, '-password');
 
-    console.log(user)
-
-    /* if (!user){
-        res.status(400);
-        throw new Error('user not found');
-    } */
-
-    res.json({ user })
+const getUserReviews = async (req, res) => {
+    const user = await User.findOne({ username: req.user.username });
+    const reviews = await Review.find({ author: user._id}).populate({
+        path: "feature"
+    });
+    
+    res.json({reviews})
 }
- 
-module.exports = { addReview };
+
+module.exports = { getUserReviews };

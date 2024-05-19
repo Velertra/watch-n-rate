@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 
-const SignIn = () => {
+const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate()
@@ -14,7 +14,7 @@ const SignIn = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogIn = async (e) => {
     e.preventDefault();
 
     try {
@@ -31,7 +31,7 @@ const SignIn = () => {
 
       localStorage.setItem("user", JSON.stringify(token));
 
-      navigate(`/profile/${username}`)
+      navigate(`/`)
       
       if (response.ok) {
         // Success, do something here
@@ -48,7 +48,7 @@ const SignIn = () => {
     return ( 
         
         
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogIn}>
       <div>
         <label htmlFor="username">Username:</label>
         <input
@@ -75,4 +75,4 @@ const SignIn = () => {
      );
 }
  
-export default SignIn;
+export default LogIn;

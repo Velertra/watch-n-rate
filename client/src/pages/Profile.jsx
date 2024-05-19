@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FeatureIcon from "../components/FeatureIcon";
 import FollowBtn from "../components/FollowBtn";
+import Followers from "../components/Followers";
+import Following from "../components/Following";
 
 const Profile = () => {
     const { userName } = useParams();
     const [user, setUser] = useState();
-    
 
     useEffect(() => {
       const token = JSON.parse(localStorage.getItem("user"));
 
         async function getUser(){
-          const response = await fetch(`http://localhost:3000/getUserProfile/${userName}`, {
+          const response = await fetch(`http://localhost:3000/getUserProfile`, {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${token.token}`
@@ -25,6 +26,7 @@ const Profile = () => {
           }
 
           let userInfo = await response.json();
+          console.log(userInfo)
           setUser(() => userInfo);
         }
 
@@ -44,11 +46,17 @@ const Profile = () => {
             <FollowBtn 
               userTwo={userName}
             />
-            {user.user.favFeatures.map((feature, index) => (
+            <Followers 
+              followers={user.user.followers.length}
+            />
+            <Following 
+              following={user.user.following.length}
+            />
+            {user.user.faved.map((feature, index) => (
               <FeatureIcon 
                 key={index}
-                type={feature.type}
                 id={feature.featureId}
+                type={feature.type}
               />
           ))}
           </div>
