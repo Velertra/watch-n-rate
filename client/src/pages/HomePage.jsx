@@ -7,6 +7,7 @@ const HomePage = () => {
 
     return ( 
         <>
+            
             <h1 style={{color:"red"}}>Tv</h1>{/* {console.log(Upcoming)} */}
             <div style={{display:"flex"}} id="hp-popular-tv">
                 {series 

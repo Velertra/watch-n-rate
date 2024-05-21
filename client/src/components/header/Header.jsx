@@ -7,17 +7,17 @@ const Header = () => {
 
     return (
         <>
-            <div id="header-img-content">
-                <img id="header-img" src={"http://image.tmdb.org/t/p/w500" + movies.results[1].backdrop_path }></img>
+            <div id="header-img-container">
+                <img id="header-img" src={"http://image.tmdb.org/t/p/w500" + movies.results[9].backdrop_path }></img>
                 <div id="head-img-overlay"></div>
             </div>{console.log(movies)}
             <header>
-                <section id="header-content">
-                    <h1>watchNrate</h1>
+                <section id="navbar">
                     <NavBar />
-                    <SearchBar />
                 </section>
             </header>
+            <div id="header-content-container">
+            </div>
             <Outlet/>
         </>
     );

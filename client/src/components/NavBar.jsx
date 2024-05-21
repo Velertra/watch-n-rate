@@ -16,6 +16,7 @@ export async function loader(){
 const NavBar = () => {
     return ( 
       <>
+        <h1>watchNrate</h1>
         <nav>
           <ul style={{display:"flex",gap:"10px", listStyleType: "none"}}>
             <li><NavLink to="/">home</NavLink></li>
@@ -25,6 +26,7 @@ const NavBar = () => {
             <li><LogOut /></li>
           </ul>
         </nav>
+        <SearchBar />
       </>
      );
 }
