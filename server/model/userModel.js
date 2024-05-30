@@ -12,6 +12,7 @@ const user = new Schema(
         watchList: [{ type: Schema.Types.ObjectId, ref: "Feature" }],
         reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
         notes: [{ type: Schema.Types.ObjectId, ref: "Notes" }],
+        
     }
 );
 

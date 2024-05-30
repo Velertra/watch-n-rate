@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FullDetails } from "../utilities/ApiFunction";
 import FavsBtn from "../components/FavsBtn"
 import WatchList from "../components/WatchList";
@@ -11,6 +11,7 @@ const Feature = () => {
     const [featureDetails, setFeatureDetails] = useState();
     const { content } = useParams();
     const [type, id] = content.split("-");
+    const navigate = useNavigate();
     //const token = JSON.parse(localStorage.getItem("user"));
 
     useEffect(()=> {
@@ -75,7 +76,7 @@ const Feature = () => {
             {featureDetails 
             &&
             featureDetails.map((review, index) => (
-                <div key={index}>
+                <div onClick={() => navigate(`/review/${review._id}`)} key={index}>
                     <h5>{review.author[0].username}</h5>
                     <p>{review.content}</p>
                     <h5>*/ Where likes will go /*</h5>

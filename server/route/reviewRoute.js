@@ -4,7 +4,7 @@ const verifyToken = require("../middleware/requireAuth");
 const reviewController = require("../controllers/reviewController");
 
 router.get("/getuserreviews", verifyToken, reviewController.getUserReviews);
-router.get("/review/:username/:title", verifyToken, reviewController.getOneUserReview);
+router.get("/review/:mongoId", reviewController.getOneUserReview);
 
 router.put("/changereview/:reviewId", verifyToken, reviewController.editReview);
 

@@ -52,7 +52,7 @@ const Reviews = () => {
                       id={review.feature[0].featureId}
                       type={review.feature[0].type}
                     />
-                    <div onClick={() => navigate(`/${review.author[0].username}/${review.feature[0].title || review.feature[0].name}`)} id="feature-info">
+                    <div onClick={() => navigate(`/review/${review._id}`)} id="feature-info">
                       <h3 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
                       <h6>{new Date(review.timestamp).toLocaleDateString('en-US', options)}</h6>
                       <p>{review.content}</p>

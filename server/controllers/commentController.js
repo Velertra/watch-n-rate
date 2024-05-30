@@ -17,6 +17,8 @@ const addComment = async (req, res) => {
     })
   
     await newComment.save();
+    review.comment.push(newComment._id)
+    await review.save();
     
     res.json({text})
     /* 
@@ -57,13 +59,12 @@ const addComment = async (req, res) => {
 const getReviewComments = async (req, res) => {
     //const user = await User.findOne({ username: req.user.username });
     
-    const review = await Review.findById(req.params.review)
-    /* const comments = await Comment.find({ author: user._id}).populate({
-        path: "feature"
-    }); */
+    const review = await Review.findById(req.params.review).populate({ path: 'feature' })
+
+    const comments = await Comment.find({ review: req.params.review }).populate({ path: "user" });
     
-    console.log(review)
-    res.json({review})
+    console.log(comments)
+    res.json({comments})
 }
 
 const editComment = async (req, res, next) => {

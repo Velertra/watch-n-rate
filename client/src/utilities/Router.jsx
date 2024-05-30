@@ -25,7 +25,7 @@ const Router = () => {
                 { path: "feature/:content", element: < Feature/> },
                 { path: "profile/:userName", element:<Profile />},
                 { path: "review" , element:<Reviews /> },
-                { path: ":username/:title", element: <FeatureReview /> }
+                { path: "/review/:mongoId", element: <FeatureReview /> }
             ]
         }
     ])

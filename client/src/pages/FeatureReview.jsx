@@ -7,12 +7,12 @@ import ReviewComments from "../components/ReviewComments";
 const FeatureReview = () => {
     const [review, setReview] = useState();
     const token = JSON.parse(localStorage.getItem("user"));
-    const { title, username } = useParams();
+    const { mongoId } = useParams();
     
 
     useEffect(() => {
         async function getReview(){
-            const response = await fetch(`http://localhost:3000/review/${username}/${title}`, {
+            const response = await fetch(`http://localhost:3000/review/${mongoId}`, {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${token.token}`
@@ -26,8 +26,8 @@ const FeatureReview = () => {
 
           let data = await response.json();
 
-          setReview(() => data);
-          console.log(data)
+          setReview(() => data.review);
+          //console.log(data)
         }
 
         return async() => {
@@ -40,14 +40,16 @@ const FeatureReview = () => {
         <div id="feature-info">
             {review && <> 
                 <FeatureIcon 
-                      id={review.review.feature[0].featureId}
-                      type={review.review.feature[0].type}
+                      id={review.feature[0].featureId}
+                      type={review.feature[0].type}
                     />
-            <h3 id="review-feature-title">{review.review.feature[0].title || review.review.feature[0].name}</h3>
-            <h6>{new Date(review.review.timestamp).toLocaleDateString('en-US'/* , options */)}</h6>
-            <p>{review.review.content}</p></>}
+            <h3 id="review-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
+            <h5>{console.log(review)}{review.author[0].username}</h5>
+            <h6>{new Date(review.timestamp).toLocaleDateString('en-US'/* , options */)}</h6>
+            <p>{review.content}</p></>}
         </div>
         <div id="comment-section">
+          <div style={{ textDecoration: "underline" }}>comment</div>
           <ReviewComments
             review={review}
           />
