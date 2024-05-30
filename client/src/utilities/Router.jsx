@@ -12,6 +12,7 @@ import Feature from "../pages/Feature";
 import NewTest from "../pages/NewTest";
 import LogIn from "../pages/LogIn";
 import Reviews from "../pages/Reviews";
+import FeatureReview from "../pages/FeatureReview";
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -24,14 +25,7 @@ const Router = () => {
                 { path: "feature/:content", element: < Feature/> },
                 { path: "profile/:userName", element:<Profile />},
                 { path: "review" , element:<Reviews /> },
-                /* set up protected routes, use "NewTest" as a page */
-                
-                /* { element: <ProtectedRoute />,
-                children: [
-                    { path: "profile/:userName", element:<Profile />, ProtectedRoute},
-                    { path: "newtest", element:<NewTest />}
-                ]
-            } */
+                { path: ":username/:title", element: <FeatureReview /> }
             ]
         }
     ])

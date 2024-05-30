@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import Choices from "./Choices";
 import SearchBar from "./SearchBar";
 import LogOut from "./LogOut";
-import { PopularMovies, PopularTv, Upcoming } from "../utilities/ApiFunction"
+import { FullDetails, MovieImages, PopularMovies, PopularTv, Upcoming } from "../utilities/ApiFunction"
 
-export async function loader(){
+export async function loader({request, params,}){
   let series = await PopularTv();
   let movies = await PopularMovies();
   let upcoming = await Upcoming();
+  let movieImg = await MovieImages(movies.results[1].id);
   
-  return { series, movies, upcoming}
+  return { series, movies, upcoming, movieImg }
 }
 
 const NavBar = () => {

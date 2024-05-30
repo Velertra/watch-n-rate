@@ -5,10 +5,10 @@ const featureController = require("../controllers/featureController");
 const userController = require("../controllers/userController");
 
 router.get("/featureinfo", featureController.getFeatureInfo);
-router.get("/getfeaturereviews/", featureController.getFeatureReviews);
+router.get("/getfeaturereviews", featureController.getFeatureReviews);
 
 router.post("/addfav", verifyToken, featureController.addFav);
-router.post("/addwatchlist/", verifyToken, featureController.addWatchList);
+router.post("/addwatchlist", verifyToken, featureController.addWatchList);
 router.post("/addreview", verifyToken, featureController.addReview);
 
 

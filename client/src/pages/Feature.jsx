@@ -4,6 +4,7 @@ import { FullDetails } from "../utilities/ApiFunction";
 import FavsBtn from "../components/FavsBtn"
 import WatchList from "../components/WatchList";
 import Review from "../components/Review";
+import HeaderBg from "../components/header/HeaderBg";
 
 const Feature = () => {
     const [details, setDetails] = useState();
@@ -40,6 +41,9 @@ const Feature = () => {
             {details 
             && 
             <div>
+                <HeaderBg 
+                    featureImg={details.backdrop_path}
+                />
                 <div id="details-content" style={{display: 'flex'}}>
                     <img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + details.poster_path}></img>
                     <div id="feature-details">

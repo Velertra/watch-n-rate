@@ -37,7 +37,6 @@ export async function Upcoming(){
     )
         if (response.ok) {
             const data = await response.json();
-           
             return data;
             
         } else {
@@ -128,6 +127,28 @@ export async function FullDetails(type, id){
         if (response.ok) {
             const data = await response.json();
             
+            return data;
+            
+        } else {
+            console.error('API Error:', response.status, response.statusText);
+        }
+}
+
+export async function MovieImages(id){
+    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+
+    const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/images?include_image_language=en`,
+        {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer '+ apiKey 
+            }
+        }
+    )
+        if (response.ok) {
+            const data = await response.json();
             return data;
             
         } else {

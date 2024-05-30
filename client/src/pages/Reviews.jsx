@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import FeatureIcon from "../components/FeatureIcon";
+import EditReview from "../components/EditReview"
+import DeleteReview from "../components/DeleteReview";
+import DisplayComments from "../components/DisplayComments";
+import { useNavigate } from "react-router-dom";
 
 const Reviews = () => {
     const [reviews, setReviews] = useState('')
     const [feature, setFeature] = useState('');
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const token = JSON.parse(localStorage.getItem("user"));
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function getReviews(){
@@ -42,15 +47,22 @@ const Reviews = () => {
         {reviews && reviews.reviews.map((review, index) => (
             <div key={index}>
                 <img></img>
-                <div id="review-feature">
+                <div id="review-feature">{console.log(review)}
                     <FeatureIcon 
-                        id={review.feature[0].featureId}
-                        type={review.feature[0].type}
+                      id={review.feature[0].featureId}
+                      type={review.feature[0].type}
                     />
-                    
-                     <h3 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
-                     <h6>{new Date(review.timestamp).toLocaleDateString('en-US', options)}</h6>
-                     <p>{review.content}</p>
+                    <div onClick={() => navigate(`/${review.author[0].username}/${review.feature[0].title || review.feature[0].name}`)} id="feature-info">
+                      <h3 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
+                      <h6>{new Date(review.timestamp).toLocaleDateString('en-US', options)}</h6>
+                      <p>{review.content}</p>
+                    </div>
+                    <EditReview
+                      review={review}
+                    />
+                    <DeleteReview
+                      review={review}
+                    />
                    {/* <p id="r-content">{review.feature[0].title}</p> */}
                 </div>
             </div>
