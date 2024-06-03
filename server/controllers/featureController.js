@@ -101,6 +101,21 @@ const addFav = async(req, res, next) => {
             res.status(500).json({ error: "Internal Server Error" });
         }
 
+    } else if(!findFeature.faved || findFeature.faved.includes(user._id.toString())){
+        const updatedFeature = await Feature.findByIdAndUpdate(
+            findFeature._id,
+            { $pull: { faved: user._id } },
+            {new: true }
+        );
+        const updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            { $pull: { faved: findFeature._id } },
+            {new: true }
+        );
+
+        await updatedFeature.save();
+        await updatedUser.save();
+
     } else {
         const feature = await Feature.findOne({ _id: findFeature._id });
         if(!feature.faved.includes(user._id)) {

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import EditComment from "./EditComment";
+import CommentLikes from "./CommentLikes";
 
 const ReviewComments = ({ review }) => {
     const [text, setText] = useState('');
@@ -9,7 +11,6 @@ const ReviewComments = ({ review }) => {
     const { title } = useParams();
 
     useEffect(() => {
-        
         async function getComments(){
             try {
                 const response = await fetch(`http://localhost:3000/getcomments/${review._id}`, {
@@ -24,8 +25,6 @@ const ReviewComments = ({ review }) => {
                 }
                 
                 let data = await response.json();
-                
-                //console.log(typeof data.comments);
                 
                 setComments(data.comments);
 
@@ -52,20 +51,50 @@ const ReviewComments = ({ review }) => {
             },
             body: JSON.stringify({ title, text, featureId: review.feature[0].featureId, featureMongoId: review.feature[0]._id, reviewId: review._id }),
         });
-
         setText('')
       }
+
+      const handleEditBtn = async (commentId) => {
+        const response = await fetch(`http://localhost:3000/editcomment/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+            Authorization: `Bearer ${token.token}`
+            },
+        });
+    
+        const data = await response.json();
+        console.log(data)
+    }
+    
+    const handleDeleteBtn = async (commentId) => {
+        const response = await fetch(`http://localhost:3000/deletecomment/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+            Authorization: `Bearer ${token.token}`
+            },
+        });
+    
+        const data = await response.json();
+        console.log(data)
+    }
 
     return (
         <div>
             {comments && comments.length !== 0 
             && 
             comments.map((comment, index) => (
-                <div key={index}>{console.log(comments)}
+                <div key={index}>
                     <h4>{comment.user[0].username}</h4>
                     <p>{comment.comment}</p>
                     
                     <h6>{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</h6>
+                    <CommentLikes 
+                        comment={comment}
+                    />
+                    <EditComment 
+                        comment={comment}
+                    />
+                    <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
                 </div>
             ))}
             <form onSubmit={handleAddComment}>

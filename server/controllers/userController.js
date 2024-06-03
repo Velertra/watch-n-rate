@@ -38,32 +38,49 @@ const login = async (req, res, next) => {
 }
 
 const getUserProfile = async (req, res, next) => {
-    const user = await User.findOne({ username: req.user.username }, '-password');
-    /* const userWithFavs =  */await user.populate('faved')
+    const profileUser = await User.findOne({ username: req.params.username }, '-password').populate(
+        [
+            { path: 'faved' }
+        ]
+    );
+    /* const userWithFavs =  await user.populate('faved')*/
 
-    if (!user){
+    if (!profileUser){
         res.status(400);
         throw new Error('user not found');
     }
-    res.json({ user })
+    res.json({ profileUser })
 }
 
 const followList = async (req, res, next) => {
-    const user = await User.findOne({ username: req.user.username }, '-password');
-    const userTwo = await User.findOne({ username: req.body.userTwo }, '-password');
+    const userOnSite = await User.findOne({ username: req.user.username }, '-password');
+    const userProfile = await User.findOne({ username: req.body.userProfile }, '-password');
 
-    //console.log(user)
-    if(!user){
+    if(!userOnSite){
         return res.status(401).json({ message: "Following user failed" });
     }
-
-    //const follow = { title, type, featureId }
-    user.following.push(userTwo._id);
-    userTwo.followers.push(user._id);
-
-    await user.save();
-    await userTwo.save();
-    //res.json({ user })
-}
+    
+    if(userProfile.followers.includes(userOnSite._id.toString())){
+            const updatedUserProfile = await User.findByIdAndUpdate(
+                userProfile._id,
+                { $pull: { followers: userOnSite._id } },
+                {new: true }
+            );
+            const updatedUserOnSite = await User.findByIdAndUpdate(
+                userOnSite._id,
+                { $pull: { following: userProfile._id } },
+                {new: true }
+            );
+            updatedUserProfile.save();
+            updatedUserOnSite.save();
+            res.status(200).json({ message: 'unfollowed successfully' });
+        } else{
+            userProfile.followers.push(userOnSite._id);
+            userOnSite.following.push(userProfile._id);
+            userProfile.save();
+            userOnSite.save();
+            res.status(200).json({ message: 'following successfully' })
+        }
+    }
 
 module.exports = {signUpController, login, getUserProfile, followList};

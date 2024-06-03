@@ -5,6 +5,7 @@ import FavsBtn from "../components/FavsBtn"
 import WatchList from "../components/WatchList";
 import Review from "../components/Review";
 import HeaderBg from "../components/header/HeaderBg";
+import ReviewLikes from "../components/ReviewLikes"
 
 const Feature = () => {
     const [details, setDetails] = useState();
@@ -27,7 +28,6 @@ const Feature = () => {
 
             let featureData = await featureDB.json(); 
             setFeatureDetails(featureData.feature.reviews && featureData.feature.reviews)
-            
         }
         
 
@@ -79,7 +79,9 @@ const Feature = () => {
                 <div onClick={() => navigate(`/review/${review._id}`)} key={index}>
                     <h5>{review.author[0].username}</h5>
                     <p>{review.content}</p>
-                    <h5>*/ Where likes will go /*</h5>
+                    <ReviewLikes
+                        review={review}
+                    />
                 </div>
             ))
             }

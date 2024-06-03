@@ -4,7 +4,7 @@ const DeleteReview = ({ review }) => {
     const handleDelBtn = async (e) => {
         e.preventDefault()
 
-        const response = await fetch(`http://localhost:3000/delete/${review._id}`, {
+        const response = await fetch(`http://localhost:3000/deletereview/${review._id}`, {
             method: 'DELETE',
             headers: {
             Authorization: `Bearer ${token.token}`

@@ -1,20 +1,20 @@
-const FollowBtn = ({ userTwo }) => {
+const FollowBtn = ({ userProfile }) => {
     const token = JSON.parse(localStorage.getItem("user"));
 
     async function handleFollowBtn(){
-        if (!userTwo) {
+        if (!userProfile) {
             console.error("Missing required fields in request");
             return;
         }
 
         let response = await fetch('http://localhost:3000/followList', 
         {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token.token}`
               },
-            body: JSON.stringify({ userTwo }),
+            body: JSON.stringify({ userProfile }),
         });
 
         if (!response.ok) {

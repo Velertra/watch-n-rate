@@ -13,7 +13,7 @@ const Profile = () => {
       const token = JSON.parse(localStorage.getItem("user"));
 
         async function getUser(){
-          const response = await fetch(`http://localhost:3000/getUserProfile`, {
+          const response = await fetch(`http://localhost:3000/getUserProfile/${userName}`, {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${token.token}`
@@ -42,21 +42,21 @@ const Profile = () => {
         &&
         (
           <div>
-            <h1>welcome {user.user.username}</h1>
+            <h1>{user.profileUser.username},s profile</h1>
             <FollowBtn 
-              userTwo={userName}
+              userProfile={userName}
             />
             <Followers 
-              followers={user.user.followers.length}
+              followers={user.profileUser.followers.length}
             />
             <Following 
-              following={user.user.following.length}
+              following={user.profileUser.following.length}
             />
-            {user.user.faved.map((feature, index) => (
+            {user.profileUser.faved.map((feature, index) => (
               <FeatureIcon 
                 key={index}
-                id={feature.featureId}
                 type={feature.type}
+                id={feature.featureId}
               />
           ))}
           </div>

@@ -10,8 +10,15 @@ export async function loader({request, params,}){
   let movies = await PopularMovies();
   let upcoming = await Upcoming();
   let movieImg = await MovieImages(movies.results[1].id);
+  let recentReviews = await fetch("http://localhost:3000/getrecentreviews", {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
+  const hpReviews = await recentReviews.json()
   
-  return { series, movies, upcoming, movieImg }
+  return { series, movies, upcoming, movieImg, hpReviews }
 }
 
 const NavBar = () => {
@@ -24,6 +31,7 @@ const NavBar = () => {
             <li><NavLink to="login">login</NavLink></li>
             <li><NavLink to="sign-up">sign-up</NavLink></li>
             <li><NavLink to="review">review</NavLink></li>
+            
             <li><LogOut /></li>
           </ul>
         </nav>

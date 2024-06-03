@@ -1,10 +1,12 @@
 //import { Upcoming } from "../utilities/ApiFunction"
 import FeatureIcon from "../components/FeatureIcon";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import ReviewLikes from "../components/ReviewLikes";
 
 const HomePage = () => {
-    const { series, movies, upcoming } = useLoaderData();
-    console.log(upcoming)
+    const { series, movies, upcoming, hpReviews } = useLoaderData();
+    const navigate = useNavigate();
+    
     return ( 
         <>
             <div id="header-img-container">
@@ -44,6 +46,25 @@ const HomePage = () => {
                         </div>
                     )
                 )}
+            </div>
+            <div  id="hp-recent-reviews">
+            <h3 style={{ textDecoration: "underline"}}>Recent Reviews</h3>
+            {hpReviews 
+            &&
+            hpReviews.reviews.slice(0, 5).map((review, index) => (
+                <div onClick={() => navigate(`/review/${review._id}`)} key={index}>
+                    <FeatureIcon 
+                      id={review.feature[0].featureId}
+                      type={review.feature[0].type}
+                    />{console.log(review)}
+                    <h5>{review.author[0].username}</h5>
+                    <p>{review.content}</p>
+                    <ReviewLikes
+                        review={review}
+                    />
+                </div>
+            ))
+            }
             </div>
         </>
      );

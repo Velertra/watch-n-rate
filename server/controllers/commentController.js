@@ -63,21 +63,54 @@ const getReviewComments = async (req, res) => {
 
     const comments = await Comment.find({ review: req.params.review }).populate({ path: "user" });
     
-    console.log(comments)
+    
     res.json({comments})
 }
 
 const editComment = async (req, res, next) => {
+    const user = await User.findOne({ username: req.user.username});
     const comment = await Comment.findOne({ _id: req.params.commentId })
-    comment.comment = req.body.text;
-    await comment.save();
+    
+    try{
+        if(user._id.toString() === comment.user[0].toString()){
+            const comment = await Comment.findOne({ _id: req.params.commentId })
+            comment.comment = req.body.text;
+            await comment.save();
+        }
+        res.status(200).json({ message: 'Comment deleted successfully' });
+        
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting comment', error });
+    }
 
-    res.json({ comment })   
+    //res.json( 'test' )   
+
+
+}
+
+const commentLike = async (req, res) => {
+    const user = await User.findOne({ username: req.user.username})
+    const comment = await Comment.findById( req.body.comment._id )
+    
+    if(comment.likes.includes(user._id.toString())){
+        const updatedLikes = await Comment.findByIdAndUpdate(
+            comment._id,
+            { $pull: { likes: user._id } },
+            {new: true }
+        );
+        updatedLikes.save();
+        res.status(200).json({ message: 'unliked review successfully' });
+    } else {
+        //req.body.review.likes.push(user._id)
+        comment.likes.push(user._id);
+        comment.save();
+        res.status(200).json({ message: 'liked review successfully' });
+    }
 }
 
 const deleteComment = async(req, res) => {
     try{
-        const comment = req.params.id;
+        const comment = req.params.commentId;
         await Comment.findByIdAndDelete(comment);
         res.status(200).json({ message: 'Comment deleted successfully' });
     } catch (error) {
@@ -85,4 +118,4 @@ const deleteComment = async(req, res) => {
     }
 }
 
-module.exports = { getReviewComments, editComment, deleteComment, addComment };
+module.exports = { getReviewComments, editComment, commentLike, deleteComment, addComment };

@@ -47,9 +47,10 @@ const FeatureReview = () => {
             <h5>{console.log(review)}{review.author[0].username}</h5>
             <h6>{new Date(review.timestamp).toLocaleDateString('en-US'/* , options */)}</h6>
             <p>{review.content}</p></>}
+            <h6>0</h6>
         </div>
         <div id="comment-section">
-          <div style={{ textDecoration: "underline" }}>comment</div>
+          <h3 style={{ textDecoration: "underline" }}>comment</h3>
           <ReviewComments
             review={review}
           />

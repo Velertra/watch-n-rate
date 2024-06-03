@@ -56,6 +56,7 @@ const Reviews = () => {
                       <h3 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
                       <h6>{new Date(review.timestamp).toLocaleDateString('en-US', options)}</h6>
                       <p>{review.content}</p>
+                      <h6>0</h6>
                     </div>
                     <EditReview
                       review={review}

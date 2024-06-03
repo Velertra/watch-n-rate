@@ -8,7 +8,7 @@ const commentSchema = new Schema(
         user: [{ type: Schema.Types.ObjectId, ref: "User" }],
         comment: { type: String, required: true, maxlength: 600 },
         timestamp: { type: Date, required: true},
-        liked: [{ type: Schema.Types.ObjectId, ref: "User"}],
+        likes: [{ type: Schema.Types.ObjectId, ref: "User"}],
     }
 );
 

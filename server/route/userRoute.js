@@ -41,9 +41,9 @@ router.post("/sign-up", async (req, res, next) => {
     };
 });
 
-router.get("/getUserProfile", verifyToken, userController.getUserProfile);
+router.get("/getUserProfile/:username", verifyToken, userController.getUserProfile);
 
 router.post("/login", userController.login);
-router.post("/followList", verifyToken, userController.followList)
+router.patch("/followList", verifyToken, userController.followList)
 
 module.exports = router;

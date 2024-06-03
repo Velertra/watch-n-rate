@@ -1,6 +1,7 @@
 const User = require("../model/userModel");
 const Review = require("../model/reviewModel");
 const Feature = require("../model/featureModel");
+const { Timestamp } = require("mongodb");
 
 
 const getUserReviews = async (req, res) => {
@@ -29,6 +30,36 @@ const getOneUserReview = async (req, res) => {
     res.json({review})
 }
 
+const getRecentReviews = async (req, res) => {
+    const reviews = await Review.find({}).sort({ timestamp: -1 }).populate(
+        [
+            { path: 'feature' }
+        ]
+    );
+
+    res.json({reviews})
+}
+
+const reviewLike = async (req, res) => {
+    const user = await User.findOne({ username: req.user.username})
+    const review = await Review.findById( req.body.review._id )
+    
+    if(review.likes.includes(user._id.toString())){
+        const updatedLikes = await Review.findByIdAndUpdate(
+            review._id,
+            { $pull: { likes: user._id } },
+            {new: true }
+        );
+        updatedLikes.save();
+        res.status(200).json({ message: 'unliked review successfully' });
+    } else {
+        //req.body.review.likes.push(user._id)
+        review.likes.push(user._id);
+        review.save();
+        res.status(200).json({ message: 'liked review successfully' });
+    }
+}
+
 const editReview = async (req, res, next) => {
     const review = await Review.findOne({ _id: req.params.reviewId })
     review.content = req.body.text;
@@ -47,4 +78,4 @@ const deleteReview = async(req, res) => {
     }
 }
 
-module.exports = { getUserReviews, editReview, deleteReview, getOneUserReview };
+module.exports = { getUserReviews, editReview, reviewLike, getRecentReviews, deleteReview, getOneUserReview };
