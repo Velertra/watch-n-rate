@@ -59,6 +59,13 @@ const Profile = () => {
                 id={feature.featureId}
               />
           ))}
+          {user.profileUser.watchlist.map((feature, index) => (
+              <FeatureIcon 
+                key={index}
+                type={feature.type}
+                id={feature.featureId}
+              />
+          ))}
           </div>
         )}        
         </>

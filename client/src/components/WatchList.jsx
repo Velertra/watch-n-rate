@@ -7,9 +7,9 @@ const WatchList = ({ title, type, featureId}) => {
             return;
         }
 
-        let response = await fetch('http://localhost:3000/addWatchList', 
+        let response = await fetch('http://localhost:3000/addtowatchlist', 
         {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token.token}`
@@ -19,7 +19,8 @@ const WatchList = ({ title, type, featureId}) => {
 
         if (!response.ok) {
             const data = await response.json();
-            //console.error(data.message);
+            console.log(data)
+            
             return;
         }
     }

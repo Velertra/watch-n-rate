@@ -45,5 +45,6 @@ router.get("/getUserProfile/:username", verifyToken, userController.getUserProfi
 
 router.post("/login", userController.login);
 router.patch("/followList", verifyToken, userController.followList)
+router.patch("/addtowatchList", verifyToken, userController.addToWatchList)
 
 module.exports = router;

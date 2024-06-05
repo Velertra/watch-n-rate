@@ -1,4 +1,7 @@
 @import "Header";
+@import "homePage";
+@import "reviewsPage";
+@import "featureReview";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -20,7 +20,7 @@ const ReviewLikes = ({ review }) => {
     return (
         <>
             <h6 onClick={handlelikeBtn}>like dis</h6>
-            {review && <h6>{review.likes.length}</h6>}
+            {review && <div id="like-section"><h6>&#10084; {" " + review.likes.length} likes</h6></div>}
         </>
     );
 }

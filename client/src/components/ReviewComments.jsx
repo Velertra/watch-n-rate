@@ -79,22 +79,25 @@ const ReviewComments = ({ review }) => {
     }
 
     return (
-        <div>
+        <div id="rc-section">
             {comments && comments.length !== 0 
             && 
             comments.map((comment, index) => (
-                <div key={index}>
-                    <h4>{comment.user[0].username}</h4>
-                    <p>{comment.comment}</p>
-                    
-                    <h6>{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</h6>
+                <div id="rc-container" key={index}>
+                    <div id="rc-content">
+                        <h4 id="rc-c-user">{comment.user.length !== 0 ? review.user[0].username : "User Deleted"}</h4>
+                        <p id="rc-c-comment">{comment.comment}</p>
+                    </div>
                     <CommentLikes 
                         comment={comment}
                     />
-                    <EditComment 
-                        comment={comment}
-                    />
-                    <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
+                    <p id="rc-c-date">{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</p>
+                    <div id="rc-btns">
+                        <EditComment 
+                            comment={comment}
+                        />
+                        <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
+                    </div>
                 </div>
             ))}
             <form onSubmit={handleAddComment}>

@@ -13,7 +13,6 @@ const FavsBtn = ({ title, type, featureId}) => {
             return;
         }
 
-        console.log(featureId)
         let response = await fetch('http://localhost:3000/feature/addfav', 
         {
             method: 'POST',
@@ -23,11 +22,12 @@ const FavsBtn = ({ title, type, featureId}) => {
               },
             body: JSON.stringify({ title, type, featureId}),
         });
-
+        const data = await response.json();
         if (!response.ok) {
-            const data = await response.json();
-            //console.error(data.message);
+            console.error(data.message);
             return;
+        } else {
+            console.log(data);
         }
     }
     

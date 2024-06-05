@@ -8,31 +8,29 @@ const FeatureReview = () => {
     const [review, setReview] = useState();
     const token = JSON.parse(localStorage.getItem("user"));
     const { mongoId } = useParams();
-    
 
     useEffect(() => {
-        async function getReview(){
-            const response = await fetch(`http://localhost:3000/review/${mongoId}`, {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token.token}`
-            },
-          });
+     
+      async function getReview(){
+          const response = await fetch(`http://localhost:3000/review/${mongoId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token.token}`
+          },
+        });
 
-          if(!response){
-            console.error(Error)
-            return
-          }
-
-          let data = await response.json();
-
-          setReview(() => data.review);
-          //console.log(data)
+        if(!response){
+          console.error(Error)
+          return
         }
 
-        return async() => {
-            getReview();
-        } 
+        let data = await response.json();
+        setReview(() => data.review);
+      }
+
+      return async() => {
+          getReview();
+      } 
     }, [])
     
     return (
@@ -44,13 +42,13 @@ const FeatureReview = () => {
                       type={review.feature[0].type}
                     />
             <h3 id="review-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
-            <h5>{console.log(review)}{review.author[0].username}</h5>
+            <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
             <h6>{new Date(review.timestamp).toLocaleDateString('en-US'/* , options */)}</h6>
             <p>{review.content}</p></>}
             <h6>0</h6>
         </div>
         <div id="comment-section">
-          <h3 style={{ textDecoration: "underline" }}>comment</h3>
+          <h3 style={{ borderBottom: "1px solid white" }}>{(review && review.comment.length) + " "}Comments</h3>
           <ReviewComments
             review={review}
           />

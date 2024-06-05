@@ -1,7 +1,8 @@
-const User = require("../model/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require('../utilities/passport');
+const User = require("../model/userModel");
+const Feature = require('../model/featureModel')
 require('dotenv').config()
 
 const signUpController = async (req, res) => {
@@ -40,7 +41,9 @@ const login = async (req, res, next) => {
 const getUserProfile = async (req, res, next) => {
     const profileUser = await User.findOne({ username: req.params.username }, '-password').populate(
         [
-            { path: 'faved' }
+            { path: 'faved' },
+            { path: 'reviews' },
+            { path: 'faved' },            
         ]
     );
     /* const userWithFavs =  await user.populate('faved')*/
@@ -50,6 +53,60 @@ const getUserProfile = async (req, res, next) => {
         throw new Error('user not found');
     }
     res.json({ profileUser })
+}
+
+const addToWatchList = async(req, res, next) => {
+    const { title, featureId, type } = req.body;
+    const user = await User.findOne({ username: req.user.username }, '-password');
+    const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
+
+    if(!findFeature) {
+        try{
+            const newFeature = new Feature({
+                title: title,
+                featureId: featureId,
+                type: type,
+                watchlist: user
+            });
+    
+            await newFeature.save();
+            user.watchlist.push(newFeature._id);
+            await user.save();
+            res.status(200).json({ message: 'created new feature in db and added to users watchlist' });
+        } catch(error) {
+            console.error("Error adding to Favorites:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+
+    } else if(!findFeature.watchlist || findFeature.watchlist.includes(user._id.toString())){
+        const updatedFeature = await Feature.findByIdAndUpdate(
+            findFeature._id,
+            { $pull: { watchlist: user._id } },
+            {new: true }
+        );
+        
+        const updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            { $pull: { watchlist: findFeature._id } },
+            {new: true }
+        );
+
+        await updatedFeature.save();
+        await updatedUser.save();
+        
+        res.status(200).json({ message: 'adding as first watchlist in the feature' });
+
+    } else {
+        const feature = await Feature.findOne({ _id: findFeature._id });
+        if(!feature.watchlist.includes(user._id)) {
+            feature.watchlist.push(user._id);
+            user.faved.push(feature);
+            await feature.save();
+            await user.save()
+            
+            res.status(200).json({ message: 'added to existing watchlist' });
+        } 
+    }
 }
 
 const followList = async (req, res, next) => {
@@ -83,4 +140,4 @@ const followList = async (req, res, next) => {
         }
     }
 
-module.exports = {signUpController, login, getUserProfile, followList};
+module.exports = {signUpController, login, addToWatchList, getUserProfile, followList};

@@ -110,9 +110,16 @@ const commentLike = async (req, res) => {
 
 const deleteComment = async(req, res) => {
     try{
-        const comment = req.params.commentId;
-        await Comment.findByIdAndDelete(comment);
-        res.status(200).json({ message: 'Comment deleted successfully' });
+        const comment = await Comment.findById(req.params.commentId);
+        const user = await User.findOne({ username: req.user.username })
+        
+        if(comment.user.includes(user._id)){
+            await Comment.findByIdAndDelete(comment._id)
+            res.status(200).json({ message: 'Comment deleted successfully' });
+        } else{
+            res.status(500).json({ message: 'Not your comment', error });
+        }
+        
     } catch (error) {
         res.status(500).json({ message: 'Error deleting comment', error });
     }

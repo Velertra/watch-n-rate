@@ -9,7 +9,7 @@ const user = new Schema(
         following: [{ type: Schema.Types.ObjectId, ref: "User" }], 
         followers: [{ type: Schema.Types.ObjectId, ref: "User" }], 
         faved: [{ type: Schema.Types.ObjectId, ref: "Feature" }], 
-        watchList: [{ type: Schema.Types.ObjectId, ref: "Feature" }],
+        watchlist: [{ type: Schema.Types.ObjectId, ref: "Feature" }],
         reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
         notes: [{ type: Schema.Types.ObjectId, ref: "Notes" }],
         

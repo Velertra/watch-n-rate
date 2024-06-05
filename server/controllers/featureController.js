@@ -95,7 +95,7 @@ const addFav = async(req, res, next) => {
             await newFeature.save();
             user.faved.push(newFeature._id);
             await user.save();
-    
+            res.status(200).json({ message: 'Creating feature and adding to faved' });
         } catch(error) {
             console.error("Error adding to Favorites:", error);
             res.status(500).json({ error: "Internal Server Error" });
@@ -112,10 +112,11 @@ const addFav = async(req, res, next) => {
             { $pull: { faved: findFeature._id } },
             {new: true }
         );
+        console.log(findFeature)
 
         await updatedFeature.save();
         await updatedUser.save();
-
+        res.status(200).json({ message: 'adding as first faved in feature' });
     } else {
         const feature = await Feature.findOne({ _id: findFeature._id });
         if(!feature.faved.includes(user._id)) {
@@ -123,22 +124,9 @@ const addFav = async(req, res, next) => {
             user.faved.push(feature);
             await feature.save();
             await user.save()
+            res.status(200).json({ message: 'basic adding to favs' });
         } 
     }
-}
-
-const addWatchList = async(req, res, next) => {
-    const { title, type, featureId } = req.body;
-    const user = await User.findOne({ username: req.user.username }, '-password');
-
-    if(!featureId){
-        return res.status(401).json({ message: "Adding to Favorites failed" });
-    }
-
-    const watchListPick = { title, type, featureId }
-    user.watchList.push(watchListPick);
-
-    await user.save();
 }
 
 const getFeatureReviews = async (req, res) => {
@@ -170,4 +158,4 @@ const getFeatureReviews = async (req, res) => {
     //res.json({reviews})
 }
  
-module.exports = { addReview, addFav, addWatchList, getFeatureInfo, getFeatureReviews };
+module.exports = { addReview, addFav, getFeatureInfo, getFeatureReviews };

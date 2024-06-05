@@ -18,10 +18,10 @@ const CommentLikes = ({ comment }) => {
     }
 
     return (
-        <>
+        <div id="rc-like-section">
             <h6 onClick={handlelikeBtn}>like dis</h6>
-            {comment && <h6>{comment.likes.length}</h6>}
-        </>
+            {comment && <h6>&#10084; {" " + comment.likes.length}</h6>}
+        </div>
     );
 }
  

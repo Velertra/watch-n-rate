@@ -33,7 +33,8 @@ const getOneUserReview = async (req, res) => {
 const getRecentReviews = async (req, res) => {
     const reviews = await Review.find({}).sort({ timestamp: -1 }).populate(
         [
-            { path: 'feature' }
+            { path: 'feature' },
+            { path: 'author' }
         ]
     );
 
@@ -70,9 +71,12 @@ const editReview = async (req, res, next) => {
 
 const deleteReview = async(req, res) => {
     try{
-        const review = req.params.id;
-        await Review.findByIdAndDelete(review);
-        res.status(200).json({ message: 'Review deleted successfully' });
+        const review = await Review.findById(req.params.commentId);
+        const user = await User.findOne({ username: req.user.username })
+        if(review.author.includes(user._id)){
+            await Review.findByIdAndDelete(review._id)
+            res.status(200).json({ message: 'Review deleted successfully' });
+        }
     } catch (error) {
         res.status(500).json({ message: 'Error deleting review', error });
     }

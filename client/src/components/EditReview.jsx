@@ -17,6 +17,7 @@ const EditReview = ({ review }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        e.stopPropagation();
 
         const response = await fetch(`http://localhost:3000/changereview/${review._id}`, {
             method: 'PUT',

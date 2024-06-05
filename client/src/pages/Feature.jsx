@@ -44,7 +44,7 @@ const Feature = () => {
             <div>
                 <HeaderBg 
                     featureImg={details.backdrop_path}
-                />
+                />{console.log(details)}
                 <div id="details-content" style={{display: 'flex'}}>
                     <img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + details.poster_path}></img>
                     <div id="feature-details">
@@ -77,7 +77,7 @@ const Feature = () => {
             &&
             featureDetails.map((review, index) => (
                 <div onClick={() => navigate(`/review/${review._id}`)} key={index}>
-                    <h5>{review.author[0].username}</h5>
+                    <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
                     <p>{review.content}</p>
                     <ReviewLikes
                         review={review}

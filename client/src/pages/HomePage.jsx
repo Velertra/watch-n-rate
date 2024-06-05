@@ -10,7 +10,8 @@ const HomePage = () => {
     return ( 
         <>
             <div id="header-img-container">
-                <img id="header-img" src={"http://image.tmdb.org/t/p/original" + upcoming.results[2].backdrop_path }></img>
+                {/* header image, change number to pick */}
+                <img id="header-img" src={"http://image.tmdb.org/t/p/original" + upcoming.results[7].backdrop_path }></img>
                 <div id="head-img-overlay"></div>
             </div>
             <div id="header-content-container">
@@ -47,21 +48,24 @@ const HomePage = () => {
                     )
                 )}
             </div>
-            <div  id="hp-recent-reviews">
+            <div  id="hp-rr-container">
             <h3 style={{ textDecoration: "underline"}}>Recent Reviews</h3>
             {hpReviews 
             &&
             hpReviews.reviews.slice(0, 5).map((review, index) => (
-                <div onClick={() => navigate(`/review/${review._id}`)} key={index}>
+                <div id="hp-rr" onClick={() => navigate(`/review/${review._id}`)} key={index}>
                     <FeatureIcon 
                       id={review.feature[0].featureId}
                       type={review.feature[0].type}
-                    />{console.log(review)}
-                    <h5>{review.author[0].username}</h5>
-                    <p>{review.content}</p>
-                    <ReviewLikes
-                        review={review}
                     />
+                    <div id="hp-rr-content">
+                        <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
+                        <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4>
+                        <p>{review.content}</p>
+                        <ReviewLikes
+                            review={review}
+                        />
+                    </div>
                 </div>
             ))
             }
