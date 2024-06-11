@@ -6,6 +6,17 @@ import LogOut from "./LogOut";
 import { FullDetails, MovieImages, PopularMovies, PopularTv, Upcoming } from "../utilities/ApiFunction"
 
 export async function loader({request, params,}){
+  let currentUser;
+  if(localStorage.getItem("user")){
+    const userToken = JSON.parse(localStorage.getItem("user"));
+    currentUser = await fetch("http://localhost:3000/getcurrentuserinfo", {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${userToken.token}`,
+      }
+    });
+  }
+ 
   let series = await PopularTv();
   let movies = await PopularMovies();
   let upcoming = await Upcoming();
@@ -17,8 +28,9 @@ export async function loader({request, params,}){
     }
   });
   const hpReviews = await recentReviews.json()
+  const userData = await currentUser.json()
   
-  return { series, movies, upcoming, movieImg, hpReviews }
+  return { series, movies, upcoming, movieImg, hpReviews, userData}
 }
 
 const NavBar = () => {

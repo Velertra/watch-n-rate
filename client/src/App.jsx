@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom';
-import NavBar from './components/NavBar';
+import React from 'react';
 import Router from './utilities/Router';
-
+import useAuthUser from './components/AuthUser';
+import { UserProvider } from './components/userContext';
 
 const App = () => {
-
   return (
-    <Router />
+    <UserProvider>
+      <Router />
+    </UserProvider>
   )
 };
 

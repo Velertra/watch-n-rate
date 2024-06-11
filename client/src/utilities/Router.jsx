@@ -13,21 +13,30 @@ import NewTest from "../pages/NewTest";
 import LogIn from "../pages/LogIn";
 import Reviews from "../pages/Reviews";
 import FeatureReview from "../pages/FeatureReview";
+import UseAuthUser from "../components/AuthUser";
+
 
 const Router = () => {
+
     const router = createBrowserRouter([
-        { path: "/", element: <Header />, errorElement: <ErrorPage />, loader: navBarLoader,
+        { path: "/", element: <Header /> , errorElement: <ErrorPage />, loader: navBarLoader,
             children: [
                 { index: true, element: <HomePage />, loader: navBarLoader,},
                 { path:"search/:code", element: <Search /> },
                 { path:"sign-up", element: <SignUp /> },
                 { path:"logIn", element: <LogIn />},
-                { path: "feature/:content", element: < Feature/> },
+                { path: "feature/:content", element: < Feature/>, loader: navBarLoader },
                 { path: "profile/:userName", element:<Profile />},
-                { path: "review" , element:<Reviews /> },
-                { path: "/review/:mongoId", element: <FeatureReview /> }
+                { path: "/review/:mongoId", element: <FeatureReview /> },
+                { path: "review", element: <Reviews />}
+                /* { element: <ProtectedRoute />, 
+                    children: [
+                        { path: "review", element: <Reviews /> }
+                    ]
+                } */
+
             ]
-        }
+        },
     ])
 
     return <RouterProvider router={router} />;

@@ -23,6 +23,28 @@ const signUpController = async (req, res) => {
 }
 
 const login = async (req, res, next) => {
+    try {
+        passport.authenticate("local", (err, user, info) => {
+            if (err) {
+                return next(err); 
+            }
+            if (!user) {
+                return res.status(401).json({ message: "Authentication failed" });
+            }
+            
+            
+            const { username } = req.body;
+            const token = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
+
+            
+            res.json({ token: token });
+        })(req, res, next);
+    } catch (error) {
+        next(error);
+    }
+};
+
+/* const login = async (req, res, next) => {
 
     //const { username, password } = req.body;
     passport.authenticate("local", function(err, user, info) {
@@ -36,14 +58,31 @@ const login = async (req, res, next) => {
         res.json({ token: token })
 
     })(req, res, next);
+} */
+
+const authUser= async (req, res) => {
+    console.log(req.user.username)
+    if(req.user.username){
+        const currentUser = await User.findOne({ username: req.user.username }, '-password').populate(
+            [
+                { path: 'faved' },
+                { path: 'reviews' },
+                { path: 'faved' },            
+            ]
+        );
+
+        res.status(200).json({ currentUser });
+    } else {
+        res.status(400)
+    }
+    
 }
 
 const getUserProfile = async (req, res, next) => {
     const profileUser = await User.findOne({ username: req.params.username }, '-password').populate(
         [
             { path: 'faved' },
-            { path: 'reviews' },
-            { path: 'faved' },            
+            { path: 'reviews' },         
         ]
     );
     /* const userWithFavs =  await user.populate('faved')*/
@@ -53,6 +92,21 @@ const getUserProfile = async (req, res, next) => {
         throw new Error('user not found');
     }
     res.json({ profileUser })
+}
+
+const getCurrentUserInfo = async(req, res) => {
+    const currentUser = await User.findOne( {username: req.user.username} , '-password').populate(
+        [
+            { path: 'faved' },
+            { path: 'reviews' },
+        ]
+    )
+
+    if (!currentUser){
+        res.status(400);
+        throw new Error('user not found');
+    }
+    res.json({ currentUser })
 }
 
 const addToWatchList = async(req, res, next) => {
@@ -140,4 +194,4 @@ const followList = async (req, res, next) => {
         }
     }
 
-module.exports = {signUpController, login, addToWatchList, getUserProfile, followList};
+module.exports = {signUpController, login, authUser, getCurrentUserInfo, addToWatchList, getUserProfile, followList};

@@ -2,9 +2,12 @@
 import FeatureIcon from "../components/FeatureIcon";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import ReviewLikes from "../components/ReviewLikes";
+import { useContext } from "react";
 
 const HomePage = () => {
     const { series, movies, upcoming, hpReviews } = useLoaderData();
+    
+    
     const navigate = useNavigate();
     
     return ( 
@@ -38,14 +41,14 @@ const HomePage = () => {
                 {movies 
                 && 
                 (
-                    movies.results.map((show, index) => 
-                        <div id="" key={index}>
-                            <FeatureIcon
-                                type={'movie'}
-                                id={show.id}
-                            />
-                        </div>
-                    )
+                movies.results.map((show, index) => 
+                    <div id="" key={index}>
+                        <FeatureIcon
+                            type={'movie'}
+                            id={show.id}
+                        />
+                    </div>
+                )
                 )}
             </div>
             <div  id="hp-rr-container">

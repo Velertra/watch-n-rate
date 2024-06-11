@@ -41,6 +41,9 @@ router.post("/sign-up", async (req, res, next) => {
     };
 });
 
+router.get("/authuser", verifyToken, userController.authUser);
+
+router.get("/getcurrentuserinfo", verifyToken, userController.getCurrentUserInfo);
 router.get("/getUserProfile/:username", verifyToken, userController.getUserProfile);
 
 router.post("/login", userController.login);

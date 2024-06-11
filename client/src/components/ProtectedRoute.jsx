@@ -1,13 +1,48 @@
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate, Outlet, Route } from "react-router-dom";
+import UseAuthUser from "./AuthUser";
 
-const ProtectedRoute = ({ path, element }) => {
-    const user = localStorage.getItem('user');
+const ProtectedRoute = async ({ component, ...rest }) => {
+  let {user, loading} = UseAuthUser();
+  
+/* 
+  if(AuthUser){
+    return user ? <Outlet /> : <Navigate to={"/login"}/>
+  } */
+ 
+  if (loading) {
+    // Render a loading indicator while checking authentication
+    return <div>Loading...</div>;
+  }
 
-    if (!user) {
-        return <Navigate to="/login" />;
-    }
+  return (
+    <AppLayout>
+      render={(props) =>
+        false ? (
+          <component {...props} />
+        ) : (
+          <Navigate to="/Login" />
+        )
+      }
+    </AppLayout>
+  )
 
-    return <Route path={path} element={element} />;
 };
 
 export default ProtectedRoute;
+
+/*   return (
+    <>
+    <Route
+      {...rest}
+      element={(props) =>
+        true ? (
+          <Component {...props} />
+        ) : (
+          <Navigate to="/Login" />
+        )
+      }
+    />
+    {console.log("check")}
+    </>
+  )
+ */
