@@ -7,30 +7,29 @@ export const UserProvider = ({ children }) => {
     const token = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        async function getdata(){
+        async function getData(){
+           try{
             const response = await fetch(`http://localhost:3000/getcurrentuserinfo`, {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token.token}`
-            },
-          });
-
-          if(!response){
-            console.error(Error)
-            return
-          }
-          let data = await response.json();
-
-          setUser(() => data);
-
-          //console.log(data)
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token && token.token}`
+                },
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data);
+            }
+            } catch{
+                setUser(null)
+                console.error('accessing user content is working')
+            }
         }
-
         return async() => {
-            getdata();
+            getData();
+            
         } 
     }, [])
-    
     
     return (
         <UserContext.Provider value={{ user, setUser }}>

@@ -8,11 +8,11 @@ const user = new Schema(
         password: { type: String,  required: false, trim: true }, 
         following: [{ type: Schema.Types.ObjectId, ref: "User" }], 
         followers: [{ type: Schema.Types.ObjectId, ref: "User" }], 
-        faved: [{ type: Schema.Types.ObjectId, ref: "Feature" }], 
+        liked: [{ type: Schema.Types.ObjectId, ref: "Feature" }], 
         watchlist: [{ type: Schema.Types.ObjectId, ref: "Feature" }],
         reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
         notes: [{ type: Schema.Types.ObjectId, ref: "Notes" }],
-        
+        watched: [{ type: Schema.Types.ObjectId, ref: "Feature" }]
     }
 );
 

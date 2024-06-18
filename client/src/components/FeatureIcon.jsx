@@ -6,6 +6,7 @@ const FeatureIcon = ({type, id}) => {
     const [details, setDetails] = useState();
     const navigate = useNavigate();
 
+    
     useEffect(()=> {
         let abortController = new AbortController();    
 
@@ -20,6 +21,7 @@ const FeatureIcon = ({type, id}) => {
             }
         }
 
+        
         if(type =='movie' || type == 'tv' ){
             getDetails();
         }

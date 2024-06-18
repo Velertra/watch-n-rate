@@ -3,37 +3,32 @@ import { NavLink, Outlet, useParams } from "react-router-dom";
 import Choices from "./Choices";
 import SearchBar from "./SearchBar";
 import LogOut from "./LogOut";
-import { FullDetails, MovieImages, PopularMovies, PopularTv, Upcoming } from "../utilities/ApiFunction"
+import { FullDetails, GetCredits, MovieImages, PopularMovies, PopularTv, Upcoming } from "../utilities/ApiFunction"
+import { useUser } from "./UserContext";
+
 
 export async function loader({request, params,}){
-  let currentUser;
-  if(localStorage.getItem("user")){
-    const userToken = JSON.parse(localStorage.getItem("user"));
-    currentUser = await fetch("http://localhost:3000/getcurrentuserinfo", {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${userToken.token}`,
-      }
-    });
-  }
- 
+  
+  const token = JSON.parse(localStorage.getItem("user"));
   let series = await PopularTv();
   let movies = await PopularMovies();
   let upcoming = await Upcoming();
   let movieImg = await MovieImages(movies.results[1].id);
-  let recentReviews = await fetch("http://localhost:3000/getrecentreviews", {
+ /*  let recentReviews = await fetch("http://localhost:3000/getrecentreviews", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     }
   });
   const hpReviews = await recentReviews.json()
-  const userData = await currentUser.json()
+   */
   
-  return { series, movies, upcoming, movieImg, hpReviews, userData}
+  return { series, movies, upcoming, movieImg/* , hpReviews */ }
 }
 
 const NavBar = () => {
+  const { user } = useUser();
+
     return ( 
       <>
         <h1>watchNrate</h1>
@@ -43,7 +38,7 @@ const NavBar = () => {
             <li><NavLink to="login">login</NavLink></li>
             <li><NavLink to="sign-up">sign-up</NavLink></li>
             <li><NavLink to="review">review</NavLink></li>
-            
+            {user && <li><NavLink to={`profile/` + user.currentUser.username}>profile</NavLink></li>}
             <li><LogOut /></li>
           </ul>
         </nav>

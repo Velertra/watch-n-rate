@@ -156,22 +156,24 @@ export async function MovieImages(id){
         }
 }
 
-/* export async function Upcoming(){
-    const url = 'https://movies-tv-shows-database.p.rapidapi.com/?page=1';
-    const options = {
-        method: 'GET',
-        headers: {
-            Type: 'get-upcoming-movies',
-            'X-RapidAPI-Key': '0b6e4f08a7msh8b885a9d51d61dbp11d9e4jsnbb5913d5fbfd',
-            'X-RapidAPI-Host': 'movies-tv-shows-database.p.rapidapi.com'
-        }
-};
+export async function GetCredits(type, id){
+    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
 
-try {
-	const response = await fetch(url, options);
-	const result = await response.json();
-    console.log(result)
-} catch (error) {
-	console.error(error);
+    const response = await fetch(
+        `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
+        {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer '+ apiKey 
+            }
+        }
+    )
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+            
+        } else {
+            console.error('API Error:', response.status, response.statusText);
+        }
 }
-} */

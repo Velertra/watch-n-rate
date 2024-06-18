@@ -8,12 +8,14 @@ import HomePage from "../pages/HomePage";
 import SignUp from "../pages/SignUp";
 
 import Profile from "../pages/Profile";
-import Feature from "../pages/Feature";
+import Feature, { loader as featureLoader } from "../pages/Feature";
 import NewTest from "../pages/NewTest";
 import LogIn from "../pages/LogIn";
 import Reviews from "../pages/Reviews";
 import FeatureReview from "../pages/FeatureReview";
 import UseAuthUser from "../components/AuthUser";
+import { FeatureProvider } from "../components/feature/FeatureContext";
+import { HomePageProvider } from "../components/HomePageContext";
 
 
 const Router = () => {
@@ -21,14 +23,15 @@ const Router = () => {
     const router = createBrowserRouter([
         { path: "/", element: <Header /> , errorElement: <ErrorPage />, loader: navBarLoader,
             children: [
-                { index: true, element: <HomePage />, loader: navBarLoader,},
+                { index: true, element: <HomePageProvider><HomePage /></HomePageProvider>, loader: navBarLoader,},
                 { path:"search/:code", element: <Search /> },
                 { path:"sign-up", element: <SignUp /> },
                 { path:"logIn", element: <LogIn />},
-                { path: "feature/:content", element: < Feature/>, loader: navBarLoader },
                 { path: "profile/:userName", element:<Profile />},
                 { path: "/review/:mongoId", element: <FeatureReview /> },
-                { path: "review", element: <Reviews />}
+                { path: "review", element: <Reviews />},
+                { path: "/feature/:content", element: <Feature />, loader: featureLoader, }
+            
                 /* { element: <ProtectedRoute />, 
                     children: [
                         { path: "review", element: <Reviews /> }

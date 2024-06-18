@@ -65,9 +65,8 @@ const authUser= async (req, res) => {
     if(req.user.username){
         const currentUser = await User.findOne({ username: req.user.username }, '-password').populate(
             [
-                { path: 'faved' },
+                { path: 'liked' },
                 { path: 'reviews' },
-                { path: 'faved' },            
             ]
         );
 
@@ -81,8 +80,9 @@ const authUser= async (req, res) => {
 const getUserProfile = async (req, res, next) => {
     const profileUser = await User.findOne({ username: req.params.username }, '-password').populate(
         [
-            { path: 'faved' },
-            { path: 'reviews' },         
+            { path: 'liked' },
+            { path: 'reviews' }, 
+            { path: 'watchlist' }        
         ]
     );
     /* const userWithFavs =  await user.populate('faved')*/
@@ -97,7 +97,7 @@ const getUserProfile = async (req, res, next) => {
 const getCurrentUserInfo = async(req, res) => {
     const currentUser = await User.findOne( {username: req.user.username} , '-password').populate(
         [
-            { path: 'faved' },
+            { path: 'liked' },
             { path: 'reviews' },
         ]
     )
@@ -154,7 +154,7 @@ const addToWatchList = async(req, res, next) => {
         const feature = await Feature.findOne({ _id: findFeature._id });
         if(!feature.watchlist.includes(user._id)) {
             feature.watchlist.push(user._id);
-            user.faved.push(feature);
+            user.liked.push(feature);
             await feature.save();
             await user.save()
             

@@ -52,6 +52,8 @@ const Profile = () => {
             <Following 
               following={user.profileUser.following.length}
             />
+            {}
+            
             {user.profileUser.faved.map((feature, index) => (
               <FeatureIcon 
                 key={index}
@@ -59,6 +61,7 @@ const Profile = () => {
                 id={feature.featureId}
               />
           ))}
+          <div>watchlist</div>
           {user.profileUser.watchlist.map((feature, index) => (
               <FeatureIcon 
                 key={index}
