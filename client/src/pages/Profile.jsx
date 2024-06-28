@@ -54,7 +54,7 @@ const Profile = () => {
             />
             {}
             
-            {user.profileUser.faved.map((feature, index) => (
+            {user.profileUser.liked.map((feature, index) => (
               <FeatureIcon 
                 key={index}
                 type={feature.type}

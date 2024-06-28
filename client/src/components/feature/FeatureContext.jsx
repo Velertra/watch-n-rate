@@ -14,7 +14,7 @@ export const FeatureProvider = ({ children }) => {
             let movies = await PopularMovies();
 
             setPopular({movies: movies, series: series} );
-        }
+        } 
         
         return async() => {
             getFeatureData();

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import FeatureIcon from "../components/FeatureIcon";
 import ReviewComments from "../components/ReviewComments";
+import FeatureHeaderImg from "../components/header/FeatureHeadImg"
 
 const FeatureReview = () => {
     const [review, setReview] = useState();
@@ -35,12 +36,18 @@ const FeatureReview = () => {
     
     return (
       <>
-        <div id="feature-info">
+      {review 
+                && 
+                <FeatureHeaderImg 
+                    featureImg={review.backdrop_path}
+                />}
+        <div id="feature-info">{console.log(review)}
             {review && <> 
                 <FeatureIcon 
                       id={review.feature[0].featureId}
                       type={review.feature[0].type}
                     />
+                    
             <h3 id="review-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
             <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
             <h6>{new Date(review.timestamp).toLocaleDateString('en-US'/* , options */)}</h6>

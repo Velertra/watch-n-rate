@@ -1,3 +1,7 @@
+#hp-body{
+    width: 780px;
+}
+
 #hp-popular-movies,
 #hp-popular-tv {
     overflow-y: auto;

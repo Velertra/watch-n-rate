@@ -113,8 +113,9 @@ const addToWatchList = async(req, res, next) => {
     const { title, featureId, type } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
     const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
+    const feature = await Feature.findById( findFeature._id );
 
-    if(!findFeature) {
+    if(!feature){
         try{
             const newFeature = new Feature({
                 title: title,
@@ -131,37 +132,86 @@ const addToWatchList = async(req, res, next) => {
             console.error("Error adding to Favorites:", error);
             res.status(500).json({ error: "Internal Server Error" });
         }
+    } else if(!user.liked) {
+        feature.watchlist.push(user._id);
+        user.liked.push(feature);
+        await feature.save();
+        await user.save()
+        
+        
+        res.status(200).json({ message: 'added to existing watchlist' });
+    } else if(!user.liked.includes((feature._id).toString())) {
+        user.liked.push(feature._id);
+        await user.save()
+        res.status(200).json({ message: 'basic adding to favs' });
+    }
+   /*  if(user.liked.includes(feature._id)){
+        const updatedUser = await User.findByIdAndUpdate(
+            user._id,
+            { $pull: { watchlist: feature._id } },
+            {new: true }
+        );
+        
+        await updatedFeature.save();
+        await updatedUser.save();
+        
+        res.status(200).json({ message: 'adding as first watchlist in the feature' });
+    }
+ */
+    /* const { title, featureId, type } = req.body;
+    const user = await User.findOne({ username: req.user.username }, '-password');
+    const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
+    const feature = await Feature.findById( findFeature._id );
 
-    } else if(!findFeature.watchlist || findFeature.watchlist.includes(user._id.toString())){
+    console.log(feature)
+    if(!feature) {
+        try{
+            const newFeature = new Feature({
+                title: title,
+                featureId: featureId,
+                type: type,
+                watchlist: user
+            });
+    
+            await newFeature.save();
+            user.watchlist.push(newFeature._id);
+            await user.save();
+            res.status(200).json({ message: 'created new feature in db and added to users watchlist' });
+        } catch(error) {
+            console.error("Error adding to Favorites:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+        
+    } else if(!feature.watchlist){
+        console.log(feature)
+        feature.watchlist.push(user._id);
+        user.liked.push(feature);
+        await feature.save();
+        await user.save()
+        
+        
+        res.status(200).json({ message: 'added to existing watchlist' });
+
+    } else {
         const updatedFeature = await Feature.findByIdAndUpdate(
-            findFeature._id,
+            feature._id,
             { $pull: { watchlist: user._id } },
             {new: true }
         );
         
         const updatedUser = await User.findByIdAndUpdate(
             user._id,
-            { $pull: { watchlist: findFeature._id } },
+            { $pull: { watchlist: feature._id } },
             {new: true }
         );
-
+        
         await updatedFeature.save();
         await updatedUser.save();
         
         res.status(200).json({ message: 'adding as first watchlist in the feature' });
-
-    } else {
-        const feature = await Feature.findOne({ _id: findFeature._id });
-        if(!feature.watchlist.includes(user._id)) {
-            feature.watchlist.push(user._id);
-            user.liked.push(feature);
-            await feature.save();
-            await user.save()
-            
-            res.status(200).json({ message: 'added to existing watchlist' });
-        } 
-    }
+    } */
 }
+
 
 const followList = async (req, res, next) => {
     const userOnSite = await User.findOne({ username: req.user.username }, '-password');
@@ -194,4 +244,11 @@ const followList = async (req, res, next) => {
         }
     }
 
-module.exports = {signUpController, login, authUser, getCurrentUserInfo, addToWatchList, getUserProfile, followList};
+    const addWatchList = (req, res) => {
+        const { variable } = req.body;
+        
+        res.status(200).send({ message: 'Accepted', variable });
+    };
+    
+
+module.exports = {signUpController, login, authUser, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList};

@@ -19,7 +19,8 @@ const getOneUserReview = async (req, res) => {
     
     const review = await Review.findById( req.params.mongoId ).populate([
         { path: "feature"},
-        { path: "author"}
+        { path: "author"},
+        { path: "comment"}
     ])
     //const feature = await Feature.findOne({ title: req.params.title })
     /* const review = await Review.findOne({ author: user._id,  feature: feature }).populate([

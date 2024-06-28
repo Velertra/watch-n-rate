@@ -7,11 +7,13 @@
 #rc-container{
     display: flex;
     justify-content: space-around;
-    border: 1px solid red;
+    border: 1px solid white;
+    padding: 10px;
 }
 
 #rc-content{
     display: flex;
+    flex-direction: column;
 }
 
 #rc-content > * {

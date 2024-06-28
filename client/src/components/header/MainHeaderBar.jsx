@@ -8,14 +8,17 @@ const Header = () => {
 
     return (
         <>
-            
-            <header>
-                <section id="navbar">
+            <header> 
+                <div id="header-container">
+                    <h1>watchNrate</h1>
                     <NavBar />
-                </section>
+                    <SearchBar />
+                </div>
             </header>
-            
-            <Outlet/>
+            <div id="header-back"></div>
+            <div id="main-body">
+                <Outlet/>
+            </div>
         </>
     );
 }

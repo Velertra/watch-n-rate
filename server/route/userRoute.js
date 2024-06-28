@@ -46,8 +46,9 @@ router.get("/authuser", verifyToken, userController.authUser);
 router.get("/getcurrentuserinfo", verifyToken, userController.getCurrentUserInfo);
 router.get("/getUserProfile/:username", verifyToken, userController.getUserProfile);
 
+router.post("add-fav", userController.addWatchList);
 router.post("/login", userController.login);
-router.patch("/followList", verifyToken, userController.followList)
-router.patch("/addtowatchList", verifyToken, userController.addToWatchList)
+router.patch("/followList", verifyToken, userController.followList);
+router.patch("/addtowatchList", verifyToken, userController.addToWatchList);
 
 module.exports = router;

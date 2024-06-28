@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 const LogIn = () => {
   const [username, setUsername] = useState('');
@@ -45,34 +45,36 @@ const LogIn = () => {
     }
   }
 
-    return ( 
-        
-        
+    return (
+      <div id="login-page">
+      <div id="login-section">
         <form onSubmit={handleLogIn}>
-      <div>
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
+          <div id="login-inputs">
+            <label htmlFor="username">Username:</label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                value={username}
+                onChange={handleUsernameChange}
+              />
+            <label htmlFor="password">Password:</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+          </div>
+        <button type="submit">Sign Up</button>
+      </form>
+      <div id="login-signup">
+        <p>New to the site? <NavLink /* style={{color: "white"}} */ to="/sign-up">sign-up</NavLink></p>
       </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
       </div>
-      <button type="submit">Sign Up</button>
-    </form>
-
-     );
+    </div>
+  );
 }
  
 export default LogIn;

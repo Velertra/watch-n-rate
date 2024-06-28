@@ -1,0 +1,28 @@
+#feature-img-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 97%;
+    
+    z-index: -1;
+}
+
+#feature-img{
+    width: 800px;
+}
+
+#feature-content{
+    position: absolute;
+    top: 63%;
+    width: 680px
+}
+
+#feature-body{
+
+}
+
+
+/* @media (min-width: 800px) {
+
+    
+} */

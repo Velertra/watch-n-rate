@@ -63,7 +63,6 @@ const ReviewComments = ({ review }) => {
         });
     
         const data = await response.json();
-        console.log(data)
     }
     
     const handleDeleteBtn = async (commentId) => {
@@ -75,7 +74,6 @@ const ReviewComments = ({ review }) => {
         });
     
         const data = await response.json();
-        console.log(data)
     }
 
     return (
@@ -85,7 +83,7 @@ const ReviewComments = ({ review }) => {
             comments.map((comment, index) => (
                 <div id="rc-container" key={index}>
                     <div id="rc-content">
-                        <h4 id="rc-c-user">{comment.user.length !== 0 ? review.user[0].username : "User Deleted"}</h4>
+                        <h4 id="rc-c-user">{comment.user[0].username}</h4>
                         <p id="rc-c-comment">{comment.comment}</p>
                     </div>
                     <CommentLikes 
@@ -93,6 +91,7 @@ const ReviewComments = ({ review }) => {
                     />
                     <p id="rc-c-date">{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</p>
                     <div id="rc-btns">
+
                         <EditComment 
                             comment={comment}
                         />
