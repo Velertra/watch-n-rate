@@ -112,7 +112,6 @@ export async function PopularMovies(){
 
 export async function FullDetails(type, id){
     const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
-    /* const movieTitle = "star%20wars" */
 
     const response = await fetch(
         `https://api.themoviedb.org/3/${type}/${id}?language=en-US`,
@@ -126,7 +125,6 @@ export async function FullDetails(type, id){
     )
         if (response.ok) {
             const data = await response.json();
-            
             return data;
             
         } else {

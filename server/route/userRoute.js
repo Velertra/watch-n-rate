@@ -20,8 +20,9 @@ router.get("/", (req, res) => {
     res.render("index", { user: req.user });
 });
 
+router.post("/sign-up", userController.signUpController);
 
-router.post("/sign-up", async (req, res, next) => {
+/* router.post("/sign-up", async (req, res, next) => {
     //console.log(req);
     try {
         bcrypt.hash(req.body.password, 10, async ( err,  hashedPassword) => {
@@ -34,13 +35,13 @@ router.post("/sign-up", async (req, res, next) => {
               });
             const result = await user.save();
             console.log(result)
-            res.redirect("/");
+            //res.redirect("/");
         })
     } catch(err) {
       return next(err);
     };
 });
-
+ */
 router.get("/authuser", verifyToken, userController.authUser);
 
 router.get("/getcurrentuserinfo", verifyToken, userController.getCurrentUserInfo);

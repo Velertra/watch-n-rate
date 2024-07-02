@@ -8,18 +8,23 @@ require('dotenv').config()
 const signUpController = async (req, res) => {
     const { username, password } = req.body;
     
-    try{
-        bcrypt.hash(password, 10, async (err, hashedPassword) => {
-            const newMember = new User({
-                username: username,
-                password: hashedPassword,
-            });
-            await newMember.save();
-        });
-    } catch(error) {
-        console.error("Error signing up:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+    try {
+        bcrypt.hash(password, 10, async ( err,  hashedPassword) => {
+             if(err){
+                console.log(err);
+            } 
+            const user = new User({
+                username,
+                password: hashedPassword
+              });
+            await user.save();
+            console.log(user)
+            const token = jwt.sign({username} , process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
+            res.json({ token });
+        })
+    } catch(err) {
+      return next(err);
+    };
 }
 
 const login = async (req, res, next) => {

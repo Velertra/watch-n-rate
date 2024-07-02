@@ -48,7 +48,10 @@ const SignUp = () => {
           name="username"
           id="username"
           value={username}
+          minLength={2}
+          maxLength={15}
           onChange={handleUsernameChange}
+          required
         />
       </div>
       <div>
@@ -58,7 +61,11 @@ const SignUp = () => {
           name="password"
           id="password"
           value={password}
+          minLength={6}
+          maxLength={50}
+          placeholder='At least 6 characters'
           onChange={handlePasswordChange}
+          required
         />
       </div>
       <button type="submit">Sign Up</button>

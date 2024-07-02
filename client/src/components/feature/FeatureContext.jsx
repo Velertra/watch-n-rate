@@ -12,54 +12,65 @@ export const FeatureProvider = ({ children }) => {
     const [type, setType] = useState();
     const featureParams = useParams();
     
-    
-
     useEffect(() => {
         async function getFeatureData(){
-                if( featureParams && featureParams.content && (featureParams.content.includes("movie") || featureParams.content.includes("tv"))){
-                    try{
-                        const [input, id] = featureParams.content.split("-");
-                        setType(input);
-                        let featureDeets = await FullDetails(input, id,);
-                        let featureCreds = await GetCredits(input, id);
-                        let featureReviews = await fetch(`http://localhost:3000/feature/getfeaturereviews/?type=${input}&featureId=${id}`, {
-                            method: 'GET',
-                        });
+            if( featureParams && featureParams.content && (featureParams.content.includes("movie") || featureParams.content.includes("tv"))){               
+                const [input, id] = featureParams.content.split("-");
+                setType(input);
 
-                        
-                        let deets = await featureDeets;
-                        let creds = await featureCreds;
-                        let featureData = await featureReviews.json(); 
-                        
-                        setCredits(creds);
-                        setFeatureTwo(deets);
-                        setReviews(featureData.feature.reviews && featureData.feature.reviews)
+                try{  
+                    let featureDeets = await FullDetails(input, id,);
+                    let deets = await featureDeets;
+                    setFeatureTwo(deets);
 
-                    } catch{
-                        setFeatureTwo(null)
-                        console.error('accessing feature content is not working')
+                } catch{
+                    setFeatureTwo(null)
+                    console.error('accessing feature content is not working')
+                }
+                try{  
+                    let featureCreds = await GetCredits(input, id);
+                    let creds = await featureCreds;
+                    setCredits(creds);
+
+                } catch{
+                    setCredits(null)
+                    console.error('accessing feature content is not working')
+                }
+                try{  
+                    let featureReviews = await fetch(`http://localhost:3000/feature/getfeaturereviews/?type=${input}&featureId=${id}`, {
+                        method: 'GET',
+                });
+                    let featureData = await featureReviews.json(); 
+                    setReviews(featureData.feature.reviews && featureData.feature.reviews)
+
+                } catch{
+                    setCredits(null)
+                    console.error('accessing feature content is not working')
+                }
+                    
+            } else{
+                try{
+                    const response = await fetch(`http://localhost:3000/review/${featureParams.mongoId}`, {
+                        method: 'GET',
+                    });
+                    if(!response){
+                        console.error(Error)
+                        return
                     }
-                } else{
-                    try{
-                        console.log(featureParams.mongoId)
-                        const response = await fetch(`http://localhost:3000/review/${featureParams.mongoId}`, {
-                            method: 'GET',
-                        });
-                        if(!response){
-                            console.error(Error)
-                            return
-                        }
-                  
-                        let data = await response.json();
-                        setSingleReview(() => data.review);
-                        console.log(data)
+                
+                    let data = await response.json();
+                    setSingleReview(() => data.review);
 
-                    } catch {
-                        console.error('feature context not working')
-                    }
-                } 
+                    const featureDeets = await FullDetails(data.review.feature[0].type, data.review.feature[0].featureId)
+                    setFeatureTwo(featureDeets)
+
+                } catch {
+                    console.error('feature context not working')
+                }
+            } 
             
         }
+        console.log(featureParams)
         
         return async() => {
             getFeatureData();
@@ -68,7 +79,7 @@ export const FeatureProvider = ({ children }) => {
     
     
     return (
-        <FeatureContext.Provider value={{ featureTwo, setFeatureTwo, credits, setCredits, reviews, setReviews, type }}>
+        <FeatureContext.Provider value={{ featureTwo, setFeatureTwo, credits, setCredits, reviews, setReviews, type, singleReview }}>
             { children }
         </FeatureContext.Provider>
     );

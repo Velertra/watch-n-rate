@@ -8,7 +8,7 @@ import HomePage from "../pages/HomePage";
 import SignUp from "../pages/SignUp";
 
 import Profile from "../pages/Profile";
-import Feature, { loader as featureLoader } from "../pages/Feature";
+import Feature from "../pages/Feature";
 import NewTest from "../pages/NewTest";
 import LogIn from "../pages/LogIn";
 import Reviews from "../pages/Reviews";
@@ -30,9 +30,9 @@ const Router = () => {
                 { path:"sign-up", element: <SignUp /> },
                 { path:"logIn", element: <LogIn />},
                 { path: "profile/:userName", element:<Profile />},
-                { path: "/review/:mongoId", element: <FeatureProvider><FeatureReview /></FeatureProvider> },
+                { path: "/feature/:content", element: <FeatureProvider key={Math.random()}><Feature /></FeatureProvider>},
+                { path: "/review/:mongoId", element: <FeatureProvider key={Math.random()}><FeatureReview /></FeatureProvider> },
                 { path: "review", element: <Reviews />},
-                { path: "/feature/:content", element: <FeatureProvider><Feature /></FeatureProvider>, loader: featureLoader, },
                 /* { path: "/feature", element: <Feature />, loader: featureLoader, 
                     children: []
                 } */

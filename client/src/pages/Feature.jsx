@@ -12,11 +12,6 @@ import { useFeature } from "../components/feature/FeatureContext";
 import FeatureDetails from "../components/feature/FeatureDetails";
 import FeatureMetaData from "../components/feature/FeatureMetaData";
 
-export async function loader({request, params}){
-    const [type, id] = params.content.split("-");
-    let feature = await GetCredits(type, id);
-    return { feature };
-}
 
 const Feature = () => {
     const navigate = useNavigate();
@@ -31,7 +26,6 @@ const Feature = () => {
                 <FeatureHeaderImg 
                     featureImg={featureTwo.backdrop_path}
                 />}
-                {featureTwo && <>{console.log(featureTwo)}</>}
             <div id="feature-content">
                  {/* {user && <div>{user.currentUser.username}</div>} */}
                 {featureTwo 
