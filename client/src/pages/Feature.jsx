@@ -19,60 +19,39 @@ export async function loader({request, params}){
 }
 
 const Feature = () => {
-    const [details, setDetails] = useState();
-    const [featureDetails, setFeatureDetails] = useState();
-    const { content } = useParams();
-    const [type, id] = content.split("-");
     const navigate = useNavigate();
-    const { feature } = useLoaderData();
     const { user } = useUser();
+    const { featureTwo, credits, reviews, type } = useFeature();
     
-    useEffect(()=> {
-        async function getApiData(){
-            let tmdbDetails = await FullDetails(type, id,);
-            let data = await tmdbDetails;
-            setDetails(data);
-        }
-        async function getfeatureData(){
-            let featureDB = await fetch(`http://localhost:3000/feature/getfeaturereviews/?type=${type}&featureId=${id}`, {
-                method: 'GET',
-            });
-
-            let featureData = await featureDB.json(); 
-            setFeatureDetails(featureData.feature.reviews && featureData.feature.reviews);
-        }
-
-        return() => {
-            getApiData();
-            getfeatureData();
-        }
-    }, [])
     
     return ( 
         <>
-            {details 
+            {featureTwo 
                 && 
                 <FeatureHeaderImg 
-                    featureImg={details.backdrop_path}
+                    featureImg={featureTwo.backdrop_path}
                 />}
+                {featureTwo && <>{console.log(featureTwo)}</>}
             <div id="feature-content">
                  {/* {user && <div>{user.currentUser.username}</div>} */}
-                {details 
+                {featureTwo 
                 && 
                 <FeatureDetails 
-                    feature={feature}
-                    details={details}
+                    feature={credits}
+                    details={featureTwo}
                     type={type}
                 />
                 }
+                {credits 
+                && 
                 <FeatureMetaData
-                    feature={feature}
-                />
+                    feature={credits}
+                />}
                     <div>movies clips or news</div>
                     {/* reviews */}
-                    {featureDetails 
+                    {reviews 
                     &&
-                    featureDetails.map((review, index) => (
+                    reviews.map((review, index) => (
                         <div onClick={() => navigate(`/review/${review._id}`)} key={index}>
                             <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
                             <p>{review.content}</p>

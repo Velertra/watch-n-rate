@@ -30,10 +30,12 @@ const Router = () => {
                 { path:"sign-up", element: <SignUp /> },
                 { path:"logIn", element: <LogIn />},
                 { path: "profile/:userName", element:<Profile />},
-                { path: "/review/:mongoId", element: <FeatureReview /> },
+                { path: "/review/:mongoId", element: <FeatureProvider><FeatureReview /></FeatureProvider> },
                 { path: "review", element: <Reviews />},
-                { path: "/feature/:content", element: <Feature />, loader: featureLoader, }
-
+                { path: "/feature/:content", element: <FeatureProvider><Feature /></FeatureProvider>, loader: featureLoader, },
+                /* { path: "/feature", element: <Feature />, loader: featureLoader, 
+                    children: []
+                } */
             ]
         },
     ])

@@ -5,10 +5,12 @@ import FeatureIcon from "../components/FeatureIcon";
 import ReviewComments from "../components/ReviewComments";
 import FeatureHeaderImg from "../components/header/FeatureHeadImg"
 
+
 const FeatureReview = () => {
     const [review, setReview] = useState();
     const token = JSON.parse(localStorage.getItem("user"));
     const { mongoId } = useParams();
+    
 
     useEffect(() => {
      
@@ -41,7 +43,7 @@ const FeatureReview = () => {
                 <FeatureHeaderImg 
                     featureImg={review.backdrop_path}
                 />}
-        <div id="feature-info">{console.log(review)}
+        <div id="feature-info">
             {review && <> 
                 <FeatureIcon 
                       id={review.feature[0].featureId}
@@ -51,8 +53,11 @@ const FeatureReview = () => {
             <h3 id="review-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
             <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
             <h6>{new Date(review.timestamp).toLocaleDateString('en-US'/* , options */)}</h6>
-            <p>{review.content}</p></>}
-            <h6>0</h6>
+            <p>{review.content}</p>
+            <h6>&#10084; {" " + review.likes.length}</h6>
+            </>}
+            
+            {/* <h6>&#10084; {" " + review.likes.length}</h6> */}
         </div>
         <div id="comment-section">
           <h3 style={{ borderBottom: "1px solid white" }}>{(review && review.comment.length) + " "}Comments</h3>

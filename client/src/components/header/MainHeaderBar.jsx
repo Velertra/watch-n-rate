@@ -4,7 +4,6 @@ import SearchBar from "../SearchBar";
 
 const Header = () => {
     const { movies, movieImg } = useLoaderData();
-    console.log()
 
     return (
         <>

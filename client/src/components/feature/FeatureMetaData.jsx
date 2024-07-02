@@ -1,6 +1,7 @@
 import FeatureCredits from "./FeatureCredits";
 
 const FeatureMetaData = ({ feature }) => {
+    console.log(feature)
     return (
         <div id="feature-metadata">
                     <header>

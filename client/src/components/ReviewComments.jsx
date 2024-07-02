@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import EditComment from "./EditComment";
 import CommentLikes from "./CommentLikes";
+import { useUser } from "./UserContext";
 
 const ReviewComments = ({ review }) => {
     const [text, setText] = useState('');
@@ -9,6 +10,7 @@ const ReviewComments = ({ review }) => {
     const token = JSON.parse(localStorage.getItem("user"));
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const { title } = useParams();
+    const { user } = useUser();
 
     useEffect(() => {
         async function getComments(){
@@ -91,6 +93,7 @@ const ReviewComments = ({ review }) => {
                     />
                     <p id="rc-c-date">{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</p>
                     <div id="rc-btns">
+                    {(user && (user.currentUser.username == review.author[0].username)) && <><div><button>edit</button><button>delete</button></div></>}
 
                         <EditComment 
                             comment={comment}
