@@ -11,6 +11,7 @@ import FeatureCredits from "../components/feature/FeatureCredits";
 import { useFeature } from "../components/feature/FeatureContext";
 import FeatureDetails from "../components/feature/FeatureDetails";
 import FeatureMetaData from "../components/feature/FeatureMetaData";
+import FeaturePageReviews from "../components/feature/FeaturePageReviews";
 
 
 const Feature = () => {
@@ -45,16 +46,10 @@ const Feature = () => {
                     {/* reviews */}
                     {reviews 
                     &&
-                    reviews.map((review, index) => (
-                        <div onClick={() => navigate(`/review/${review._id}`)} key={index}>
-                            <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
-                            <p>{review.content}</p>
-                            <ReviewLikes
-                                review={review}
-                            />
-                            <div>{(user && (user.currentUser.username == review.author[0].username)) && <><div><button>edit</button><button>delete</button></div></>}{/* {review.author.length !== 0 && (review.author[0].username == user.currentUser.username && (<div><button>edit</button><button>delete</button></div>))} */}</div>
-                        </div>
-                    ))
+                    <FeaturePageReviews
+                        reviews={reviews}
+                        user={user}
+                    />
                     }
                 
                 <div>similar feature area</div>

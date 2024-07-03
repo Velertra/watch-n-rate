@@ -5,9 +5,9 @@ import { UserProvider } from './components/UserContext';
 
 const App = () => {
   return (
-    <UserProvider>
+    
       <Router />
-    </UserProvider>
+    
   )
 };
 

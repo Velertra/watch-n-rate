@@ -1,16 +1,51 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false)
 
-  const handleUsernameChange = (e) => {
+  const handleUsernameChange = async (e) => {
     setUsername(e.target.value);
-  };
+      
+      if (e.target.value === '' || e.target.value.length <= 1) {
+        return;
+    } else {
+      try {
+        setLoading(true);
+        const response = await fetch(`http://localhost:3000/checkusers/${e.target.value}`, {
+            method: 'GET'
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+      } catch (error) {
+          console.error('Error fetching user data:', error);
+      }
+    }
+};
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+
   };
+
+ /*  useEffect(() => {
+    async function checkUsers() {
+      const response = await fetch(`http://localhost:3000/checkusers/${username}`, {
+        method: 'GET'
+      })
+
+      const data = response.json();
+      //setloading(() => data);
+    }
+
+    return () => {
+      
+      checkUsers()
+    }
+  }, [username]) */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,6 +89,7 @@ const SignUp = () => {
           required
         />
       </div>
+      {loading && <>searching...</>}
       <div>
         <label htmlFor="password">Password:</label>
         <input

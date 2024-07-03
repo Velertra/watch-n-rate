@@ -21,28 +21,8 @@ router.get("/", (req, res) => {
 });
 
 router.post("/sign-up", userController.signUpController);
-
-/* router.post("/sign-up", async (req, res, next) => {
-    //console.log(req);
-    try {
-        bcrypt.hash(req.body.password, 10, async ( err,  hashedPassword) => {
-             if(err){
-                console.log(err);
-            } 
-            const user = new User({
-                username: req.body.username,
-                password: hashedPassword
-              });
-            const result = await user.save();
-            console.log(result)
-            //res.redirect("/");
-        })
-    } catch(err) {
-      return next(err);
-    };
-});
- */
 router.get("/authuser", verifyToken, userController.authUser);
+router.get("/checkusers/:username", userController.checkUsers);
 
 router.get("/getcurrentuserinfo", verifyToken, userController.getCurrentUserInfo);
 router.get("/getUserProfile/:username", verifyToken, userController.getUserProfile);
