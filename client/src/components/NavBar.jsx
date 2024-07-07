@@ -34,10 +34,10 @@ const NavBar = () => {
           <nav>
             <ul style={{display:"flex",gap:"10px", listStyleType: "none"}}>
               <li><NavLink to="/">home</NavLink></li>
-              <li><NavLink to="login">login</NavLink></li>
-              <li><NavLink to="sign-up">sign-up</NavLink></li>
-              <li><NavLink to="review">review</NavLink></li>
-              {user && <li><NavLink to={`profile/` + user.currentUser.username}>profile</NavLink></li>}
+              {!user && <li><NavLink to="login">login</NavLink></li>}
+              {!user && <li><NavLink to="sign-up">sign-up</NavLink></li>}
+              <li><NavLink to="review">reviews</NavLink></li>
+              {user && user.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>profile</NavLink></li>}
               <li><LogOut /></li>
             </ul>
           </nav>

@@ -68,7 +68,7 @@ const checkUsers = async (req, res, next) => {
     const { username } = req.params;
     
     const existingUser = await User.findOne({ username: username }, '-password');
-    console.log(existingUser)
+    
     if(existingUser){
         res.json( false );
     } else {

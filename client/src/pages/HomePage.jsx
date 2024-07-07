@@ -4,12 +4,14 @@ import ReviewLikes from "../components/ReviewLikes";
 import { useContext, useEffect, useState } from "react";
 import { useHomePage } from "../components/HomePageContext";
 import Popular from "../homepage/Popular";
+import { useUser } from "../components/UserContext";
 
 const HomePage = () => {
     const { series, movies, upcoming/* , hpReviews */ } = useLoaderData();
     const { popular, recentReviews } = useHomePage();
     const navigate = useNavigate();
     const [bgNumber, setBgNumber] = useState();
+    const { refreshUser } = useUser();
 
     useEffect(() => {
         function bgNumber(){
@@ -18,6 +20,7 @@ const HomePage = () => {
         }
 
         return () => {
+            //refreshUser()
             const rand = bgNumber()
             setBgNumber(rand);
         } 
@@ -27,7 +30,7 @@ const HomePage = () => {
         <>
             <div id="header-img-container">
                 {/* header image, change number to pick */}
-                {bgNumber >= 0 && <img id="header-img" src={"http://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}{console.log(bgNumber)}
+                {bgNumber >= 0 && <img id="header-img" src={"http://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
                 <div id="head-img-overlay"></div>
             </div>
             <div id="header-content-container"></div>

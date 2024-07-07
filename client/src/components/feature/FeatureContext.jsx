@@ -70,7 +70,7 @@ export const FeatureProvider = ({ children }) => {
             } 
             
         }
-        console.log(featureParams)
+        
         
         return async() => {
             getFeatureData();

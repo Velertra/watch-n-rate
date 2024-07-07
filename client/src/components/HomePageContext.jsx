@@ -23,7 +23,7 @@ export const HomePageProvider = ({ children }) => {
             });
 
             let data = await featureDB.json();
-            console.log(data)
+            
             setRecentReviews(data);
         }
         

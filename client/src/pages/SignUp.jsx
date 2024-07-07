@@ -90,6 +90,7 @@ const SignUp = () => {
         />
       </div>
       {loading && <>searching...</>}
+      
       <div>
         <label htmlFor="password">Password:</label>
         <input

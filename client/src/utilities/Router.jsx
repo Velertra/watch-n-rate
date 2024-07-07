@@ -24,7 +24,7 @@ import { UserProvider } from "../components/UserContext";
 const Router = () => {
 
     const router = createBrowserRouter([
-        { path: "/", element: <UserProvider key={Math.random()}><Header /></UserProvider> , errorElement: <ErrorPage />, loader: navBarLoader,
+        { path: "/", element: <UserProvider><Header /></UserProvider> , errorElement: <ErrorPage />, loader: navBarLoader,
             children: [
                 { index: true, element: <HomePageProvider key={Math.random()}><HomePage /></HomePageProvider>, loader: navBarLoader,},
                 { path:"search/:code", element: <Search /> },

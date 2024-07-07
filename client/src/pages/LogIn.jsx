@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom"
+import { useUser } from "../components/UserContext";
+import GetUser from "../hooks/GetUser";
 
 const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser } = useUser();
+  
   const navigate = useNavigate()
 
   const handleUsernameChange = (e) => {
@@ -26,23 +30,19 @@ const LogIn = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      const token = await response.json();
-      console.log(token)
-
-      localStorage.setItem("user", JSON.stringify(token));
-
-      navigate(`/`)
+      const data = await response.json();
+      const user = await GetUser(data)
       
       if (response.ok) {
-        // Success, do something here
-        //console.log('User signed up successfully');
-      } else {
-        // Handle error responses
-        //console.error('Failed to sign up');
-      }
+        localStorage.setItem("user", JSON.stringify(data));  
+        setUser(user.user);
+        navigate(`/`)
+      } 
+
     } catch (error) {
       //console.error('Error occurred:', error);
     }
+    
   }
 
     return (
@@ -70,7 +70,7 @@ const LogIn = () => {
         <button type="submit">Sign Up</button>
       </form>
       <div id="login-signup">
-        <p>New to the site? <NavLink /* style={{color: "white"}} */ to="/sign-up">sign-up</NavLink></p>
+        <p>New to the site? <NavLink to="/sign-up">sign-up</NavLink></p>
       </div>
       </div>
     </div>
