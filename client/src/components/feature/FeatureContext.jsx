@@ -25,7 +25,7 @@ export const FeatureProvider = ({ children }) => {
 
                 } catch{
                     setFeatureTwo(null)
-                    console.error('accessing feature content is not working')
+                    console.error('accessing feature details is not working')
                 }
                 try{  
                     let featureCreds = await GetCredits(input, id);
@@ -34,18 +34,19 @@ export const FeatureProvider = ({ children }) => {
 
                 } catch{
                     setCredits(null)
-                    console.error('accessing feature content is not working')
+                    console.error('accessing feature credits is not working')
                 }
                 try{  
                     let featureReviews = await fetch(`http://localhost:3000/feature/getfeaturereviews/?type=${input}&featureId=${id}`, {
                         method: 'GET',
                 });
                     let featureData = await featureReviews.json(); 
-                    setReviews(featureData.feature.reviews && featureData.feature.reviews)
+                    console.log(featureData)
+                    setReviews(featureData?.feature?.reviews && featureData.feature.reviews)
 
                 } catch{
                     setCredits(null)
-                    console.error('accessing feature content is not working')
+                    console.error('accessing feature reviews is not working')
                 }
                     
             } else{
@@ -67,10 +68,8 @@ export const FeatureProvider = ({ children }) => {
                 } catch {
                     console.error('feature context not working')
                 }
-            } 
-            
+            }   
         }
-        
         
         return async() => {
             getFeatureData();

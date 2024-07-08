@@ -5,15 +5,17 @@ import DeleteReview from "../components/DeleteReview";
 import DisplayComments from "../components/DisplayComments";
 import { useNavigate } from "react-router-dom";
 import ReviewLikes from "../components/ReviewLikes";
+import { useUser } from "../components/UserContext";
 
 const Reviews = () => {
-    const [reviews, setReviews] = useState('')
+    //const [reviews, setReviews] = useState('')
+    const { user } = useUser();
     const [feature, setFeature] = useState('');
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const token = JSON.parse(localStorage.getItem("user"));
     const navigate = useNavigate();
 
-    useEffect(() => {
+   /*  useEffect(() => {
         async function getReviews(){
             const response = await fetch(`http://localhost:3000/getuserreviews`, {
             method: 'GET',
@@ -41,36 +43,36 @@ const Reviews = () => {
         return async() => {
             getReviews();
         } 
-    }, [])
+    }, []) */
 
     return ( 
         <div id="rp-r-container">
           <h2>reviews</h2>
-        {reviews && reviews.reviews.map((review, index) => (
-                <div key={index} id="rp-r">{console.log(review)}
-                    <FeatureIcon 
-                      id={review.feature[0].featureId}
-                      type={review.feature[0].type}
-                    />
-                    <div id="rp-r-content" onClick={() => navigate(`/review/${review._id}`)}>
-                      <h3 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
-                      <h6>{new Date(review.timestamp).toLocaleDateString('en-US', options)}</h6>
-                      <p>{review.content}</p>
-                      <ReviewLikes
-                        review={review}
-                      />
-                      <EditReview
-                      review={review}
-                    />
-                    <DeleteReview
-                      review={review}
-                    />
-                    </div>
-                    
-                   {/* <p id="r-content">{review.feature[0].title}</p> */}
+          {user && user.currentUser.reviews.map((review, index) => (
+            <div key={index} id="rp-r">
+                <FeatureIcon 
+                  id={review.feature[0].featureId}
+                  type={review.feature[0].type}
+                />
+                <div id="rp-r-content" onClick={() => navigate(`/review/${review._id}`)}>
+                  <h3 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h3>
+                  <h6>{new Date(review.timestamp).toLocaleDateString('en-US', options)}</h6>
+                  <p>{review.content}</p>
+                  
+                  <ReviewLikes
+                    review={review}
+                  />
+                  <EditReview
+                  review={review}
+                />
+                <DeleteReview
+                  review={review}
+                />
                 </div>
-            
-        ))}
+                
+                {/* <p id="r-content">{review.feature[0].title}</p> */}
+            </div>
+          ))}
         </div>
     );
 }

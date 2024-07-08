@@ -2,11 +2,11 @@ const FeatureCredits = ({ feature }) => {
     
     return (
         <>
-            <div>{feature.map((castMember, index) => (
-                <div key={index}>
+            {feature.map((castMember, index) => (
+                <li key={index}>
                     {castMember.name}
-                </div>
-            ))}</div>
+                </li>
+            ))}
         </>
     );
 }

@@ -84,7 +84,8 @@ const addToUserLiked = async(req, res, next) => {
     const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
 console.log(findFeature)
     if(findFeature) {
-        if(!findFeature.liked.includes(user._id)) {
+        try{
+        if(!findFeature.liked?.includes(user._id)) {
             findFeature.liked.push(user._id);
             user.liked.push(findFeature);
             await findFeature.save();
@@ -107,6 +108,10 @@ console.log(findFeature)
             await updatedUser.save();
             res.status(200).json({ message: 'adding as first liked in feature' });
         }
+    } catch{
+        console.error("Error writing new :", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
     } else {
         try{
             const newFeature = new Feature({
@@ -127,20 +132,30 @@ console.log(findFeature)
     }
 }
 
-const getFeatureReviews = async (req, res) => {
+const getFeatureReviews = async (req, res, next) => {
     
-    const feature = await Feature.findOne({
-        type: req.query.type,
-        featureId: req.query.featureId
-    }).populate({
-        path: 'reviews',
-        populate:{ 
-         path: 'author',
-         select: 'username'
-     }   
-    });
+        const feature = await Feature.findOne({
+            type: req.query.type,
+            featureId: req.query.featureId
+        }).populate({
+            path: 'reviews',
+            populate:{ 
+             path: 'author',
+             select: 'username'
+         }   
+        });
 
-    res.json({ feature })
+        if(!feature) {
+            console.log('test')
+            res.json(null)
+        } else {
+            res.json({ feature })
+        }
+        
+    
+   
+    
+    
     //const user = await User.findOne({ username: req.user.username });
     /* const feature = await Feature.find({
         $or: [

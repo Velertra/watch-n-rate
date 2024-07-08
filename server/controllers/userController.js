@@ -97,7 +97,11 @@ const getCurrentUserInfo = async(req, res) => {
     const currentUser = await User.findOne( {username: req.user.username} , '-password').populate(
         [
             { path: 'liked' },
-            { path: 'reviews' },
+            { path: 'reviews', 
+                populate: {
+                    path: 'feature',
+                }
+             },
         ]
     )
 

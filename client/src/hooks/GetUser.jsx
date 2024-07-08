@@ -14,7 +14,7 @@ const GetUser = async( token ) => {
             //console.log(token)
             if (response.ok) {
                 const data = await response.json();
-                console.log('data')
+                
                 user = data;
             }
         } catch {

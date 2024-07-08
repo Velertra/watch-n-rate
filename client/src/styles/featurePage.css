@@ -21,8 +21,46 @@
 
 }
 
+#feature-metadata{
+    width: 400px;
+}
 
-/* @media (min-width: 800px) {
+#fm-header{
+    
+}
+
+#fm-header-tabs{
+    display: flex;
+    list-style: none;
+    
+}
+
+#fm-header-tabs > li {
+    margin-left: 2px;
+    margin-right: 2px;
+    border-left: 2px solid red;
+    border-right: 2px solid red;
+    border-bottom: 2px solid red;
+    border-top: none;
+}
+
+#f-cast,
+#f-crew{
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+
+#f-cast > li,
+#f-crew > li{
+    margin-left: 2px;
+    margin-right: 2px;
+    border: #000 solid;
+}
+
+
+/* @
+media (min-width: 800px) {
 
     
 } */

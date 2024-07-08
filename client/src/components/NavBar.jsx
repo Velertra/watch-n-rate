@@ -36,9 +36,9 @@ const NavBar = () => {
               <li><NavLink to="/">home</NavLink></li>
               {!user && <li><NavLink to="login">login</NavLink></li>}
               {!user && <li><NavLink to="sign-up">sign-up</NavLink></li>}
-              <li><NavLink to="review">reviews</NavLink></li>
+              {user &&<li><NavLink to="review">reviews</NavLink></li>}
               {user && user.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>profile</NavLink></li>}
-              <li><LogOut /></li>
+              {user && <li><LogOut /></li>}
             </ul>
           </nav>
       </>

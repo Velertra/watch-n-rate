@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
     useEffect( ()=> {
         const getData = async () => {
             const {user} = await GetUser(token);
-            console.log(user)
+            
             setUser(user)
 
         }
