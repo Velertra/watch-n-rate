@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProtectedRoute from "../components/ProtectedRoute"
 import ErrorPage from "../pages/ErrorPage";
-import NavBar, { loader as navBarLoader } from "../components/NavBar";
+import { loader as navBarLoader } from "../components/NavBar";
 import Header from "../components/header/MainHeaderBar";
 import Search from "../pages/Search";
 import HomePage from "../pages/HomePage";
@@ -9,24 +9,21 @@ import SignUp from "../pages/SignUp";
 
 import Profile from "../pages/Profile";
 import Feature from "../pages/Feature";
-import NewTest from "../pages/NewTest";
 import LogIn from "../pages/LogIn";
 import Reviews from "../pages/Reviews";
 import FeatureReview from "../pages/FeatureReview";
-import UseAuthUser from "../components/AuthUser";
+import { UserProvider } from "../components/UserContext";
 import { FeatureProvider } from "../components/feature/FeatureContext";
 import { HomePageProvider } from "../components/HomePageContext";
 /* figure it out (ScrollToTop) */
-import ScrollToTop from "../components/ScrollToTop";
-import { UserProvider } from "../components/UserContext";
 
 
 const Router = () => {
 
     const router = createBrowserRouter([
-        { path: "/", element: <UserProvider><Header /></UserProvider> , errorElement: <ErrorPage />, loader: navBarLoader,
+        { path: "/", element: <UserProvider><HomePageProvider><Header /></HomePageProvider></UserProvider> , errorElement: <ErrorPage />, loader: navBarLoader,
             children: [
-                { index: true, element: <HomePageProvider key={Math.random()}><HomePage /></HomePageProvider>, loader: navBarLoader,},
+                { index: true, element: <HomePage /> },
                 { path:"search/:code", element: <Search /> },
                 { path:"sign-up", element: <SignUp /> },
                 { path:"logIn", element: <LogIn />},
@@ -34,9 +31,7 @@ const Router = () => {
                 { path: "/feature/:content", element: <FeatureProvider key={Math.random()}><Feature /></FeatureProvider>},
                 { path: "/review/:mongoId", element: <FeatureProvider key={Math.random()}><FeatureReview /></FeatureProvider> },
                 { path: "review", element: <Reviews />},
-                /* { path: "/feature", element: <Feature />, loader: featureLoader, 
-                    children: []
-                } */
+                
             ]
         },
     ])

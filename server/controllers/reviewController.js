@@ -57,24 +57,55 @@ const reviewLike = async (req, res) => {
 }
 
 const editReview = async (req, res, next) => {
-    const review = await Review.findOne({ _id: req.params.reviewId })
-    review.content = req.body.text;
-    await review.save();
+    const user = await User.findOne({ username: req.user.username});
+    const review = await Review.findOne({ _id: req.params.reviewId }).populate({
+        path: 'author'
+    });
+    try{
+        review.content = req.body.text;
+        await review.save();
+        res.status(200).json({ message: 'Review edited successfully' });
+    } catch {
+        res.status(500).json({ message: 'Error editing review', error });
+    }
+    
+    //review.content = req.body.text;
+    //await review.save();
 
-    res.json({ review })   
-}
+
+    /*  const user = await User.findOne({ username: req.user.username});
+    const comment = await Comment.findOne({ _id: req.params.commentId })
+    
+    try{
+        if(user._id.toString() === comment.user[0].toString()){
+            const comment = await Comment.findOne({ _id: req.params.commentId })
+            comment.comment = req.body.text;
+            await comment.save();
+        }
+        res.status(200).json({ message: 'Comment deleted successfully' });
+        
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting comment', error });
+    }
+ */
+    //res.json({ review })   
+};
 
 const deleteReview = async(req, res) => {
+    
     try{
-        const review = await Review.findById(req.params.commentId);
+        const review = await Review.findById(req.params.reviewId);
         const user = await User.findOne({ username: req.user.username })
+        
         if(review.author.includes(user._id)){
             await Review.findByIdAndDelete(review._id)
             res.status(200).json({ message: 'Review deleted successfully' });
+        }else{
+            res.status(500).json({ message: 'Not your review', error });
         }
     } catch (error) {
         res.status(500).json({ message: 'Error deleting review', error });
     }
-}
+};
 
 module.exports = { getUserReviews, editReview, reviewLike, getRecentReviews, deleteReview, getOneUserReview };

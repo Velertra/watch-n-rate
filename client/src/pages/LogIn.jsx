@@ -6,7 +6,7 @@ import GetUser from "../hooks/GetUser";
 const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { setUser } = useUser();
+  const { setToken } = useUser();
   
   const navigate = useNavigate()
 
@@ -31,11 +31,11 @@ const LogIn = () => {
       });
 
       const data = await response.json();
-      const user = await GetUser(data)
+      //const user = await GetUser(data)
       
       if (response.ok) {
         localStorage.setItem("user", JSON.stringify(data));  
-        setUser(user.user);
+        setToken(data);
         navigate(`/`)
       } 
 

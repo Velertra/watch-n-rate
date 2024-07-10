@@ -7,6 +7,7 @@ const EditReview = ({ review }) => {
     const token = JSON.parse(localStorage.getItem("user"));
     
     const handleEdit = () => {
+        console.log(review)
         setText(review.content)
         setEdit(prevState => !prevState)
     }
@@ -18,7 +19,8 @@ const EditReview = ({ review }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         e.stopPropagation();
-        console.log('button pressed')
+        
+
         const response = await fetch(`http://localhost:3000/changereview/${review._id}`, {
             method: 'PUT',
             headers: {
@@ -27,6 +29,7 @@ const EditReview = ({ review }) => {
             },
             body: JSON.stringify({ text }),
         });
+        console.log('button pressed')
     }
 
     return (

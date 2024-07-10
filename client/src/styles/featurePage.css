@@ -58,6 +58,10 @@
     border: #000 solid;
 }
 
+#feature-review-section{
+    width: 600px;
+}
+
 
 /* @
 media (min-width: 800px) {

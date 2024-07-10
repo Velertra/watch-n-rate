@@ -7,42 +7,42 @@ import FeaturePageReviews from "../components/feature/FeaturePageReviews";
 
 const Feature = () => {
     const { user } = useUser();
-    const { featureTwo, credits, reviews, type } = useFeature();
+    const { featureInfo } = useFeature();
+    
     
     return ( 
         <>
-            {featureTwo 
-                && 
-                <FeatureHeaderImg 
-                    featureImg={featureTwo.backdrop_path}
-                />}
-            <div id="feature-content">
-                 {/* {user && <div>{user.currentUser.username}</div>} */}
-                {featureTwo 
-                && 
-                <FeatureDetails 
-                    feature={credits}
-                    details={featureTwo}
-                    type={type}
-                />
-                }
-                {credits 
-                && 
-                <FeatureMetaData
-                    feature={credits}
-                />}
-                    <div>movies clips or news</div>
-                    {/* reviews */}
-                    {reviews 
-                    &&
-                    <FeaturePageReviews
-                        reviews={reviews}
-                        user={user}
-                    />
-                    }
-                
-                <div>similar feature area</div>
-            </div>   
+            {featureInfo 
+            && 
+            <>
+            <FeatureHeaderImg 
+                featureImg={featureInfo.featureInfo.backdrop_path}
+            />{console.log(featureInfo)}
+            </>}
+             
+            {featureInfo 
+            && 
+            <FeatureDetails 
+                feature={featureInfo.credits}
+                details={featureInfo.featureInfo}
+                type={featureInfo.type}
+            />
+            }
+
+            {featureInfo 
+            && 
+            <FeatureMetaData
+                feature={featureInfo.credits}
+            />}
+            <div id="feature-review-section">
+            {featureInfo 
+            &&
+            <FeaturePageReviews
+                reviews={featureInfo.reviews.feature.reviews}
+                user={user}
+            />
+            }
+            </div>
         </> 
     );
 }

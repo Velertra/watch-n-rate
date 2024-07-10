@@ -10,7 +10,7 @@ const ReviewComments = ({ review }) => {
     const token = JSON.parse(localStorage.getItem("user"));
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const { title } = useParams();
-    const { user } = useUser();
+    const { user } = useUser(); 
 
     useEffect(() => {
         async function getComments(){
@@ -92,14 +92,19 @@ const ReviewComments = ({ review }) => {
                         comment={comment}
                     />
                     <p id="rc-c-date">{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</p>
-                    <div id="rc-btns">
-                    {(user && (user.currentUser.username == review.author[0].username)) && <><div><button>edit</button><button>delete</button></div></>}
+                    
+                    
 
+                        {user?.currentUser.username == comment.user[0].username 
+                        &&
+                        <div id="rc-btns">
                         <EditComment 
                             comment={comment}
                         />
                         <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
-                    </div>
+                        </div>
+                        }
+                    
                 </div>
             ))}
             <form onSubmit={handleAddComment}>
