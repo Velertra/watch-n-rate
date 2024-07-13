@@ -98,10 +98,10 @@ const ReviewComments = ({ review }) => {
                         {user?.currentUser.username == comment.user[0].username 
                         &&
                         <div id="rc-btns">
-                        <EditComment 
-                            comment={comment}
-                        />
-                        <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
+                            <EditComment 
+                                comment={comment}
+                            />
+                            <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
                         </div>
                         }
                     

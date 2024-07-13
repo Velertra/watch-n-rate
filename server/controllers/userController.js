@@ -20,7 +20,8 @@ const signUpController = async (req, res) => {
             await user.save();
             console.log(user)
             const token = jwt.sign({username} , process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
-            res.json({ token });
+            console.log(token);
+            res.json({ token: token });
         })
     } catch(err) {
       return next(err);
@@ -39,8 +40,9 @@ const login = async (req, res, next) => {
             
             const { username } = req.body;
             const token = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
-            
+            console.log(token)
             res.json({ token: token });
+
         })(req, res, next);
     } catch (error) {
         next(error);
@@ -82,13 +84,14 @@ const getUserProfile = async (req, res, next) => {
         [
             { path: 'liked' },
             { path: 'reviews' }, 
-            { path: 'watchlist' }        
+            { path: 'watchlist' },
+            { path: 'followers' },
+            { path: 'following' },
         ]
     );
 
     if (!profileUser){
         res.status(400);
-        throw new Error('user not found');
     }
     res.json({ profileUser })
 }
@@ -116,111 +119,66 @@ const addToWatchList = async(req, res, next) => {
     const { title, featureId, type } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
     const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
-    const feature = await Feature.findById( findFeature._id );
 
-    if(!feature){
+    if(findFeature) {
         try{
-            const newFeature = new Feature({
-                title: title,
-                featureId: featureId,
-                type: type,
-                watchlist: user
-            });
-    
-            await newFeature.save();
-            user.watchlist.push(newFeature._id);
-            await user.save();
-            res.status(200).json({ message: 'created new feature in db and added to users watchlist' });
-        } catch(error) {
-            console.error("Error adding to Favorites:", error);
-            res.status(500).json({ error: "Internal Server Error" });
-        }
-    } else if(!user.liked) {
-        feature.watchlist.push(user._id);
-        user.liked.push(feature);
-        await feature.save();
-        await user.save()
-        
-        
-        res.status(200).json({ message: 'added to existing watchlist' });
-    } else if(!user.liked.includes((feature._id).toString())) {
-        user.liked.push(feature._id);
-        await user.save()
-        res.status(200).json({ message: 'basic adding to favs' });
-    }
-   /*  if(user.liked.includes(feature._id)){
-        const updatedUser = await User.findByIdAndUpdate(
-            user._id,
-            { $pull: { watchlist: feature._id } },
-            {new: true }
-        );
-        
-        await updatedFeature.save();
-        await updatedUser.save();
-        
-        res.status(200).json({ message: 'adding as first watchlist in the feature' });
-    }
- */
-    /* const { title, featureId, type } = req.body;
-    const user = await User.findOne({ username: req.user.username }, '-password');
-    const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
-    const feature = await Feature.findById( findFeature._id );
+        const feature = await Feature.findById(findFeature._id);
+        if(!user.watchlist?.includes(feature._id)) {
+            //feature.liked.push(user._id);
+            console.log(feature)
+            user.watchlist.push(feature);
+            //await feature.save();
 
-    console.log(feature)
-    if(!feature) {
-        try{
-            const newFeature = new Feature({
-                title: title,
-                featureId: featureId,
-                type: type,
-                watchlist: user
-            });
+            await user.save()
+            res.status(200).json({ message: 'basic adding to favs' });
+        } else {
+            
+            /* const updatedFeature = await Feature.findByIdAndUpdate(
+                findFeature._id,
+                { $pull: { watchlist: user._id } },
+                { new: true }
+            ); */
+            const updatedUser = await User.findByIdAndUpdate(
+                user._id,
+                { $pull: { watchlist: feature._id } },
+                { new: true }
+            );
+            //console.log(updatedUser)
     
-            await newFeature.save();
-            user.watchlist.push(newFeature._id);
-            await user.save();
-            res.status(200).json({ message: 'created new feature in db and added to users watchlist' });
-        } catch(error) {
-            console.error("Error adding to Favorites:", error);
-            res.status(500).json({ error: "Internal Server Error" });
+            //await updatedFeature.save();
+            await updatedUser.save();
+            res.status(200).json({ message: 'adding as first liked in feature' });
         }
-        
-    } else if(!feature.watchlist){
-        console.log(feature)
-        feature.watchlist.push(user._id);
-        user.liked.push(feature);
-        await feature.save();
-        await user.save()
-        
-        
-        res.status(200).json({ message: 'added to existing watchlist' });
-
+    } catch{
+        console.error("Error writing new");
+        res.status(500).json({ error: "Internal Server Error" });
+    }
     } else {
-        const updatedFeature = await Feature.findByIdAndUpdate(
-            feature._id,
-            { $pull: { watchlist: user._id } },
-            {new: true }
-        );
-        
-        const updatedUser = await User.findByIdAndUpdate(
-            user._id,
-            { $pull: { watchlist: feature._id } },
-            {new: true }
-        );
-        
-        await updatedFeature.save();
-        await updatedUser.save();
-        
-        res.status(200).json({ message: 'adding as first watchlist in the feature' });
-    } */
+        try{
+            const newFeature = new Feature({
+                title: title,
+                featureId: featureId,
+                type: type,
+                watchlist: user
+            });
+    
+            await newFeature.save();
+            user.watchlist.push(newFeature._id);
+            await user.save();
+            res.status(200).json({ message: 'Creating feature and adding to liked' });
+        } catch(error) {
+            console.error("Error adding to Favorites:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    }
 }
 
 
 const followList = async (req, res, next) => {
     const userOnSite = await User.findOne({ username: req.user.username }, '-password');
     const userProfile = await User.findOne({ username: req.body.userProfile }, '-password');
-
-    if(!userOnSite){
+    
+    if(!userOnSite || userOnSite.username == userProfile.username){ 
         return res.status(401).json({ message: "Following user failed" });
     }
     
@@ -252,6 +210,12 @@ const followList = async (req, res, next) => {
         
         res.status(200).send({ message: 'Accepted', variable });
     };
+
+    const searchThruUsers = async (req, res) => {
+        const user = await User.moreLikeThis({ username: req.params.user})
+        console.log(user)
+        res.json('sup')
+    }
     
 
-module.exports = {signUpController, login, authUser, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList};
+module.exports = {signUpController, login, authUser, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList, searchThruUsers};

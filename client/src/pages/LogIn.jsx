@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { useUser } from "../components/UserContext";
-import GetUser from "../hooks/GetUser";
+
+export async function loader({request, params,}){
+  console.log('loader working') 
+}
 
 const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { setToken } = useUser();
-  
+  const { setCurrentUser } = useUser();
+  const location = useLocation();  
   const navigate = useNavigate()
 
   const handleUsernameChange = (e) => {
@@ -31,16 +34,21 @@ const LogIn = () => {
       });
 
       const data = await response.json();
-      //const user = await GetUser(data)
       
       if (response.ok) {
         localStorage.setItem("user", JSON.stringify(data));  
-        setToken(data);
-        navigate(`/`)
+        setCurrentUser(prevUser => ({
+          ...prevUser,
+          token: data
+      }))
+        //refreshUser();
+        
+        navigate(`/`)  
       } 
+      
 
     } catch (error) {
-      //console.error('Error occurred:', error);
+      console.error('Error occurred on login');
     }
     
   }

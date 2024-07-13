@@ -4,6 +4,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const bcrypt = require("bcryptjs");
 const verifyToken = require("../middleware/requireAuth");
+const useToken = require("../middleware/useAuth");
 
 router.get("/sign-up", (req, res) => res.render("./ejs/sign-up-form.ejs"));
 
@@ -25,11 +26,13 @@ router.get("/authuser", verifyToken, userController.authUser);
 router.get("/checkusers/:username", userController.checkUsers);
 
 router.get("/getcurrentuserinfo", verifyToken, userController.getCurrentUserInfo);
-router.get("/getUserProfile/:username", verifyToken, userController.getUserProfile);
+router.get("/getUserProfile/:username", useToken, userController.getUserProfile);
 
 router.post("add-fav", userController.addWatchList);
 router.post("/login", userController.login);
 router.patch("/followList", verifyToken, userController.followList);
 router.patch("/addtowatchList", verifyToken, userController.addToWatchList);
+
+router.get("/searchthruusers/:user", userController.searchThruUsers);
 
 module.exports = router;

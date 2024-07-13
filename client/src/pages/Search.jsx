@@ -7,15 +7,19 @@ import FavsBtn from "../components/FavsBtn";
 const SearchPage = () => {
     const [error, setError] = useState(false);
     const [movieInfo, setMovieInfo] = useState('');
+    const [searchInfo, setSearchInfo] = useState();
     const { code } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         let abortController = new AbortController();
 
-        async function getMovieInfo() {
-            let response = await ApiFunction(code, {
-            signal: abortController.signal,
+        async function getSearchInfo() {
+            let featureData,
+            userData;
+            try{
+                let response = await ApiFunction(code, {
+                signal: abortController.signal,
             });
 
             if (!response) {
@@ -23,13 +27,40 @@ const SearchPage = () => {
             }
         
             if(!abortController.signal.aborted) {
-                let data = await response;
-
-                setMovieInfo(data);
+                featureData = await response;
+            }    
+            } catch {
+                console.error("feature search did not run correctly");
             }
+
+            try{
+                let response = await fetch(`http://localhost:3000/searchthruusers/${code}`, {
+                    method: 'GET',
+                    header:{signal: abortController.signal,}
+                });
+    
+                if (!response) {
+                    setError(true); 
+                }
+            
+                if(!abortController.signal.aborted) {
+                    userData = await response.json();
+                }    
+             
+
+            } catch {
+                console.error("error using search for user");
+            }
+
+            setSearchInfo({
+                featureSearch: featureData,
+                //userSearch: userData
+            })
+            
         }
+
         if(code) {
-            getMovieInfo();
+            getSearchInfo();
         }
         return() => {
             abortController.abort();
@@ -43,8 +74,8 @@ const SearchPage = () => {
     }
 
     return ( 
-        <div>
-            {movieInfo.results && (movieInfo.results).map((movie, index) => {
+        <div>{console.log(searchInfo)}
+            {searchInfo?.featureSearch?.results && (searchInfo.featureSearch.results).map((movie, index) => {
             return (
                 <div id="movie-content" style={{display: 'flex'}} onClick={() => handleContentClick(movie)} key={index}>
                     <img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + movie.poster_path}></img>

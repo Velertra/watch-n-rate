@@ -1,4 +1,7 @@
+import { useUser } from "./UserContext";
+
 const CommentLikes = ({ comment }) => {
+    const { user } = useUser();
     const token = JSON.parse(localStorage.getItem("user"));
     
     const handlelikeBtn = async (e) => {
@@ -19,7 +22,7 @@ const CommentLikes = ({ comment }) => {
 
     return (
         <div id="rc-like-section">
-            <h6 onClick={handlelikeBtn}>like dis</h6>
+            {user && <h6 onClick={handlelikeBtn}>like dis</h6>}
             {comment && <h6>&#10084; {" " + comment.likes.length}</h6>}
         </div>
     );

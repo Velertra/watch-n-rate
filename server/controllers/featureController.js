@@ -82,16 +82,21 @@ const addToUserLiked = async(req, res, next) => {
     const { title, featureId, type } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
     const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
-console.log(findFeature)
+
+    
+
     if(findFeature) {
         try{
-        if(!findFeature.liked?.includes(user._id)) {
-            findFeature.liked.push(user._id);
-            user.liked.push(findFeature);
-            await findFeature.save();
+        const feature = await Feature.findById(findFeature._id);
+        if(!feature.liked?.includes(user._id)) {
+            console.log(feature)
+            feature.liked.push(user._id);
+            user.liked.push(feature);
+            await feature.save();
             await user.save()
             res.status(200).json({ message: 'basic adding to favs' });
         } else {
+            
             const updatedFeature = await Feature.findByIdAndUpdate(
                 findFeature._id,
                 { $pull: { liked: user._id } },
@@ -109,7 +114,7 @@ console.log(findFeature)
             res.status(200).json({ message: 'adding as first liked in feature' });
         }
     } catch{
-        console.error("Error writing new :", error);
+        console.error("Error writing new");
         res.status(500).json({ error: "Internal Server Error" });
     }
     } else {

@@ -7,11 +7,17 @@ const Review = ({ title, type, featureId }) => {
 
     function handleOnClick(){
         setReview(prevState => !prevState)
+        console.log(content)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-     
+      
+        /* const form = e.target;
+        const formData = new FormData(form);
+        const formJson = Object.fromEntries(formData.entries());
+        console.log(e.target[0].value); */
+
         try {
           const response = await fetch('http://localhost:3000/feature/addreview', {
             method: 'POST',
@@ -35,12 +41,21 @@ const Review = ({ title, type, featureId }) => {
          <button onClick={handleOnClick}>review</button>
         {review 
         && 
-        <form onSubmit={handleSubmit}>
-            <input 
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-            ></input>
-        </form>} 
+        <div id="review-input-container">
+          <div>&times;</div>
+          <form id="review-input" method="post" onSubmit={handleSubmit}>
+            <label>
+              <textarea
+                  defaultValue={'what do ya think?'}
+                  onChange={(e) => setContent(e.target.value)}
+                  rows={10}
+                  cols={50}
+              />
+            </label>
+            <button type="submit">Add Review</button>
+          </form> 
+        </div>}
+        
         </>
     );
 }

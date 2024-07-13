@@ -9,7 +9,6 @@ const Feature = () => {
     const { user } = useUser();
     const { featureInfo } = useFeature();
     
-    
     return ( 
         <>
             {featureInfo 
@@ -17,30 +16,35 @@ const Feature = () => {
             <>
             <FeatureHeaderImg 
                 featureImg={featureInfo.featureInfo.backdrop_path}
-            />{console.log(featureInfo)}
+            />
             </>}
              
-            {featureInfo 
+            {featureInfo
             && 
+            <>
             <FeatureDetails 
                 feature={featureInfo.credits}
                 details={featureInfo.featureInfo}
                 type={featureInfo.type}
-            />
+                user={user}
+            />{console.log(featureInfo)}
+            </>
             }
 
-            {featureInfo 
+            {featureInfo?.credits 
             && 
             <FeatureMetaData
                 feature={featureInfo.credits}
             />}
             <div id="feature-review-section">
-            {featureInfo 
+            {featureInfo?.reviews
             &&
+            <>
             <FeaturePageReviews
                 reviews={featureInfo.reviews.feature.reviews}
                 user={user}
-            />
+            />{console.log(featureInfo.reviews)}
+            </>
             }
             </div>
         </> 

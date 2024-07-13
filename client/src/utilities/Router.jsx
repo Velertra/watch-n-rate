@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ProtectedRoute from "../components/ProtectedRoute"
 import ErrorPage from "../pages/ErrorPage";
 import { loader as navBarLoader } from "../components/NavBar";
 import Header from "../components/header/MainHeaderBar";
@@ -27,7 +26,7 @@ const Router = () => {
                 { path:"search/:code", element: <Search /> },
                 { path:"sign-up", element: <SignUp /> },
                 { path:"logIn", element: <LogIn />},
-                { path: "profile/:userName", element:<Profile />},
+                { path: "profile/:profileName", element:<Profile key={Math.random()}/>},
                 { path: "/feature/:content", element: <FeatureProvider key={Math.random()}><Feature /></FeatureProvider>},
                 { path: "/review/:mongoId", element: <FeatureProvider key={Math.random()}><FeatureReview /></FeatureProvider> },
                 { path: "review", element: <Reviews />},

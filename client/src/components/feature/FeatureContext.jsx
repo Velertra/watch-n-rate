@@ -6,10 +6,6 @@ const FeatureContext = createContext();
 
 export const FeatureProvider = ({ children }) => {
     const [featureInfo, setFeatureInfo] = useState(null);
-    //const [credits, setCredits] = useState(null);
-    //const [singleReview, setSingleReview] = useState(null);
-    //const [reviews, setReviews] = useState(null);
-    //const [type, setType] = useState(null);
     const featureParams = useParams();
     
     useEffect(() => {
@@ -25,37 +21,37 @@ export const FeatureProvider = ({ children }) => {
                 
                 try {
                     const featureDeets = await FullDetails(type, id);
-                    
                     featureInfo = featureDeets;
+
                 } catch {
-                    
                     console.error('accessing feature details is not working');
                     null
+
                 }
                 try {
                     const featureReviews = await fetch(`http://localhost:3000/feature/getfeaturereviews/?type=${type}&featureId=${id}`, {
                         method: 'GET',
                     });
                     const reviewData = await featureReviews.json();
-                    console.log(typeof reviewData)
                     reviews = reviewData;
+
                 } catch {
                     console.error('accessing feature reviews is not working');
                     null
                 }
                 try {
                     const featureCreds = await GetCredits(type, id);
-                    //const testTwo = await featureCreds.json();
-                    console.log(typeof featureCreds)
                     credits =  featureCreds;
+
                 } catch {
                     console.error('accessing feature credits is not working');
                     null
                 }
 
-                setFeatureInfo( {featureInfo, credits,  reviews})
+                setFeatureInfo( {featureInfo, credits,  reviews, type})
 
             } else {
+
                 let type,
                 featureId;
 

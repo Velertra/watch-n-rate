@@ -11,26 +11,32 @@ const HomePage = () => {
     const { popular, recentReviews, upcoming } = useHomePage();
     const navigate = useNavigate();
     const [bgNumber, setBgNumber] = useState();
-    const { user } = useUser();
+    const { currentUser } = useUser();
+    console.log(currentUser)
 
     useEffect(() => {
-        function bgNumber(){
-            const number = Math.floor(Math.random() * 18);
-            return number;
-        }
+       
 
-        return () => {
-            //refreshUser()
-            const rand = bgNumber()
-            setBgNumber(rand);
-        } 
-    },[upcoming]);
+            function bgNumber(){
+                const number = Math.floor(Math.random() * 6);
+                if(number == 0){
+                    return number + 1;
+                } else {
+                    return number
+                }
+            }
+    
+            return () => {
+                const rand = bgNumber()
+                setBgNumber(rand);
+            }
+    },[]);
     
     return ( 
         <>
             <div id="header-img-container">
                 {/* header image, change number to pick */}
-                {upcoming && (bgNumber >= 0) && <img id="header-img" src={"http://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
+                {upcoming && bgNumber && <img id="header-img" src={"http://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
                 <div id="head-img-overlay"></div>
             </div>
             <div id="header-content-container"></div>

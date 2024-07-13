@@ -32,13 +32,15 @@ const NavBar = () => {
     return ( 
       <>
           <nav>
+            {console.log(user)}
+            {console.log}
             <ul style={{display:"flex",gap:"10px", listStyleType: "none"}}>
               <li><NavLink to="/">home</NavLink></li>
               {!user && <li><NavLink to="login">login</NavLink></li>}
               {!user && <li><NavLink to="sign-up">sign-up</NavLink></li>}
-              {user &&<li><NavLink to="review">reviews</NavLink></li>}
-              {user && user.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>profile</NavLink></li>}
-              {user && <li><LogOut /></li>}
+              {user?.currentUser &&<li><NavLink to="review">reviews</NavLink></li>}
+              {user?.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>profile</NavLink></li>}
+              {user?.currentUser && <li><LogOut /></li>}
             </ul>
           </nav>
       </>

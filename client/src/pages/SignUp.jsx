@@ -1,9 +1,17 @@
 import { useEffect, useState } from 'react';
+import { useUser } from '../components/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const { setToken } = useUser();
+  const navigate = useNavigate();
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
   const handleUsernameChange = async (e) => {
     setUsername(e.target.value);
@@ -17,35 +25,17 @@ const SignUp = () => {
             method: 'GET'
         });
 
-        const data = await response.json();
-        console.log(data);
+        if(response.ok){
+          const data = await response.json();
+          
+        }
+        
 
       } catch (error) {
           console.error('Error fetching user data:', error);
       }
     }
 };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-
-  };
-
- /*  useEffect(() => {
-    async function checkUsers() {
-      const response = await fetch(`http://localhost:3000/checkusers/${username}`, {
-        method: 'GET'
-      })
-
-      const data = response.json();
-      //setloading(() => data);
-    }
-
-    return () => {
-      
-      checkUsers()
-    }
-  }, [username]) */
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,6 +53,9 @@ const SignUp = () => {
       console.log(data)
       
       if (response.ok) {
+        localStorage.setItem("user", JSON.stringify(data));
+        setToken(data);
+        navigate('/');
         // Success, do something here
         //console.log('User signed up successfully');
       } else {

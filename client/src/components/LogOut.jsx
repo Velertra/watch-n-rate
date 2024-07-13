@@ -2,12 +2,16 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useUser } from "./UserContext";
 
 const LogOut = () => {
-    const { setUser } = useUser();
+    const { setCurrentUser } = useUser();
     const navigate = useNavigate();
 
     const handleLogOutClick = () => {
         localStorage.removeItem('user')
-        setUser(null)
+        setCurrentUser({
+            currentUser: null,
+            token: null
+        })
+        //refreshUser();
         navigate('/')
     }
 

@@ -11,11 +11,11 @@ const FeatureReview = () => {
     
     return (
       <>
-        {featureInfo 
+        {/* {featureInfo 
         && 
         <FeatureHeaderImg 
             featureImg={featureInfo.featureInfo.backdrop_path}
-        />}
+        />} */}
         <div id="feature-info">
             {featureInfo?.reviews && 
             <> 

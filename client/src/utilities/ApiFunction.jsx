@@ -26,7 +26,7 @@ export async function Upcoming(){
     /* const movieTitle = "star%20wars" */
 
     const response = await fetch(
-        `https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/upcoming?include_adult=false&language=en-US&page=1&region=US`,
         {
             method: 'GET',
             headers: {
@@ -37,6 +37,7 @@ export async function Upcoming(){
     )
         if (response.ok) {
             const data = await response.json();
+            
             return data;
             
         } else {

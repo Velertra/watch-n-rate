@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import FeatureIcon from "../components/FeatureIcon";
 import FollowBtn from "../components/FollowBtn";
 import Followers from "../components/Followers";
 import Following from "../components/Following";
+import { useUser } from "../components/UserContext";
+
+
 
 const Profile = () => {
-    const { userName } = useParams();
-    const [user, setUser] = useState();
+    const { profileName } = useParams();
+    const { user } = useUser();
+    const location = useLocation();
+    const [userProfile, setUserProfile] = useState();
 
     useEffect(() => {
       const token = JSON.parse(localStorage.getItem("user"));
-
+      
         async function getUser(){
-          const response = await fetch(`http://localhost:3000/getUserProfile/${userName}`, {
+          console.log(profileName)
+          const response = await fetch(`http://localhost:3000/getUserProfile/${profileName}`, {
             method: 'GET',
             headers: {
-              Authorization: `Bearer ${token.token}`
+              Authorization: `Bearer ${token?.token}`
             },
           });
 
@@ -26,35 +32,37 @@ const Profile = () => {
           }
 
           let userInfo = await response.json();
-          console.log(userInfo)
-          setUser(() => userInfo);
+          
+          setUserProfile(() => userInfo);
         }
 
         return async() => {
           getUser();
         } 
 
-    }, [])
+    }, [profileName, user])
 
     return ( 
         <>
-        {user 
+        {userProfile 
         &&
         (
-          <div>
-            <h1>{user.profileUser.username},s profile</h1>
+          <div>{console.log(user)}
+            <h1>{userProfile.profileUser.username + "'s profile"}</h1>
+            {user?.currentUser.username !== userProfile.profileName?.username
+            &&
             <FollowBtn 
-              userProfile={userName}
-            />
+              userProfile={userProfile.profileUser.username}
+            />}
             <Followers 
-              followers={user.profileUser.followers.length}
+              followers={userProfile.profileUser.followers.length}
             />
             <Following 
-              following={user.profileUser.following.length}
+              following={userProfile.profileUser.following.length}
             />
             {}
             
-            {user.profileUser.liked.map((feature, index) => (
+            {userProfile.profileUser.liked.map((feature, index) => (
               <FeatureIcon 
                 key={index}
                 type={feature.type}
@@ -62,7 +70,7 @@ const Profile = () => {
               />
           ))}
           <div>watchlist</div>
-          {user.profileUser.watchlist.map((feature, index) => (
+          {userProfile.profileUser.watchlist.map((feature, index) => (
               <FeatureIcon 
                 key={index}
                 type={feature.type}

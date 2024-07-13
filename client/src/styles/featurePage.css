@@ -60,6 +60,29 @@
 
 #feature-review-section{
     width: 600px;
+    
+}
+
+
+/* REVIEW INPUT */
+#review-input-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    min-height: 100%;
+    opacity: 0.9;
+    background-color:  black;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#review-input{
+    display: flex;
+    flex-direction: column;
+    
 }
 
 

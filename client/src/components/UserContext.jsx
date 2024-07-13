@@ -3,8 +3,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(JSON.parse(localStorage.getItem("user")));
+    const [currentUser, setCurrentUser] = useState( {'currentUser': null, 'token': JSON.parse(localStorage.getItem("user"))});
+    
+    
 
     useEffect(() => {
         async function getData(){
@@ -12,30 +13,31 @@ export const UserProvider = ({ children }) => {
                 const response = await fetch(`http://localhost:3000/getcurrentuserinfo`, {
                     method: 'GET',
                     headers: {
-                        Authorization: `Bearer ${token.token}`
+                        Authorization: `Bearer ${currentUser.token.token}`
                     },
                 });
-                
                 if (response.ok) {
                     const data = await response.json();
-                    setUser(data);
+                    
+    
+                    setCurrentUser(prevUser => ({
+                        ...prevUser,
+                        currentUser: data
+                    }))
                 }
             } catch {
-                setUser(null);
+                setCurrentUser(null);
                 console.error('Failed to fetch user data');
             }
         }
 
-        return() => {
-            if(token){
-                getData();
-            }
-            
-        }
-    }, [token])
+      return() => {
+        getData();
+      }
+    }, [currentUser?.token?.token])
     
     return (
-        <UserContext.Provider value={{ user, setUser, token, setToken }}>
+        <UserContext.Provider value={{ user: currentUser?.currentUser , setCurrentUser, }}>
             { children }
         </UserContext.Provider>
     );

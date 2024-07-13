@@ -2,7 +2,8 @@ import FavsBtn from "../FavsBtn";
 import Review from "../Review";
 import WatchList from "../WatchList";
 
-const FeatureDetails = ({feature, details, type}) => {
+const FeatureDetails = ({ feature, details, type, user }) => {
+
     return (
         
             <div id="details-content" style={{display: 'flex'}}>
@@ -19,6 +20,8 @@ const FeatureDetails = ({feature, details, type}) => {
                         <p>{details.tagline}</p>
                         <p style={{fontSize: '1.5vh'}}>{details.overview}</p>
                     </div>
+                {user 
+                &&
                 <div id="fp-btns">
                     <FavsBtn
                             title={details.title || details.name}
@@ -29,13 +32,13 @@ const FeatureDetails = ({feature, details, type}) => {
                         title={details.title || details.name}
                         type={type}
                         featureId={details.id}
-                    />
+                    />{console.log(type)}
                     <Review 
                         title={details.title || details.name}
                         type={type}
                         featureId={details.id}
                     />
-                </div>
+                </div>}
             </div>
     );
 }
