@@ -45,8 +45,8 @@ const SearchPage = () => {
             
                 if(!abortController.signal.aborted) {
                     userData = await response.json();
-                }    
-             
+                    console.log(userData.user)
+                }
 
             } catch {
                 console.error("error using search for user");
@@ -54,7 +54,7 @@ const SearchPage = () => {
 
             setSearchInfo({
                 featureSearch: featureData,
-                //userSearch: userData
+                userSearch: userData?.user
             })
             
         }
@@ -69,12 +69,24 @@ const SearchPage = () => {
 
 
     function handleContentClick(agent) {
-        console.log(agent.title || agent.name)
         navigate(`/feature/${(agent.media_type || agent.media_type)+ - + agent.id}`)
     }
 
     return ( 
-        <div>{console.log(searchInfo)}
+        <div>
+            {searchInfo?.userSearch
+            &&
+            <div onClick={() => navigate(`/profile/${searchInfo.userSearch?.username}`)}>
+                <h3>{searchInfo.userSearch?.username}</h3>
+                <div id="sp-content">
+                    <div>recent likes</div>
+                {searchInfo.userSearch?.liked.map((like, index) => (
+                    <div key={index}>
+                        <h6>{like.title}</h6>
+                    </div>
+                ))}
+                </div>
+            </div>}
             {searchInfo?.featureSearch?.results && (searchInfo.featureSearch.results).map((movie, index) => {
             return (
                 <div id="movie-content" style={{display: 'flex'}} onClick={() => handleContentClick(movie)} key={index}>

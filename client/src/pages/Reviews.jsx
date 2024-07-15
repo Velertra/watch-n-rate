@@ -15,6 +15,7 @@ const Reviews = () => {
           <h2>reviews</h2>
           {user && user.currentUser.reviews.map((review, index) => (
             <div key={index} id="rp-r">
+              {console.log(user)}
                 <FeatureIcon 
                   id={review.feature[0].featureId}
                   type={review.feature[0].type}

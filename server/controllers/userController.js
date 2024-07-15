@@ -85,8 +85,16 @@ const getUserProfile = async (req, res, next) => {
             { path: 'liked' },
             { path: 'reviews' }, 
             { path: 'watchlist' },
-            { path: 'followers' },
-            { path: 'following' },
+            { path: 'followers' , 
+                populate: {
+                    path: 'liked',
+                }
+             },
+            { path: 'following' , 
+                populate: {
+                    path: 'liked',
+                }
+             },
         ]
     );
 
@@ -176,7 +184,8 @@ const addToWatchList = async(req, res, next) => {
 
 const followList = async (req, res, next) => {
     const userOnSite = await User.findOne({ username: req.user.username }, '-password');
-    const userProfile = await User.findOne({ username: req.body.userProfile }, '-password');
+    const userProfile = await User.findOne({ username: req.body.userName }, '-password');
+    
     
     if(!userOnSite || userOnSite.username == userProfile.username){ 
         return res.status(401).json({ message: "Following user failed" });
@@ -212,9 +221,22 @@ const followList = async (req, res, next) => {
     };
 
     const searchThruUsers = async (req, res) => {
-        const user = await User.moreLikeThis({ username: req.params.user})
-        console.log(user)
-        res.json('sup')
+        const user = await User.findOne( { username: req.params.user } , '-password').populate(
+            [
+                { path: 'liked' },
+                { path: 'reviews', 
+                    populate: {
+                        path: 'feature',
+                    }
+                 },
+            ]
+        )
+
+        if(!user) {
+            return res.status(400).json({ message: "search found no profiles."})
+        } else {
+            res.json({ user })
+        }
     }
     
 

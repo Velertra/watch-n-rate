@@ -1,8 +1,18 @@
+import { useState } from "react";
+import { useUser } from "./UserContext";
+
 const ReviewLikes = ({ review }) => {
+    const { user } = useUser();
+    const [likes, setLikes] = useState(review.likes.length);
+    const [isLiked, setIsLiked] = useState(review.likes.includes(user?.currentUser._id));
     const token = JSON.parse(localStorage.getItem("user"));
     
     const handlelikeBtn = async (e) => {
         e.stopPropagation();
+
+        const likeAmount = isLiked ? likes - 1 : likes + 1;
+        setLikes(() => likeAmount);
+        setIsLiked(!isLiked)
 
         const response = await fetch(`http://localhost:3000/reviewlike`, {
             method: 'PATCH',
@@ -14,13 +24,18 @@ const ReviewLikes = ({ review }) => {
         });
     
         const data = await response.json();
-        console.log(data)
     }
 
     return (
         <>
-            <h6 onClick={handlelikeBtn}>like dis</h6>
-            {review && <div id="like-section"><h6>&#10084; {" " + review.likes.length} likes</h6></div>}
+            <h6 id="like-btn" onClick={handlelikeBtn}>
+                {isLiked ? 'Unlike' : 'Like'}
+            </h6>
+            <div id="like-section">
+                <h6 style={{color: isLiked ? 'red' : ''}}>
+                    &#10084; {likes} likes
+                </h6>
+            </div>
         </>
     );
 }

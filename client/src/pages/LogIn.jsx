@@ -23,7 +23,7 @@ const LogIn = () => {
 
   const handleLogIn = async (e) => {
     e.preventDefault();
-
+/* eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlciIsImlhdCI6MTcyMDgyMDcwNywiZXhwIjoxNzIwODQ1OTA3fQ.Q5Jop2NaIT6IV1op1VFpE50PugZC0PE77WYYUZ-EPH0 */
     try {
       const response = await fetch('http://localhost:3000/login', {
         method: 'POST',

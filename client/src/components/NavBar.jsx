@@ -32,8 +32,6 @@ const NavBar = () => {
     return ( 
       <>
           <nav>
-            {console.log(user)}
-            {console.log}
             <ul style={{display:"flex",gap:"10px", listStyleType: "none"}}>
               <li><NavLink to="/">home</NavLink></li>
               {!user && <li><NavLink to="login">login</NavLink></li>}

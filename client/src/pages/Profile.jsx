@@ -5,20 +5,20 @@ import FollowBtn from "../components/FollowBtn";
 import Followers from "../components/Followers";
 import Following from "../components/Following";
 import { useUser } from "../components/UserContext";
+import DisplayFollows from "../components/Profile/DisplayFollows";
 
 
 
 const Profile = () => {
+  const [userProfile, setUserProfile] = useState();
+  
     const { profileName } = useParams();
     const { user } = useUser();
-    const location = useLocation();
-    const [userProfile, setUserProfile] = useState();
 
     useEffect(() => {
       const token = JSON.parse(localStorage.getItem("user"));
       
         async function getUser(){
-          console.log(profileName)
           const response = await fetch(`http://localhost:3000/getUserProfile/${profileName}`, {
             method: 'GET',
             headers: {
@@ -32,7 +32,6 @@ const Profile = () => {
           }
 
           let userInfo = await response.json();
-          
           setUserProfile(() => userInfo);
         }
 
@@ -47,20 +46,12 @@ const Profile = () => {
         {userProfile 
         &&
         (
-          <div>{console.log(user)}
+          <div>
+            {console.log(userProfile.profileUser)}
             <h1>{userProfile.profileUser.username + "'s profile"}</h1>
-            {user?.currentUser.username !== userProfile.profileName?.username
-            &&
-            <FollowBtn 
-              userProfile={userProfile.profileUser.username}
-            />}
-            <Followers 
-              followers={userProfile.profileUser.followers.length}
+            <DisplayFollows
+              users={userProfile}
             />
-            <Following 
-              following={userProfile.profileUser.following.length}
-            />
-            {}
             
             {userProfile.profileUser.liked.map((feature, index) => (
               <FeatureIcon 

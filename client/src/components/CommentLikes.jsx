@@ -1,11 +1,18 @@
+import { useState } from "react";
 import { useUser } from "./UserContext";
 
 const CommentLikes = ({ comment }) => {
     const { user } = useUser();
+    const [likes, setLikes] = useState(comment.likes.length);
+    const [isLiked, setIsLiked] = useState(comment.likes.includes(user?.currentUser._id));
     const token = JSON.parse(localStorage.getItem("user"));
     
     const handlelikeBtn = async (e) => {
         e.stopPropagation();
+
+        const likeAmount = isLiked ? likes - 1 : likes + 1;
+        setLikes(() => likeAmount);
+        setIsLiked(!isLiked)
 
         const response = await fetch(`http://localhost:3000/CommentLike`, {
             method: 'PATCH',
@@ -22,8 +29,14 @@ const CommentLikes = ({ comment }) => {
 
     return (
         <div id="rc-like-section">
-            {user && <h6 onClick={handlelikeBtn}>like dis</h6>}
-            {comment && <h6>&#10084; {" " + comment.likes.length}</h6>}
+            <h6 id="like-btn" onClick={handlelikeBtn}>
+                {isLiked ? 'Unlike' : 'Like'}
+            </h6>
+            <div id="like-section">
+                <h6 style={{color: isLiked ? 'red' : ''}}>
+                    &#10084; {likes} likes
+                </h6>
+            </div>
         </div>
     );
 }

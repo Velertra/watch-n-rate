@@ -1,22 +1,21 @@
 import { useState } from "react";
+import { useFeature } from "./feature/FeatureContext";
+import { useUser } from "./UserContext";
+import { Navigate } from "react-router-dom";
 
 const Review = ({ title, type, featureId }) => {
     const [review, setReview] = useState(false)
     const [content, setContent] = useState('');
+    const { featureInfo, setFeatureInfo } = useFeature();
+    const { user } = useUser()
     const token = JSON.parse(localStorage.getItem("user"));
 
     function handleOnClick(){
-        setReview(prevState => !prevState)
-        console.log(content)
+        setReview(prevState => !prevState);
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-      
-        /* const form = e.target;
-        const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(e.target[0].value); */
 
         try {
           const response = await fetch('http://localhost:3000/feature/addreview', {
@@ -27,12 +26,14 @@ const Review = ({ title, type, featureId }) => {
             },
             body: JSON.stringify({ content, title, type, featureId }),
           });
-    
+
           const data = await response.json();
-          
+  
+          window.location.reload();
           
         } catch (error) {
           console.error('Error occurred:', error);
+          
         }
       };
 
@@ -42,6 +43,7 @@ const Review = ({ title, type, featureId }) => {
         {review 
         && 
         <div id="review-input-container">
+          {console.log(featureInfo)}
           <div>&times;</div>
           <form id="review-input" method="post" onSubmit={handleSubmit}>
             <label>

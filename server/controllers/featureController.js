@@ -7,9 +7,11 @@ const addReview = async (req, res) => {
     const { content, title, type, featureId } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
     const feature = await Feature.findOne({ title: title }).populate('reviews');
+    
+    
     const newReview = new Review({
         author: user,
-        content: content,
+        content: (content || " "),
         timestamp: new Date()
     });
         

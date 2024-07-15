@@ -26,6 +26,8 @@ const EditComment = ({ comment }) => {
             },
             body: JSON.stringify({ text }),
         });
+
+        window.location.reload();
     }
 
     return (

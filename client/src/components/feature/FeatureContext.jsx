@@ -47,11 +47,9 @@ export const FeatureProvider = ({ children }) => {
                     console.error('accessing feature credits is not working');
                     null
                 }
-
-                setFeatureInfo( {featureInfo, credits,  reviews, type})
+                setFeatureInfo({ featureInfo, setFeatureInfo, credits,  reviews, type})
 
             } else {
-
                 let type,
                 featureId;
 

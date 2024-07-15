@@ -4,6 +4,8 @@
 @import "featureReview";
 @import "login";
 @import "featurePage";
+@import "searchPage";
+@import "profilePage";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -7,6 +7,7 @@ import { useUser } from "./UserContext";
 const ReviewComments = ({ review }) => {
     const [text, setText] = useState('');
     const [comments, setComments] = useState(null);
+    const [reviewComments, setReviewComments] = useState();
     const token = JSON.parse(localStorage.getItem("user"));
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
     const { title } = useParams();
@@ -44,6 +45,8 @@ const ReviewComments = ({ review }) => {
     
     const handleAddComment = async (e) => {
         e.preventDefault();
+
+        
         
         const response = await fetch('http://localhost:3000/addcomment', {
             method: 'POST',
@@ -53,11 +56,16 @@ const ReviewComments = ({ review }) => {
             },
             body: JSON.stringify({ title, text, featureId: review.feature[0].featureId, featureMongoId: review.feature[0]._id, reviewId: review._id }),
         });
+        //console.log(newComment)
+        window.location.reload();
+        
         setText('')
       }
+    
+    const handleDeleteBtn = async (comment) => {
+        const newComment = comments.filter((spot, index) => spot._id !== comment)
 
-      const handleEditBtn = async (commentId) => {
-        const response = await fetch(`http://localhost:3000/editcomment/${commentId}`, {
+        const response = await fetch(`http://localhost:3000/deletecomment/${comment}`, {
             method: 'DELETE',
             headers: {
             Authorization: `Bearer ${token.token}`
@@ -65,17 +73,8 @@ const ReviewComments = ({ review }) => {
         });
     
         const data = await response.json();
-    }
-    
-    const handleDeleteBtn = async (commentId) => {
-        const response = await fetch(`http://localhost:3000/deletecomment/${commentId}`, {
-            method: 'DELETE',
-            headers: {
-            Authorization: `Bearer ${token.token}`
-            },
-        });
-    
-        const data = await response.json();
+        console.log(newComment)
+        setComments(() => newComment)
     }
 
     return (
@@ -83,7 +82,7 @@ const ReviewComments = ({ review }) => {
             {comments && comments.length !== 0 
             && 
             comments.map((comment, index) => (
-                <div id="rc-container" key={index}>
+                <div id="rc-container" key={index}>{console.log(reviewComments)}
                     <div id="rc-content">
                         <h4 id="rc-c-user">{comment.user[0].username}</h4>
                         <p id="rc-c-comment">{comment.comment}</p>

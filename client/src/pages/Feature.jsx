@@ -27,7 +27,7 @@ const Feature = () => {
                 details={featureInfo.featureInfo}
                 type={featureInfo.type}
                 user={user}
-            />{console.log(featureInfo)}
+            />
             </>
             }
 
@@ -43,7 +43,7 @@ const Feature = () => {
             <FeaturePageReviews
                 reviews={featureInfo.reviews.feature.reviews}
                 user={user}
-            />{console.log(featureInfo.reviews)}
+            />
             </>
             }
             </div>

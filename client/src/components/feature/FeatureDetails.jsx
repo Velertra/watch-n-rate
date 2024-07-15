@@ -32,7 +32,7 @@ const FeatureDetails = ({ feature, details, type, user }) => {
                         title={details.title || details.name}
                         type={type}
                         featureId={details.id}
-                    />{console.log(type)}
+                    />
                     <Review 
                         title={details.title || details.name}
                         type={type}

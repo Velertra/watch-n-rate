@@ -12,7 +12,6 @@ const HomePage = () => {
     const navigate = useNavigate();
     const [bgNumber, setBgNumber] = useState();
     const { currentUser } = useUser();
-    console.log(currentUser)
 
     useEffect(() => {
        
