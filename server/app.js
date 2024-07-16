@@ -81,7 +81,7 @@ app.use(session({ secret: "dogs", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
-  origin: process.env.PROD_ENV === 'production' ? '' : 'http://localhost:5173',
+  origin: process.env.PROD_ENV === 'production' ? 'https://watch-n-rate.vercel.app' : 'http://localhost:5173',
   methods: ["GET", "POST", "PUT", "PATCH","DELETE"]
 }))
 
