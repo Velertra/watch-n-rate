@@ -11,7 +11,6 @@ import Feature from "../pages/Feature";
 import LogIn from "../pages/LogIn";
 import Reviews from "../pages/Reviews";
 import FeatureReview from "../pages/FeatureReview";
-import { UserProvider } from "../components/UserContext";
 import { FeatureProvider } from "../components/feature/FeatureContext";
 import { HomePageProvider } from "../components/HomePageContext";
 /* figure it out (ScrollToTop) */
@@ -20,7 +19,7 @@ import { HomePageProvider } from "../components/HomePageContext";
 const Router = () => {
 
     const router = createBrowserRouter([
-        { path: "/", element: <UserProvider><HomePageProvider><Header /></HomePageProvider></UserProvider> , errorElement: <ErrorPage />, loader: navBarLoader,
+        { path: "/", element: <HomePageProvider><Header /></HomePageProvider> , errorElement: <ErrorPage />, loader: navBarLoader,
             children: [
                 { index: true, element: <HomePage /> },
                 { path:"search/:code", element: <Search /> },
