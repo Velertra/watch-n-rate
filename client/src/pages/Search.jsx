@@ -91,7 +91,7 @@ const SearchPage = () => {
             {searchInfo?.featureSearch?.results && (searchInfo.featureSearch.results).map((movie, index) => {
             return (
                 <div id="movie-content" style={{display: 'flex'}} onClick={() => handleContentClick(movie)} key={index}>
-                    <img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + movie.poster_path}></img>
+                    <img style={{width: '15vh'}} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}></img>
                     <div id="movie-details">
                         <ul key={index}>
                             <li>
