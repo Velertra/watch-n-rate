@@ -65,7 +65,10 @@ app.set("view engine", "ejs");
 app.use(session({ secret: "dogs", resave: false, saveUninitialized: false }));
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-app.use('*', cors())
+app.use(cors({
+  origin: process.env.PROD_ENV === 'production' ? '' : 'http://localhost:5173',
+  methods: ["GET", "POST"]
+}))
 
 app.use("/", userRoute);
 app.use("/", reviewRouter);
