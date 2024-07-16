@@ -66,7 +66,7 @@ const ReviewComments = ({ review }) => {
     const handleDeleteBtn = async (comment) => {
         const newComment = comments.filter((spot, index) => spot._id !== comment)
 
-        const response = await fetch(`http://localhost:3000/deletecomment/${comment}`, {
+        const response = await fetch(`${url}/deletecomment/${comment}`, {
             method: 'DELETE',
             headers: {
             Authorization: `Bearer ${token.token}`
