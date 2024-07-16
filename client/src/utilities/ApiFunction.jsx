@@ -1,5 +1,7 @@
+const apiKey = import.meta.env.VITE_REACT_APP_WATCHNRATE;
+
 export async function ApiFunction(movieTitle){
-    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+     
     /* const movieTitle = "star%20wars" */
 
     const response = await fetch(
@@ -21,8 +23,10 @@ export async function ApiFunction(movieTitle){
         }
 }
 
+const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 export async function Upcoming(){
-    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+     
     /* const movieTitle = "star%20wars" */
 
     const response = await fetch(
@@ -46,8 +50,10 @@ export async function Upcoming(){
 
 }
 
+const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 export async function PopularTv(){
-    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+     
 
     const url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
     const options = {
@@ -67,8 +73,10 @@ export async function PopularTv(){
     }
 }
 
+const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 export async function PopularMovies(){
-    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+     
 
     const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
     const options = {
@@ -88,8 +96,10 @@ export async function PopularMovies(){
     }
 }
 
+const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 export async function FullDetails(type, id){
-    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+     
 
     const response = await fetch(
         `https://api.themoviedb.org/3/${type}/${id}?language=en-US`,
@@ -110,8 +120,10 @@ export async function FullDetails(type, id){
         }
 }
 
+const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 export async function MovieImages(id){
-    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
+     
 
     const response = await fetch(
         `https://api.themoviedb.org/3/movie/${id}/images?include_image_language=en`,
@@ -132,8 +144,10 @@ export async function MovieImages(id){
         }
 }
 
+const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 export async function GetCredits(type, id){
-    const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+    
 
     const response = await fetch(
         `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
