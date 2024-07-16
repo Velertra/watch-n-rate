@@ -23,7 +23,7 @@ export async function ApiFunction(movieTitle){
         }
 }
 
-const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 
 export async function Upcoming(){
      
@@ -50,7 +50,7 @@ export async function Upcoming(){
 
 }
 
-const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 
 export async function PopularTv(){
      
@@ -73,7 +73,7 @@ export async function PopularTv(){
     }
 }
 
-const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 
 export async function PopularMovies(){
      
@@ -96,7 +96,7 @@ export async function PopularMovies(){
     }
 }
 
-const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 
 export async function FullDetails(type, id){
      
@@ -120,7 +120,7 @@ export async function FullDetails(type, id){
         }
 }
 
-const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 
 export async function MovieImages(id){
      
@@ -144,7 +144,7 @@ export async function MovieImages(id){
         }
 }
 
-const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey;
+
 
 export async function GetCredits(type, id){
     
