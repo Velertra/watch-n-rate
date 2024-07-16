@@ -18,10 +18,25 @@ const verifyToken = require("./middleware/requireAuth");
 
 require('dotenv').config()
 
-const mongoDb = process.env.DATABASE_URI;
-mongoose.connect(mongoDb);
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "mongo connection error"));
+const mongoURI = process.env.DATABASE_URI;
+
+async function mongoDb(){
+  try{
+    await mongoose.connect(mongoURI)
+    const db = mongoose.connection;
+
+    db.on("error", (error) => {
+      console.error("MongoDb connection error:", error);
+    });
+    db.once("open", () => {
+      console.log("Connected to MongoDb!");
+    })
+  } catch(error) {
+    console.error("Error connection to MongoDB", error);
+  }
+}
+
+mongoDb()
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
