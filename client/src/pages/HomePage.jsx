@@ -35,7 +35,7 @@ const HomePage = () => {
         <>
             <div id="header-img-container">
                 {/* header image, change number to pick */}
-                {upcoming && bgNumber && <img id="header-img" src={"http://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
+                {upcoming && bgNumber && <img id="header-img" src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
                 <div id="head-img-overlay"></div>
             </div>
             <div id="header-content-container"></div>

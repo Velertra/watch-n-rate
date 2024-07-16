@@ -8,7 +8,7 @@ const FeatureDetails = ({ feature, details, type, user }) => {
         
             <div id="details-content" style={{display: 'flex'}}>
                 <div id="feature-poster">
-                    <img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + details.poster_path}></img>
+                    <img style={{width: '15vh'}} src={"https://image.tmdb.org/t/p/w500" + details.poster_path}></img>
                 </div>
                 <div id="feature-details">
                     <div id="fp-title">
