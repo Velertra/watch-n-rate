@@ -3,7 +3,6 @@ import NavBar from "../NavBar";
 import SearchBar from "../SearchBar";
 
 const Header = () => {
-    const { movies, movieImg } = useLoaderData();
 
     return (
         <>
