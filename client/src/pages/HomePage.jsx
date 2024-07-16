@@ -1,5 +1,5 @@
 import FeatureIcon from "../components/FeatureIcon";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ReviewLikes from "../components/ReviewLikes";
 import { useContext, useEffect, useState } from "react";
 import { useHomePage } from "../components/HomePageContext";

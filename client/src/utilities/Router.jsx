@@ -1,6 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "../pages/ErrorPage";
-import { loader as navBarLoader } from "../components/NavBar";
 import Header from "../components/header/MainHeaderBar";
 import Search from "../pages/Search";
 import HomePage from "../pages/HomePage";
@@ -19,7 +18,7 @@ import { HomePageProvider } from "../components/HomePageContext";
 const Router = () => {
 
     const router = createBrowserRouter([
-        { path: "/", element: <HomePageProvider><Header /></HomePageProvider> , errorElement: <ErrorPage />, loader: navBarLoader,
+        { path: "/", element: <HomePageProvider><Header /></HomePageProvider> , errorElement: <ErrorPage />,
             children: [
                 { index: true, element: <HomePage /> },
                 { path:"search/:code", element: <Search /> },
