@@ -1,18 +1,20 @@
-const DeleteReview = ({ review }) => {
+const DeleteReview = ({ review, remove }) => {
     const token = JSON.parse(localStorage.getItem("user"));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
 
     const handleDelBtn = async (e) => {
         e.preventDefault()
 
-        const response = await fetch(`http://localhost:3000/deletereview/${review._id}`, {
+        const response = await fetch(`${url}/deletereview/${review._id}`, {
             method: 'DELETE',
             headers: {
             Authorization: `Bearer ${token.token}`
             },
         });
+        
+        remove(review);
     
         const data = await response.json();
-        console.log(data)
     }
 
     return (

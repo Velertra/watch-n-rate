@@ -4,13 +4,13 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState( {'currentUser': null, 'token': JSON.parse(localStorage.getItem("user"))});
-    
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     
 
     useEffect(() => {
         async function getData(){
             try{
-                const response = await fetch(`http://localhost:3000/getcurrentuserinfo`, {
+                const response = await fetch(`${url}/getcurrentuserinfo`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${currentUser.token.token}`

@@ -46,29 +46,6 @@ export async function Upcoming(){
 
 }
 
-
-/* export async function Upcoming(){
-    //const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
-    //const movieTitle = "star%20wars"
-
-    const url = 'https://imdb188.p.rapidapi.com/api/v1/getUpcomingMovies?region=US';
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '0b6e4f08a7msh8b885a9d51d61dbp11d9e4jsnbb5913d5fbfd',
-		'X-RapidAPI-Host': 'imdb188.p.rapidapi.com'
-	}
-};
-
-try {
-	const response = await fetch(url, options);
-	const result = await response.json();
-    console.log(result)
-} catch (error) {
-	console.error(error);
-}
-} */
-
 export async function PopularTv(){
     const apiKey = import.meta.env.VITE_REACT_APP_watchNRateKey; 
 

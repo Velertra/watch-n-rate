@@ -5,6 +5,7 @@ const EditComment = ({ comment }) => {
     const [edit, setEdit] = useState();
     const [text, setText] = useState('');
     const token = JSON.parse(localStorage.getItem("user"));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     
     const handleEdit = () => {
         setText(comment.comment)
@@ -18,7 +19,7 @@ const EditComment = ({ comment }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const response = await fetch(`http://localhost:3000/editcomment/${comment._id}`, {
+        const response = await fetch(`${url}/editcomment/${comment._id}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',

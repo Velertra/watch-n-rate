@@ -14,16 +14,7 @@ export async function loader({request, params,}){
   let movies = await PopularMovies();
   let upcoming = await Upcoming();
   let movieImg = await MovieImages(movies.results[1].id);
- /*  let recentReviews = await fetch("http://localhost:3000/getrecentreviews", {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-  const hpReviews = await recentReviews.json()
-   */
-  
-  return { series, movies, upcoming, movieImg/* , hpReviews */ }
+  return { series, movies, upcoming, movieImg }
 }
 
 const NavBar = () => {

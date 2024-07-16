@@ -5,6 +5,7 @@ const EditReview = ({ review }) => {
     const [edit, setEdit] = useState();
     const [text, setText] = useState();
     const token = JSON.parse(localStorage.getItem("user"));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     
     const handleEdit = () => {
         console.log(review)
@@ -19,7 +20,7 @@ const EditReview = ({ review }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
        
-        const response = await fetch(`http://localhost:3000/changereview/${review._id}`, {
+        const response = await fetch(`${url}/changereview/${review._id}`, {
             method: 'PUT',
             headers: {
             'Content-Type': 'application/json',

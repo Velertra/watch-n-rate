@@ -3,6 +3,7 @@ import { useUser } from '../components/UserContext';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [hiddenText, setHiddenText] =useState({
@@ -11,25 +12,20 @@ const SignUp = () => {
   }); 
   const [alreadyUser, setAlreadyUser] = useState(true);
   const { setCurrentUser } = useUser();
+  const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
   const navigate = useNavigate();
 
   const checkUserName = (name) => {
     const allowed = /^[a-zA-Z0-9_]*$/;
 
     if(!allowed.test(name)){
-      console.log('this shouldnt work')
-      console.log(name)
       setHiddenText(prev =>({ 
         ...prev,
         isTyping: true,
         text: 'Use a-z, 0-9, _'
       }))
-
-      return name
-    } else {
-      console.log('This is good. this is ok')
-      return name
-    }
+    } 
+    return name
   }
 
   const sanitize = (name) => {
@@ -55,14 +51,14 @@ const SignUp = () => {
       setHiddenText(prev =>({ 
         ...prev,
         isTyping: true,
-        text: 'Checking Users...'
+        text: 'Checking Users...' 
       }))
-    //}, 700)
+    ////}, 700)
    
     const safeName = checkUserName(e.target.value);
     setUsername(safeName);
       
-      if (e.target.value === '' || e.target.value.length <= 0) {
+      if (safeName === '' || safeName.length <= 0) {
         setHiddenText(prev =>({ 
           ...prev,
           isTyping: false,
@@ -71,7 +67,7 @@ const SignUp = () => {
         return;
     } else {
       try {
-        const response = await fetch(`http://localhost:3000/checkusers/${safeName}`, {
+        const response = await fetch(`${url}/checkusers/${safeName}`, {
             method: 'GET'
         });
 
@@ -79,29 +75,29 @@ const SignUp = () => {
           const data = await response.json(); 
 
           if(!data && safeName.length > 3){
-            setTimeout(() => {
+            //setTimeout(() => {
               setHiddenText(prev => ({
                 ...prev,
                 isTyping: true,
                 text: "User already out there somewhere"
               }));  
-            }, 700)
-          } else if(safeName.length < 3){
-            setTimeout(() => {
+            //}, 700)
+          } else if(safeName.length >= 1 && safeName.length <= 3){
+            
               setHiddenText(prev => ({
                 ...prev,
                 isTyping: true,
                 text: "add more stuff"
               }));  
-            }, 700)
-          }else {
+           
+          } else {
             setTimeout(() => {
               setHiddenText(prev => ({
                 ...prev,
                 isTyping: true,
                 text: "This name seems perfect for you!"
               }));  
-            }, 700)
+            }, 300)
           }
         }
       } catch (error) {
@@ -117,7 +113,7 @@ const SignUp = () => {
    
     if(safeName.length > 3){
       try {
-        const response = await fetch('http://localhost:3000/sign-up', {
+        const response = await fetch((url + '/sign-up'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -126,7 +122,6 @@ const SignUp = () => {
         });
   
         const data = await response.json();
-        console.log(data)
         
         if (response.ok) {
           localStorage.setItem("user", JSON.stringify(data));
@@ -159,7 +154,7 @@ const SignUp = () => {
           required
         />
       </div>
-      {hiddenText.isTyping && <>{hiddenText.text}</>} {/* (alreadyUser ?  <>Checking...</> : <>Taken</>)  */}
+      {hiddenText.isTyping && <>{hiddenText.text}</>}
       
       <div>
         <label htmlFor="password">Password:</label>

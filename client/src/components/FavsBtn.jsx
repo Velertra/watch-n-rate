@@ -2,7 +2,8 @@ import { useEffect } from "react";
 
 const FavsBtn = ({ title, type, featureId}) => {
     const token = JSON.parse(localStorage.getItem("user"));
-
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
+    
     function handleFavsBtn(e){
         e.stopPropagation()
     }
@@ -13,7 +14,7 @@ const FavsBtn = ({ title, type, featureId}) => {
             return;
         }
 
-        let response = await fetch('http://localhost:3000/feature/addtouserliked', 
+        let response = await fetch(`${url}/feature/addtouserliked`, 
         {
             method: 'POST',
             headers: {

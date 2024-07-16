@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import FavsBtn from "../components/FavsBtn";
 
 const SearchPage = () => {
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     const [error, setError] = useState(false);
     const [movieInfo, setMovieInfo] = useState('');
     const [searchInfo, setSearchInfo] = useState();
@@ -34,7 +35,7 @@ const SearchPage = () => {
             }
 
             try{
-                let response = await fetch(`http://localhost:3000/searchthruusers/${code}`, {
+                let response = await fetch(`${url}/searchthruusers/${code}`, {
                     method: 'GET',
                     header:{signal: abortController.signal,}
                 });

@@ -6,6 +6,7 @@ const CommentLikes = ({ comment }) => {
     const [likes, setLikes] = useState(comment.likes.length);
     const [isLiked, setIsLiked] = useState(comment.likes.includes(user?.currentUser._id));
     const token = JSON.parse(localStorage.getItem("user"));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     
     const handlelikeBtn = async (e) => {
         e.stopPropagation();
@@ -14,7 +15,7 @@ const CommentLikes = ({ comment }) => {
         setLikes(() => likeAmount);
         setIsLiked(!isLiked)
 
-        const response = await fetch(`http://localhost:3000/CommentLike`, {
+        const response = await fetch(`${url}/CommentLike`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

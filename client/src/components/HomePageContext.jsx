@@ -7,6 +7,7 @@ export const HomePageProvider = ({ children }) => {
     const [recentReviews, setRecentReviews] = useState(null);
     const [popular, setPopular] = useState();
     const [upcoming, setUpcoming] = useState(null);
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
 
     useEffect(() => {
         async function getPopularFeatures(){
@@ -21,7 +22,7 @@ export const HomePageProvider = ({ children }) => {
     
         async function getRecentReviews(){
             try {
-                let featureDB = await fetch(`http://localhost:3000/getrecentreviews`, {
+                let featureDB = await fetch(`${url}/getrecentreviews`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

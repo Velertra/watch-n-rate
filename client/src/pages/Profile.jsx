@@ -8,7 +8,7 @@ import DisplayFollows from "../components/Profile/DisplayFollows";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState();
-  
+  const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
   const { profileName } = useParams();
   const { user } = useUser();
 
@@ -16,7 +16,7 @@ const Profile = () => {
     const token = JSON.parse(localStorage.getItem("user"));
     
     async function getUser(){
-      const response = await fetch(`http://localhost:3000/getUserProfile/${profileName}`, {
+      const response = await fetch(`${url}/getUserProfile/${profileName}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token?.token}`

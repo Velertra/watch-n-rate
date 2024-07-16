@@ -82,7 +82,7 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
   origin: process.env.PROD_ENV === 'production' ? '' : 'http://localhost:5173',
-  methods: ["GET", "POST"]
+  methods: ["GET", "POST", "PUT", "PATCH","DELETE"]
 }))
 
 app.use("/", userRoute);

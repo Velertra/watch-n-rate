@@ -10,13 +10,14 @@ const ReviewComments = ({ review }) => {
     const [reviewComments, setReviewComments] = useState();
     const token = JSON.parse(localStorage.getItem("user"));
     const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     const { title } = useParams();
     const { user } = useUser(); 
 
     useEffect(() => {
         async function getComments(){
             try {
-                const response = await fetch(`http://localhost:3000/getcomments/${review._id}`, {
+                const response = await fetch(`${url}/getcomments/${review._id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -48,7 +49,7 @@ const ReviewComments = ({ review }) => {
 
         
         
-        const response = await fetch('http://localhost:3000/addcomment', {
+        const response = await fetch(`${url}/addcomment`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

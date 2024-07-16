@@ -34,9 +34,10 @@ const addReview = async (req, res) => {
         await newReview.save();
         feature.reviews.push(newReview._id);
         await feature.save();
+        user.reviews.push(newReview._id);
         //newReview.author.push(feature._id);
         newReview.feature.push(feature._id);
-
+        await user.save();
         await newReview.save();
     }
 

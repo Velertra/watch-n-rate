@@ -1,5 +1,6 @@
 const WatchList = ({ title, type, featureId}) => {
     const token = JSON.parse(localStorage.getItem("user"));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
 
     async function addToWatchList(){
         if (!title || !type || !featureId) {
@@ -7,7 +8,7 @@ const WatchList = ({ title, type, featureId}) => {
             return;
         }
 
-        let response = await fetch('http://localhost:3000/addtowatchlist', 
+        let response = await fetch(`${url}/addtowatchlist`, 
         {
             method: 'PATCH',
             headers: {

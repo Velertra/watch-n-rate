@@ -5,6 +5,7 @@ const ReviewLikes = ({ review }) => {
     const { user } = useUser();
     const [likes, setLikes] = useState(review.likes.length);
     const [isLiked, setIsLiked] = useState(review.likes.includes(user?.currentUser._id));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     const token = JSON.parse(localStorage.getItem("user"));
     
     const handlelikeBtn = async (e) => {
@@ -14,7 +15,7 @@ const ReviewLikes = ({ review }) => {
         setLikes(() => likeAmount);
         setIsLiked(!isLiked)
 
-        const response = await fetch(`http://localhost:3000/reviewlike`, {
+        const response = await fetch(`${url}/reviewlike`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

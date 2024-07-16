@@ -7,6 +7,7 @@ const FeatureContext = createContext();
 export const FeatureProvider = ({ children }) => {
     const [featureInfo, setFeatureInfo] = useState(null);
     const featureParams = useParams();
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     
     useEffect(() => {
         
@@ -29,7 +30,7 @@ export const FeatureProvider = ({ children }) => {
 
                 }
                 try {
-                    const featureReviews = await fetch(`http://localhost:3000/feature/getfeaturereviews/?type=${type}&featureId=${id}`, {
+                    const featureReviews = await fetch(`${url}/feature/getfeaturereviews/?type=${type}&featureId=${id}`, {
                         method: 'GET',
                     });
                     const reviewData = await featureReviews.json();
@@ -54,7 +55,7 @@ export const FeatureProvider = ({ children }) => {
                 featureId;
 
                 try {
-                    const response = await fetch(`http://localhost:3000/review/${featureParams.mongoId}`, {
+                    const response = await fetch(`${url}/review/${featureParams.mongoId}`, {
                         method: 'GET',
                     });
                     if (!response) {

@@ -12,6 +12,7 @@ const LogIn = () => {
   const { setCurrentUser } = useUser();
   const location = useLocation();  
   const navigate = useNavigate()
+  const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -25,7 +26,7 @@ const LogIn = () => {
     e.preventDefault();
 /* eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlciIsImlhdCI6MTcyMDgyMDcwNywiZXhwIjoxNzIwODQ1OTA3fQ.Q5Jop2NaIT6IV1op1VFpE50PugZC0PE77WYYUZ-EPH0 */
     try {
-      const response = await fetch('http://localhost:3000/login', {
+      const response = await fetch(`${url}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

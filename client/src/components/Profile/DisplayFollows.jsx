@@ -8,6 +8,7 @@ const DisplayFollows = ({ users }) => {
     const [follows, setFollows] = useState();
     const [followers, setFollowers] =useState(users.profileUser?.followers.length);
     const [isFollowing, setIsFollowing] = useState(users.profileUser.followers.some((follows) => follows._id === user?.currentUser._id));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     const navigate = useNavigate();
     const token = JSON.parse(localStorage.getItem("user"));
     
@@ -16,7 +17,7 @@ const DisplayFollows = ({ users }) => {
         setFollowers(followAmount);
         setIsFollowing(!isFollowing)
        
-        let response = await fetch('http://localhost:3000/followList', 
+        let response = await fetch(`${url}/followList`, 
         {
             method: 'PATCH',
             headers: {

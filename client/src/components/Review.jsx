@@ -9,6 +9,7 @@ const Review = ({ title, type, featureId }) => {
     const { featureInfo, setFeatureInfo } = useFeature();
     const { user } = useUser()
     const token = JSON.parse(localStorage.getItem("user"));
+    const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
 
     function handleOnClick(){
         setReview(prevState => !prevState);
@@ -18,7 +19,7 @@ const Review = ({ title, type, featureId }) => {
         e.preventDefault();
 
         try {
-          const response = await fetch('http://localhost:3000/feature/addreview', {
+          const response = await fetch(`${url}/feature/addreview`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
