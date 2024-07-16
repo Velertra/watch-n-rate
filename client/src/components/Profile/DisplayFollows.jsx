@@ -1,23 +1,21 @@
 import { useState } from "react";
-import FollowBtn from "../FollowBtn";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../UserContext";
 
 const DisplayFollows = ({ users }) => {
-    const { user } = useState();
+    const { user } = useUser();
     const [display, setDisplay] = useState(false);
     const [follows, setFollows] = useState();
     const [followers, setFollowers] =useState(users.profileUser?.followers.length);
-    const [isFollowing, setIsFollowing] = useState(users.profileUser?.followers.some(follower => follower._id === user._id));
+    const [isFollowing, setIsFollowing] = useState(users.profileUser.followers.some((follows) => follows._id === user?.currentUser._id));
     const navigate = useNavigate();
     const token = JSON.parse(localStorage.getItem("user"));
-
     
     async function handleFollowBtn(){
-
-        const followAmount = await isFollowing ? followers - 1 : followers + 1;
+        const followAmount = isFollowing ? followers - 1 : followers + 1;
         setFollowers(followAmount);
         setIsFollowing(!isFollowing)
-
+       
         let response = await fetch('http://localhost:3000/followList', 
         {
             method: 'PATCH',
@@ -32,7 +30,7 @@ const DisplayFollows = ({ users }) => {
             const data = await response.json();
     
             return;
-        }
+        } 
     }
 
     const handleFollowClick = (users) => {

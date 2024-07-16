@@ -36,12 +36,18 @@ const EditComment = ({ comment }) => {
             ? 
             <button onClick={handleEdit}>edit</button> 
             : 
-            <form onSubmit={handleSubmit}>
-                <input
-                    onChange={onChange}
-                    value={text}
-                ></input>
-            </form>}
+            <div id="fr-comment-edit">
+                <div onClick={() => setEdit(!edit)}>&times;</div>
+                <form onSubmit={handleSubmit}>
+                    <textarea
+                        onChange={onChange}
+                        value={text}
+                        cols={30}
+                        rows={5}
+                    ></textarea>
+                </form>
+            </div>
+            }
         </>
     );
 }

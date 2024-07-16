@@ -44,7 +44,7 @@ const Review = ({ title, type, featureId }) => {
         && 
         <div id="review-input-container">
           {console.log(featureInfo)}
-          <div>&times;</div>
+          <div onClick={() => setReview(!review)}>&times;</div>
           <form id="review-input" method="post" onSubmit={handleSubmit}>
             <label>
               <textarea

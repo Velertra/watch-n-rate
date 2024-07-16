@@ -18,8 +18,6 @@ const verifyToken = require("./middleware/requireAuth");
 
 require('dotenv').config()
 
-//cFhw47Gl4WEjnOYR
-
 const mongoDb = process.env.DATABASE_URI;
 mongoose.connect(mongoDb);
 const db = mongoose.connection;
@@ -58,8 +56,6 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   };
 });
-
-
 
 const app = express();
 app.use(express.json());

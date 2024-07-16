@@ -100,7 +100,9 @@ const ReviewComments = ({ review }) => {
                             <EditComment 
                                 comment={comment}
                             />
-                            <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
+                            <div id="fr-delete-btn">
+                                <button onClick={() => handleDeleteBtn(comment._id)}>delete</button>
+                            </div>
                         </div>
                         }
                     

@@ -8,16 +8,25 @@ require('dotenv').config()
 const signUpController = async (req, res) => {
     const { username, password } = req.body;
     
+    const existingUser = await User.findOne({ username: username }, '-password');
+    //console.log(existingUser)
+    if(existingUser){
+        return res.status(409).json({ message: 'Username already exists.' });
+    }
+
     try {
         bcrypt.hash(password, 10, async ( err,  hashedPassword) => {
             if(err){
                 console.log(err);
             } 
+            
             const user = new User({
                 username,
                 password: hashedPassword
             });
+            
             await user.save();
+            
             console.log(user)
             const token = jwt.sign({username} , process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
             console.log(token);
