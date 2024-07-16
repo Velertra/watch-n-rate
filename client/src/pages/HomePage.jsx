@@ -46,7 +46,7 @@ const HomePage = () => {
                 <h3 style={{ textDecoration: "underline"}}>Recent Reviews</h3>
                 {recentReviews 
                 &&
-                recentReviews.reviews.slice(0, 5).map((review, index) => (
+                recentReviews?.reviews.slice(0, 5).map((review, index) => (
                     <div id="hp-rr" onClick={() => navigate(`/review/${review._id}`)} key={index}>
                         <FeatureIcon 
                         id={review.feature[0].featureId}
