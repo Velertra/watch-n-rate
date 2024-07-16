@@ -5,7 +5,7 @@ export async function ApiFunction(movieTitle){
     /* const movieTitle = "star%20wars" */
 
     const response = await fetch(
-        `http://api.themoviedb.org/3/search/multi?query=${movieTitle}&include_adult=false&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/search/multi?query=${movieTitle}&include_adult=false&language=en-US&page=1`,
         {
             method: 'GET',
             headers: {
@@ -30,7 +30,7 @@ export async function Upcoming(){
     /* const movieTitle = "star%20wars" */
 
     const response = await fetch(
-        `http://api.themoviedb.org/3/movie/upcoming?include_adult=false&language=en-US&page=1&region=US`,
+        `https://api.themoviedb.org/3/movie/upcoming?include_adult=false&language=en-US&page=1&region=US`,
         {
             method: 'GET',
             headers: {
@@ -55,7 +55,7 @@ export async function Upcoming(){
 export async function PopularTv(){
      
 
-    const url = 'http://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
+    const url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
     const options = {
         method: 'GET',
         headers: {
@@ -78,7 +78,7 @@ export async function PopularTv(){
 export async function PopularMovies(){
      
 
-    const url = 'http://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
+    const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
     const options = {
         method: 'GET',
         headers: {
@@ -102,7 +102,7 @@ export async function FullDetails(type, id){
      
 
     const response = await fetch(
-        `http://api.themoviedb.org/3/${type}/${id}?language=en-US`,
+        `https://api.themoviedb.org/3/${type}/${id}?language=en-US`,
         {
             method: 'GET',
             headers: {
@@ -126,7 +126,7 @@ export async function MovieImages(id){
      
 
     const response = await fetch(
-        `http://api.themoviedb.org/3/movie/${id}/images?include_image_language=en`,
+        `https://api.themoviedb.org/3/movie/${id}/images?include_image_language=en`,
         {
             method: 'GET',
             headers: {
@@ -150,7 +150,7 @@ export async function GetCredits(type, id){
     
 
     const response = await fetch(
-        `http://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
+        `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
         {
             method: 'GET',
             headers: {
