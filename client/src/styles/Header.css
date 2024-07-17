@@ -1,51 +1,8 @@
-
-
-/* #header-img-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgb(0, 0, 0) 9vw, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 1) 91vw);
-    
-    pointer-events: none;
-}
-
-#header-img-container::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 20%;
-    background: rgba(0, 0, 0, 0.957);
-    pointer-events: none; 
-} */
-
 #header-img{
     max-height: 80vh;
     width: 100%;
     object-fit: cover;
     object-position: center 50%;
-}
-
-/* #navbar {
-    position: fixed;
-    top: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
- */
-#head-img-overlay{
-    /* position:absolute;
-    bottom: 0;
-    width: 100%;
-    height: 30%;
-    background-color: black;
-    opacity: 0.5;
-    pointer-events: none; */
 }
 
 #header-container{

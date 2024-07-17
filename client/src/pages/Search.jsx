@@ -94,7 +94,7 @@ const SearchPage = () => {
                     <img style={{width: '15vh'}} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}></img>
                     <div id="movie-details">
                         <ul key={index}>
-                            <li>
+                            <li> 
                                 <h3 style={{fontSize: '2vh'}}>{movie.title || movie.name}</h3>
                                 <p style={{width: '1vh'}}>{movie.popularity}</p>
                                 <p style={{fontSize: '1.5vh'}}>{movie.overview}</p>

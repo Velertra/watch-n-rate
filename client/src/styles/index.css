@@ -1,11 +1,11 @@
-@import "Header";
-@import "homePage";
-@import "reviewsPage";
-@import "featureReview";
-@import "login";
-@import "featurePage";
-@import "searchPage";
-@import "profilePage";
+@import "Header.css";
+@import "homePage.css";
+@import "reviewsPage.css";
+@import "featureReview.css";
+@import "login.css";
+@import "featurePage.css";
+@import "searchPage.css";
+@import "profilePage.css";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -25,7 +25,6 @@ const getOneUserReview = async (req, res) => {
 }
 
 const getRecentReviews = async (req, res) => {
-    console.log('check')
     const reviews = await Review.find({}).sort({ timestamp: -1 }).populate(
         [
             { path: 'feature' },

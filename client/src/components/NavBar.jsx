@@ -29,7 +29,7 @@ const NavBar = () => {
               {!user && <li><NavLink to="sign-up">sign-up</NavLink></li>}
               {user?.currentUser &&<li><NavLink to="review">reviews</NavLink></li>}
               {user?.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>profile</NavLink></li>}
-              {user?.currentUser && <li><LogOut /></li>}
+              {/* {user?.currentUser && <li><LogOut /></li>} */}
             </ul>
           </nav>
       </>

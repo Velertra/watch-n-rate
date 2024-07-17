@@ -72,7 +72,6 @@ const authUser= async (req, res) => {
     } else {
         res.status(400)
     }
-    
 }
 
 const checkUsers = async (req, res, next) => {
@@ -125,6 +124,7 @@ const getCurrentUserInfo = async(req, res) => {
         ]
     )
 
+    console.log('currentUser')
     if (!currentUser){
         res.status(400);
         throw new Error('user not found');
