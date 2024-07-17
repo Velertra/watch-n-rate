@@ -13,7 +13,7 @@ const HomePage = () => {
     const [bgNumber, setBgNumber] = useState();
 
     useEffect(() => {
-       
+       console.log('wondering')
 
             function bgNumber(){
                 const number = Math.floor(Math.random() * 6);
@@ -26,7 +26,7 @@ const HomePage = () => {
     
             return () => {
                 const rand = bgNumber()
-                setBgNumber(rand);
+                setBgNumber(() => rand);
             }
     },[]);
     
