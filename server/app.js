@@ -79,7 +79,11 @@ app.set("views", __dirname);
 app.set("view engine", "ejs");
 
 app.use(session({ secret: "dogs", resave: false, saveUninitialized: false }));
-app.use(passport.session());
+app.use(passport.session(/* {
+  secret: '',
+  resave: false,
+  saveUninitialized: false
+} */));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
   origin: origin,

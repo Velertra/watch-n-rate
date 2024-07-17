@@ -41,8 +41,7 @@ const LogIn = () => {
         setCurrentUser(prevUser => ({
           ...prevUser,
           token: data
-      }))
-        //refreshUser();
+        }))
         
         navigate(`/`)  
       } 
