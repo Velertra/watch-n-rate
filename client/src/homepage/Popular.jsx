@@ -4,7 +4,7 @@ import { useHomePage } from "../components/HomePageContext";
 const Popular = () => { 
     const { popular } = useHomePage();
     return (
-        <>
+        <> 
         {popular
             &&
             <div id="popular-features">

@@ -8,9 +8,10 @@ export const HomePageProvider = ({ children }) => {
     const [popular, setPopular] = useState();
     const [upcoming, setUpcoming] = useState(null);
     const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
-
+ 
     useEffect(() => {
         async function getPopularFeatures(){
+            console.log('popular features running')
             try {
                 let series = await PopularTv();
                 let movies = await PopularMovies();
@@ -21,6 +22,7 @@ export const HomePageProvider = ({ children }) => {
         }
     
         async function getRecentReviews(){
+            console.log('recent reviews running')
             try {
                 let featureDB = await fetch(`${url}/getrecentreviews`, {
                     method: 'GET',
