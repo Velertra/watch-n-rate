@@ -39,8 +39,8 @@ const HomePage = () => {
             </div>
             <div id="header-content-container"></div>
             <div id="hp-body">
-              {/*   <Popular /> */}
-                
+                <Popular />
+                 
                 <div  id="hp-rr-container">
                 <h3 style={{ textDecoration: "underline"}}>Recent Reviews</h3>
                 {recentReviews 
