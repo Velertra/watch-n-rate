@@ -11,7 +11,6 @@ export const HomePageProvider = ({ children }) => {
     
     useEffect(() => {
         async function getPopularFeatures(){
-            console.log('popular features running')
             try {
                 let series = await PopularTv();
                 let movies = await PopularMovies();
@@ -22,7 +21,6 @@ export const HomePageProvider = ({ children }) => {
         }
     
         async function getRecentReviews(){
-            console.log('recent reviews running')
             try {
                 let featureDB = await fetch(`${url}/getrecentreviews`, {
                     method: 'GET',
@@ -48,12 +46,10 @@ export const HomePageProvider = ({ children }) => {
                 console.error('Error fetching upcoming feature data');
             }
         }
+        getPopularFeatures();
+        getRecentReviews();
+        getUpcoming();
         
-        //return() => {
-            getPopularFeatures();
-            getRecentReviews();
-            getUpcoming();
-        //} 
     }, [])
     
     return (

@@ -57,7 +57,6 @@ export async function Upcoming(){
 
 
 export async function PopularTv(){
-    console.log('popular tv is starting')
     const url = 'https://api.themoviedb.org/3/tv/popular?language=en-US&page=1';
     const options = {
         method: 'GET',
@@ -70,8 +69,8 @@ export async function PopularTv(){
     try {
         const response = await fetch(url, options);
         const result = await response.json();
-        console.log('popular tv is completing')
         return result
+        
     } catch (error) {
         console.error(error);
     }

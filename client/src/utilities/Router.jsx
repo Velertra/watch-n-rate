@@ -12,8 +12,6 @@ import Reviews from "../pages/Reviews";
 import FeatureReview from "../pages/FeatureReview";
 import { FeatureProvider } from "../components/feature/FeatureContext";
 import { HomePageProvider } from "../components/HomePageContext";
-/* figure it out (ScrollToTop) */
-
 
 const Router = () => {
 

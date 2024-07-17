@@ -26,14 +26,16 @@ const Profile = () => {
       if(!response){
         console.error(Error)
         return
+      } else {
+          let userInfo = await response.json();
+          setUserProfile(() => userInfo);
       }
 
-      let userInfo = await response.json();
-      setUserProfile(() => userInfo);
+      
     }
 
-      getUser();
-      
+      getUser(); 
+
   }, [profileName, user])
 
   const handleImgUpload = (e) => {
@@ -46,7 +48,6 @@ const Profile = () => {
       &&
       (
         <div>
-          {console.log(userProfile.profileUser)}
           <h1>{userProfile.profileUser.username + "'s profile"}</h1>
           <div>
             <input

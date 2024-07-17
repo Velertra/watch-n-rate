@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form } from 'react-router-dom';
 import { useNavigate, redirect, useActionData } from 'react-router-dom';
-import { ApiFunction } from '../utilities/ApiFunction';
 
 const SearchBar = ( ) => {
     const [text, setText] = useState("");

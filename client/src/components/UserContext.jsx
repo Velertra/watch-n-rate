@@ -9,7 +9,6 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         async function getData(){
-            console.log('user fetch is running')
             try{
                 const response = await fetch(`${url}/getcurrentuserinfo`, {
                     method: 'GET',
@@ -19,12 +18,11 @@ export const UserProvider = ({ children }) => {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    
-                    console.log('user fetch is running to completion')
                     setCurrentUser(prevUser => ({
                         ...prevUser,
                         currentUser: data
                     }))
+
                 } else {
                     console.error(`Fetch error: ${response.status} ${response.statusText}`);
                     console.log('user fetch is catching error')
