@@ -32,10 +32,8 @@ const Profile = () => {
       setUserProfile(() => userInfo);
     }
 
-    return async() => {
       getUser();
-    } 
-
+      
   }, [profileName, user])
 
   const handleImgUpload = (e) => {

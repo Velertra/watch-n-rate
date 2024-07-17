@@ -81,9 +81,9 @@ export const FeatureProvider = ({ children }) => {
             }
         }
 
-        return () => {
+        //return () => {
             getFeatureData()
-        }
+        //}
     }, [featureParams]);
     
     

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ApiFunction } from "../utilities/ApiFunction";
+import { FeatureSearch } from "../utilities/ApiFunction";
 import { useNavigate } from "react-router-dom"
 import FavsBtn from "../components/FavsBtn";
 
@@ -19,7 +19,7 @@ const SearchPage = () => {
             let featureData,
             userData;
             try{
-                let response = await ApiFunction(code, {
+                let response = await FeatureSearch(code, {
                 signal: abortController.signal,
             });
 

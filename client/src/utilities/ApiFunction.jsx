@@ -1,6 +1,6 @@
 const apiKey = import.meta.env.VITE_REACT_APP_WATCHNRATE;
 
-export async function ApiFunction(movieTitle) {
+export async function FeatureSearch(movieTitle) {
     try {
         const response = await fetch(
             `https://api.themoviedb.org/3/search/multi?query=${movieTitle}&include_adult=false&language=en-US&page=1`,

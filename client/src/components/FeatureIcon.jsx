@@ -41,7 +41,7 @@ const FeatureIcon = ({type, id}) => {
             {details 
             && 
                 <div id="feature-icon" onClick={() => handleContentClick(details)}>
-                    <img style={{width: '15vh'}} src={"https://image.tmdb.org/t/p/w500" + details.poster_path}></img>
+                    <Link to={`/feature/${type + - + details.id}`}><img style={{width: '15vh'}} src={"http://image.tmdb.org/t/p/w500" + details.poster_path}></img></Link>
                     {/* <h4>{details.title || details.name}</h4> */}
                 </div>
             }

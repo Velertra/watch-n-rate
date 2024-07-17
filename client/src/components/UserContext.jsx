@@ -41,10 +41,9 @@ export const UserProvider = ({ children }) => {
                 console.error('Failed to fetch user data');
             }
         }
-
-      return() => {
+        
         getData();
-      }
+     
     }, [currentUser?.token?.token])
     
     return (
