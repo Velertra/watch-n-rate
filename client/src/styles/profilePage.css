@@ -1,3 +1,16 @@
+#p-details-section{
+    display: flex;    
+}
+#p-follow-section{
+    display: flex;
+    margin-left: auto;
+}
+
+#p-watchlist-section,
+#p-liked-section{
+    display: flex;
+}
+
 #profile-follows-display{
     position: absolute;
     top: 50%;

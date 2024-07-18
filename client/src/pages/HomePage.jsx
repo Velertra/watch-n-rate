@@ -12,9 +12,7 @@ const HomePage = () => {
     const navigate = useNavigate();
     const [bgNumber, setBgNumber] = useState();
 
-   /*  useEffect(() => {
-       console.log('wondering')
-
+    useEffect(() => {
             function bgNumber(){
                 const number = Math.floor(Math.random() * 6);
                 if(number == 0){
@@ -23,18 +21,16 @@ const HomePage = () => {
                     return number
                 }
             }
-    
-            return () => {
-                const rand = bgNumber()
-                setBgNumber(() => rand);
-            }
-    },[]); */
+            const rand = bgNumber()
+            setBgNumber(() => rand);
+            
+    },[]);
     
     return ( 
         <>
             <div id="header-img-container">
                 {/* header image, change number to pick */}
-                {/* {upcoming && bgNumber && <img id="header-img" src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>} */}
+                {upcoming && bgNumber && <img id="header-img" onClick={() => navigate(`/feature/movie-${upcoming.results[bgNumber].id}`)} src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
                 <div id="head-img-overlay"></div>
             </div>
             <div id="header-content-container"></div>

@@ -74,6 +74,12 @@ const authUser= async (req, res) => {
     }
 }
 
+const uploadProfileImg = async (req, res, next) => {
+    console.log(req.body)
+
+    res.json('words')
+}
+
 const checkUsers = async (req, res, next) => {
     const { username } = req.params;
     
@@ -91,7 +97,11 @@ const getUserProfile = async (req, res, next) => {
     const profileUser = await User.findOne({ username: req.params.username }, '-password').populate(
         [
             { path: 'liked' },
-            { path: 'reviews' }, 
+            { path: 'reviews' ,
+                populate: {
+                    path: 'feature',
+                }
+            }, 
             { path: 'watchlist' },
             { path: 'followers' , 
                 populate: {
@@ -124,7 +134,7 @@ const getCurrentUserInfo = async(req, res) => {
         ]
     )
 
-    console.log('currentUser')
+    
     if (!currentUser){
         res.status(400);
         throw new Error('user not found');
@@ -249,4 +259,4 @@ const followList = async (req, res, next) => {
     }
     
 
-module.exports = {signUpController, login, authUser, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList, searchThruUsers};
+module.exports = {signUpController, login, authUser, uploadProfileImg, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList, searchThruUsers};
