@@ -11,14 +11,13 @@ import { Image } from "cloudinary-react";
 const Profile = () => {
   const [userProfile, setUserProfile] = useState();
   const [imgId, setImgId] = useState(null);
+  const token = JSON.parse(localStorage.getItem("user"));
   const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
   const { profileName } = useParams();
   const { user } = useUser();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("user"));
-    
     async function getUser(){
       const response = await fetch(`${url}/getUserProfile/${profileName}`, {
         method: 'GET',
@@ -33,6 +32,7 @@ const Profile = () => {
       } else {
           let userInfo = await response.json();
           setUserProfile(() => userInfo);
+          setImgId(() => userInfo.profileUser.imagePath)
       }
     }
       getUser(); 
@@ -55,40 +55,49 @@ const Profile = () => {
     });
     
     if(response.ok){
-      console.log('its still running')
       const data = await response.json();
-      setImgId(() => data.public_id);
+      const fileId = data.public_id
+      setImgId(() => fileId);
+      
       /* save to database here */
-      console.log(data)
+      const imgfile = await fetch(`${url}/saveprofileimg`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.token}`
+        },
+        body: JSON.stringify({ imgPath: fileId }),
+      })
     }
   }
 
   return ( 
       <>
-      {imgId && <Image style={{"height": '100px'}} cloudName="dqckw3rn4" publicId={imgId}/>}
       {userProfile 
       &&
       (
         <div>
-        
-          <h1>{userProfile.profileUser.username + "'s profile"}</h1>
+          <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={imgId}/>
+          <h1>{userProfile.profileUser.username}</h1>{console.log(userProfile)}
           <div id="p-details-section">
+            {userProfile.profileUser.username === user.currentUser?.username
+            &&
             <div>
-              <input
-                id="profile-img-input"
-                style={{display: "none"}}
-                type="file"
-                onChange={(e) => handleImgUpload(e)}
-                accept="image/png, image/jpeg"
-                />
-              <button id="select-img-btn" onClick={() => document.getElementById('profile-img-input').click()} type="button" >select img</button>
+            <input
+              id="profile-img-input"
+              style={{display: "none"}}
+              type="file"
+              onChange={(e) => handleImgUpload(e)}
+              accept="image/png, image/jpeg"
+              />
+            <button id="select-img-btn" onClick={() => document.getElementById('profile-img-input').click()} type="button" >select img</button>
               
-            </div>
-            <div id="p-follow-section">
+            </div>}
+            
               <DisplayFollows
                 users={userProfile}
               />
-            </div>
+            
           </div>
           <h3>Liked</h3>
           <div id="p-liked-section">
@@ -100,7 +109,7 @@ const Profile = () => {
               />
             ))}
           </div>
-        <h3>Watchlist</h3>
+        <h3>Watch List</h3>
         <div id="p-watchlist-section">
           {userProfile.profileUser.watchlist.map((feature, index) => (
               <FeatureIcon 

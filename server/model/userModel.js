@@ -12,7 +12,8 @@ const user = new Schema(
         watchlist: [{ type: Schema.Types.ObjectId, ref: "Feature" }],
         reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
         notes: [{ type: Schema.Types.ObjectId, ref: "Notes" }],
-        watched: [{ type: Schema.Types.ObjectId, ref: "Feature" }]
+        watched: [{ type: Schema.Types.ObjectId, ref: "Feature" }],
+        imagePath: { type: String, default: "TGsKci01_wxanrs" }
     }
 );
 

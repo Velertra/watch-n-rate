@@ -74,10 +74,26 @@ const authUser= async (req, res) => {
     }
 }
 
-const uploadProfileImg = async (req, res, next) => {
-    console.log(req.body)
+const saveProfileImg = async (req, res, next) => {
+    const { imgPath } = req.body;
+    const user = await User.findOne({ username: req.user.username }, '-password');
 
-    res.json('words')
+    if(!imgPath || !user){
+        return res.status(401).json({ message: "saving profile img failed" });
+    }
+
+    try{
+        user.imagePath = imgPath;
+        await user.save();
+
+        return res.status(200).json({ message: "Profile img saved accordingly."})
+    } catch (err) {
+        console.error("Error saving profile image:", err);
+        return res.status(500).json({ message: "Internal server error." });
+    }
+
+
+    
 }
 
 const checkUsers = async (req, res, next) => {
@@ -259,4 +275,4 @@ const followList = async (req, res, next) => {
     }
     
 
-module.exports = {signUpController, login, authUser, uploadProfileImg, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList, searchThruUsers};
+module.exports = {signUpController, login, authUser, saveProfileImg, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList, searchThruUsers};

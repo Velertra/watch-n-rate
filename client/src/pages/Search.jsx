@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FeatureSearch } from "../utilities/ApiFunction";
 import { useNavigate } from "react-router-dom"
 import FavsBtn from "../components/FavsBtn";
+import { Image } from "cloudinary-react";
 
 const SearchPage = () => {
     const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
@@ -78,6 +79,7 @@ const SearchPage = () => {
             {searchInfo?.userSearch
             &&
             <div onClick={() => navigate(`/profile/${searchInfo.userSearch?.username}`)}>
+                <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={searchInfo.userSearch?.imagePath}/>
                 <h3>{searchInfo.userSearch?.username}</h3>
                 <div id="sp-content">
                     <div>recent likes</div>

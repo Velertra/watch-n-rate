@@ -30,7 +30,7 @@ router.get("/getUserProfile/:username", useToken, userController.getUserProfile)
 
 router.post("add-fav", userController.addWatchList);
 router.post("/login", userController.login);
-router.post("/uploadprofileimg", userController.uploadProfileImg);
+router.post("/saveProfileImg", verifyToken, userController.saveProfileImg);
 router.patch("/followList", verifyToken, userController.followList);
 router.patch("/addtowatchList", verifyToken, userController.addToWatchList);
 

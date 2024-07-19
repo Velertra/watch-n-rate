@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
+import { Image } from "cloudinary-react";
 
 const DisplayFollows = ({ users }) => {
     const { user } = useUser();
@@ -29,7 +30,6 @@ const DisplayFollows = ({ users }) => {
 
         if (!response.ok) {
             const data = await response.json();
-    
             return;
         } 
     }
@@ -52,6 +52,8 @@ const DisplayFollows = ({ users }) => {
                 <div onClick={() => setDisplay(false)}>&times;</div>
                 {follows.map((user, index) => (
                     <div id="pfd-user" onClick={() => navigate(`/profile/${user.username}`)} key={index}>
+                        {console.log(user)}
+                        <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={user.imagePath}/>
                         <h4>{user.username}</h4>
                         <div id="pfd-user-details">
                             {(user.liked.length >= 1) && <>recent likes</>}
@@ -66,13 +68,15 @@ const DisplayFollows = ({ users }) => {
             </div>
             }
             
-            <button onClick={handleFollowBtn}>follow</button>
+            <div id="p-follow-section">
+                <button onClick={handleFollowBtn}>follow</button>
 
-            <div id="followers-section" onClick={() => handleFollowClick(users.profileUser?.followers)}>
-                <span>followers {followers}</span>
-            </div>
-            <div id="following-section" onClick={() => handleFollowClick(users.profileUser?.following)}>
-                <span>following {users.profileUser?.following.length}</span>
+                <div id="followers-section" onClick={() => handleFollowClick(users.profileUser?.followers)}>
+                    <span>followers {followers}</span>
+                </div>
+                <div id="following-section" onClick={() => handleFollowClick(users.profileUser?.following)}>
+                    <span>following {users.profileUser?.following.length}</span>
+                </div>
             </div>
         </>
     );
