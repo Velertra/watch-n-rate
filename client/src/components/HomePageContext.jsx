@@ -46,6 +46,7 @@ export const HomePageProvider = ({ children }) => {
                 console.error('Error fetching upcoming feature data');
             }
         }
+        
         getPopularFeatures();
         getRecentReviews();
         getUpcoming();

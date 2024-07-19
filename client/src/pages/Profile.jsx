@@ -80,7 +80,7 @@ const Profile = () => {
           <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={imgId}/>
           <h1>{userProfile.profileUser.username}</h1>{console.log(userProfile)}
           <div id="p-details-section">
-            {userProfile.profileUser.username === user.currentUser?.username
+            {userProfile.profileUser.username === user?.currentUser?.username
             &&
             <div>
             <input
