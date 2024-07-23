@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUser } from "./UserContext";
 
 const ReviewLikes = ({ review }) => {
     const { user } = useUser();
     const [likes, setLikes] = useState(review.likes.length);
-    const [isLiked, setIsLiked] = useState(review.likes.includes(user?.currentUser._id));
+    const [isLiked, setIsLiked] = useState(false);
     const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     const token = JSON.parse(localStorage.getItem("user"));
     
@@ -27,13 +27,23 @@ const ReviewLikes = ({ review }) => {
         const data = await response.json();
     }
 
+    useEffect(() => {
+        if(review.likes.includes(user?.currentUser?._id)){
+            setIsLiked(() => true);
+        } else {
+            setIsLiked(() => false);
+        }
+    }, [user])
+
     return (
         <>
+            {user
+            &&
             <h6 id="like-btn" onClick={handlelikeBtn}>
                 {isLiked ? 'Unlike' : 'Like'}
-            </h6>
+            </h6>}
             <div id="like-section">
-                <h6 style={{color: isLiked ? 'red' : ''}}>
+                <h6 style={{color: isLiked && 'red'}}>
                     &#10084; {likes} likes
                 </h6>
             </div>

@@ -5,7 +5,7 @@ import { useUser } from "../components/UserContext";
 import DisplayFollows from "../components/Profile/DisplayFollows";
 import ReviewLikes from "../components/ReviewLikes";
 import { Image } from "cloudinary-react";
-
+//import { Cloudinary } from '@cloudinary/url-gen';
 
 
 const Profile = () => {

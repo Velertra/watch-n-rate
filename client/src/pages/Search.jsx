@@ -102,11 +102,6 @@ const SearchPage = () => {
                                 <p style={{fontSize: '1.5vh'}}>{movie.overview}</p>
                             </li>
                         </ul>
-                        {/* <FavsBtn
-                            title={movie.title || movie.name}
-                            type={movie.media_type}
-                            featureId={movie.id}
-                        /> */}
                     </div>
                 </div>
             )
