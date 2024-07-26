@@ -57,7 +57,6 @@ const ReviewComments = ({ review }) => {
             },
             body: JSON.stringify({ title, text, featureId: review.feature[0].featureId, featureMongoId: review.feature[0]._id, reviewId: review._id }),
         });
-        //console.log(newComment)
         window.location.reload();
         
         setText('')
@@ -74,7 +73,6 @@ const ReviewComments = ({ review }) => {
         });
     
         const data = await response.json();
-        console.log(newComment)
         setComments(() => newComment)
     }
 
@@ -83,7 +81,7 @@ const ReviewComments = ({ review }) => {
             {comments && comments.length !== 0 
             && 
             comments.map((comment, index) => (
-                <div id="rc-container" key={index}>{console.log(reviewComments)}
+                <div id="rc-container" key={index}>
                     <div id="rc-content">
                         <h4 id="rc-c-user">{comment.user[0].username}</h4>
                         <p id="rc-c-comment">{comment.comment}</p>

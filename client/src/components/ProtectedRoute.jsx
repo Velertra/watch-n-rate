@@ -42,7 +42,6 @@ export default ProtectedRoute;
         )
       }
     />
-    {console.log("check")}
     </>
   )
  */

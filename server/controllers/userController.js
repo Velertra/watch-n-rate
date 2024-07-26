@@ -7,9 +7,8 @@ require('dotenv').config()
 
 const signUpController = async (req, res) => {
     const { username, password } = req.body;
-    
     const existingUser = await User.findOne({ username: username }, '-password');
-    //console.log(existingUser)
+
     if(existingUser){
         return res.status(409).json({ message: 'Username already exists.' });
     }
@@ -17,7 +16,7 @@ const signUpController = async (req, res) => {
     try {
         bcrypt.hash(password, 10, async ( err,  hashedPassword) => {
             if(err){
-                console.log(err);
+                 console.log(err);
             } 
             
             const user = new User({
@@ -27,9 +26,7 @@ const signUpController = async (req, res) => {
             
             await user.save();
             
-            console.log(user)
             const token = jwt.sign({username} , process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
-            console.log(token);
             res.json({ token: token });
         })
     } catch(err) {
@@ -49,7 +46,7 @@ const login = async (req, res, next) => {
             
             const { username } = req.body;
             const token = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
-            console.log(token)
+            
             res.json({ token: token });
 
         })(req, res, next);
@@ -59,7 +56,6 @@ const login = async (req, res, next) => {
 };
 
 const authUser= async (req, res) => {
-    console.log(req.user.username)
     if(req.user.username){
         const currentUser = await User.findOne({ username: req.user.username }, '-password').populate(
             [
@@ -91,14 +87,10 @@ const saveProfileImg = async (req, res, next) => {
         console.error("Error saving profile image:", err);
         return res.status(500).json({ message: "Internal server error." });
     }
-
-
-    
 }
 
 const checkUsers = async (req, res, next) => {
     const { username } = req.params;
-    
     const existingUser = await User.findOne({ username: username }, '-password');
     
     if(existingUser){
@@ -167,28 +159,18 @@ const addToWatchList = async(req, res, next) => {
         try{
         const feature = await Feature.findById(findFeature._id);
         if(!user.watchlist?.includes(feature._id)) {
-            //feature.liked.push(user._id);
-            console.log(feature)
+            
             user.watchlist.push(feature);
-            //await feature.save();
 
             await user.save()
             res.status(200).json({ message: 'basic adding to favs' });
         } else {
-            
-            /* const updatedFeature = await Feature.findByIdAndUpdate(
-                findFeature._id,
-                { $pull: { watchlist: user._id } },
-                { new: true }
-            ); */
             const updatedUser = await User.findByIdAndUpdate(
                 user._id,
                 { $pull: { watchlist: feature._id } },
                 { new: true }
             );
-            //console.log(updatedUser)
     
-            //await updatedFeature.save();
             await updatedUser.save();
             res.status(200).json({ message: 'adding as first liked in feature' });
         }

@@ -9,7 +9,7 @@ import { Image } from "cloudinary-react";
 
 
 const Profile = () => {
-  const [userProfile, setUserProfile] = useState();
+  const [userProfile, setUserProfile] = useState(null);
   const [imgId, setImgId] = useState(null);
   const token = JSON.parse(localStorage.getItem("user"));
   const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
@@ -75,29 +75,36 @@ const Profile = () => {
       <>
       {userProfile 
       &&
-      (
-        <div>
-          <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={imgId}/>
-          <h1>{userProfile.profileUser.username}</h1>{console.log(userProfile)}
-          <div id="p-details-section">
-            {userProfile.profileUser.username === user?.currentUser?.username
-            &&
-            <div>
-            <input
-              id="profile-img-input"
-              style={{display: "none"}}
-              type="file"
-              onChange={(e) => handleImgUpload(e)}
-              accept="image/png, image/jpeg"
+      (<div id="profile-body">
+          <div id="profile-header">
+            <div id="profile-img-container">
+              <Image
+                id='profile-img'
+                style={{"height": '20px', 'backgroundColor': "white"}} 
+                cloudName="dqckw3rn4" 
+                publicId={imgId}
               />
-            <button id="select-img-btn" onClick={() => document.getElementById('profile-img-input').click()} type="button" >select img</button>
+            </div>
+            <div id="p-details-section">
+            <h1>{userProfile.profileUser.username}</h1>
+              {userProfile.profileUser.username === user?.currentUser?.username
+              &&
+              <div>
+                <input
+                  id="profile-img-input"
+                  style={{display: "none"}}
+                  type="file"
+                  onChange={(e) => handleImgUpload(e)}
+                  accept="image/png, image/jpeg"
+                  />
+                <button id="select-img-btn" onClick={() => document.getElementById('profile-img-input').click()} type="button" >select img</button>  
+              </div>}
               
-            </div>}
-            
-              <DisplayFollows
-                users={userProfile}
-              />
-            
+                <DisplayFollows
+                  userProfile={userProfile}
+                />
+              
+            </div>
           </div>
           <h3>Liked</h3>
           <div id="p-liked-section">
@@ -128,12 +135,9 @@ const Profile = () => {
                   type={review.feature[0].type}
                   />
                   <div id="hp-rr-content">
-                      <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
-                      <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4>
-                      <p>{review.content}</p>
-                      {/* <ReviewLikes
-                          review={review}
-                      /> */}
+                    <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
+                    <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4>
+                    <p>{review.content}</p>
                   </div>
               </div>
           ))

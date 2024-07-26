@@ -47,7 +47,6 @@ const SearchPage = () => {
             
                 if(!abortController.signal.aborted) {
                     userData = await response.json();
-                    console.log(userData.user)
                 }
 
             } catch {
@@ -79,6 +78,7 @@ const SearchPage = () => {
             {searchInfo?.userSearch
             &&
             <div onClick={() => navigate(`/profile/${searchInfo.userSearch?.username}`)}>
+                
                 <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={searchInfo.userSearch?.imagePath}/>
                 <h3>{searchInfo.userSearch?.username}</h3>
                 <div id="sp-content">

@@ -8,7 +8,6 @@ const EditReview = ({ review }) => {
     const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
     
     const handleEdit = () => {
-        console.log(review)
         setText(review.content)
         setEdit(prevState => !prevState)
     }
@@ -28,7 +27,6 @@ const EditReview = ({ review }) => {
             },
             body: JSON.stringify({ text }),
         });
-        console.log('button pressed')
 
         window.location.reload();
     }

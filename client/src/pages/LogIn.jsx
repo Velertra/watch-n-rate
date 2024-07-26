@@ -10,7 +10,6 @@ const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setCurrentUser } = useUser();
-  const location = useLocation();  
   const navigate = useNavigate()
   const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
 
@@ -24,7 +23,6 @@ const LogIn = () => {
 
   const handleLogIn = async (e) => {
     e.preventDefault();
-/* eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpcnN0dXNlciIsImlhdCI6MTcyMDgyMDcwNywiZXhwIjoxNzIwODQ1OTA3fQ.Q5Jop2NaIT6IV1op1VFpE50PugZC0PE77WYYUZ-EPH0 */
     try {
       const response = await fetch(`${url}/login`, {
         method: 'POST',
@@ -45,12 +43,10 @@ const LogIn = () => {
         
         navigate(`/`)  
       } 
-      
 
     } catch (error) {
       console.error('Error occurred on login');
     }
-    
   }
 
     return (
@@ -75,7 +71,7 @@ const LogIn = () => {
                 onChange={handlePasswordChange}
               />
           </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit">Login</button>
       </form>
       <div id="login-signup">
         <p>New to the site? <NavLink to="/sign-up">sign-up</NavLink></p>

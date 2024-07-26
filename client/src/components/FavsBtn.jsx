@@ -27,9 +27,8 @@ const FavsBtn = ({ title, type, featureId}) => {
         if (!response.ok) {
             console.error(data.message);
             return;
-        } else {
-            console.log(data);
-        }
+        } 
+        return;
     }
     
     return ( 

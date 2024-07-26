@@ -41,12 +41,10 @@ mongoDb()
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
-      console.log("passport happened")
     try {
       const user = await User.findOne({ username: username });
       
       if (!user) {
-          console.log("didnt find user")
         return done(null, false, { message: "Incorrect username" });
       };
       const match = await bcrypt.compare(password, user.password);

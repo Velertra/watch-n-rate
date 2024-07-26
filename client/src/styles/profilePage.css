@@ -1,9 +1,36 @@
+#profile-header{
+    display: flex;
+}
+
 #p-details-section{
     display: flex;    
+    flex-direction: column;
+    margin-left: 40px;
 }
+
 #p-follow-section{
     display: flex;
     margin-left: auto;
+}
+
+#p-follow-section > div{
+    margin-left: 12px
+}
+
+#profile-img-container{
+    width: 130px; 
+  height: 130px; 
+  border-radius: 40%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#profile-img{
+    min-width: 100%;
+    min-height: 100%; 
+    object-fit: cover;
 }
 
 #p-watchlist-section,
@@ -30,4 +57,10 @@
     display: flex;
     flex-direction: row;
     
+}
+
+#p-recent-reviews{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

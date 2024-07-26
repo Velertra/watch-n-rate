@@ -23,4 +23,10 @@
     display: flex;
     border:  2px solid rgb(74, 74, 74);
     width: 60vh;
+    height: auto;
+    padding: 10px;
+}
+
+#hp-rr-content{
+    padding: 10px;
 }

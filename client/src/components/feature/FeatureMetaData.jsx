@@ -42,7 +42,10 @@ const FeatureMetaData = ({ feature }) => {
                     </ul>
                 </div>
             </header>
-            {metaContent()}
+            <div id="fm-list">
+                {metaContent()}
+            </div>
+            
                     {/* <ul id="f-cast">
                         <FeatureCredits
                             feature={feature.cast}

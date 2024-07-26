@@ -25,7 +25,6 @@ export const UserProvider = ({ children }) => {
 
                 } else {
                     console.error(`Fetch error: ${response.status} ${response.statusText}`);
-                    console.log('user fetch is catching error')
                     setCurrentUser(prevUser => ({
                         ...prevUser,
                         currentUser: null

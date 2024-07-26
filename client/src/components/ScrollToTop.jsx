@@ -8,7 +8,6 @@ const ScrollToTop = ({ children }) => {
         //const unlisten = navigate(() => {
             window.scrollTo(0, 0);
         //});
-        console.log('checkagain')
         /* return () => {
             unlisten();
         } */

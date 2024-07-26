@@ -67,7 +67,6 @@ const editReview = async (req, res, next) => {
         await review.save();
         res.status(200).json({ message: 'Review edited successfully' });
     } catch {
-        console.log('error runs')
         res.status(500).json({ message: 'Error editing review'});
     }
 };

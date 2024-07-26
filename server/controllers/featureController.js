@@ -8,7 +8,6 @@ const addReview = async (req, res) => {
     const user = await User.findOne({ username: req.user.username }, '-password');
     const feature = await Feature.findOne({ title: title }).populate('reviews');
     
-    
     const newReview = new Review({
         author: user,
         content: (content || " "),
@@ -41,11 +40,6 @@ const addReview = async (req, res) => {
         await newReview.save();
     }
 
-    /* if (!user){
-        res.status(400);
-        throw new Error('user not found');
-    } */
-
     res.json({ user })
 }
 
@@ -54,45 +48,19 @@ const getFeatureInfo = async(req, res, next) => {
     const user = await User.findOne({ username: req.user.username }, '-password');
     
     const favs = await user.populate('liked')
-    console.log(favs)
 
     res.json({ favs: favs.liked })
-   /*  if(!featureId){
-        return res.status(401).json({ message: "Adding to Favorites failed" });
-    } */
-
-    /* const newFav = { title, type, featureId }
-    user.favFeatures.push(newFav); */
-
 }
-
-/* const addFav = async(req, res, next) => {
-    const { title, type, featureId } = req.body;
-    const user = await User.findOne({ username: req.user.username }, '-password');
-    
-
-    if(!featureId){
-        return res.status(401).json({ message: "Adding to Favorites failed" });
-    }
-
-    const newFav = { title, type, featureId }
-    user.favFeatures.push(newFav);
-
-    await user.save();
-} */
 
 const addToUserLiked = async(req, res, next) => {
     const { title, featureId, type } = req.body;
     const user = await User.findOne({ username: req.user.username }, '-password');
     const findFeature = await Feature.findOne({ title: req.body.title }, { featureId: req.body.featureId });
 
-    
-
     if(findFeature) {
         try{
         const feature = await Feature.findById(findFeature._id);
         if(!feature.liked?.includes(user._id)) {
-            console.log(feature)
             feature.liked.push(user._id);
             user.liked.push(feature);
             await feature.save();
@@ -110,7 +78,6 @@ const addToUserLiked = async(req, res, next) => {
                 { $pull: { liked: findFeature._id } },
                 { new: true }
             );
-            console.log(updatedUser)
     
             await updatedFeature.save();
             await updatedUser.save();
@@ -154,7 +121,6 @@ const getFeatureReviews = async (req, res, next) => {
         });
 
         if(!feature) {
-            console.log('test')
             res.json(null)
         } else {
             res.json({ feature })

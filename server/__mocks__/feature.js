@@ -18,5 +18,4 @@ const Feature = jest.fn(() => ({
 Feature.findById = jest.fn();
 Feature.findByIdAndUpdate = jest.fn();
 
-//console.log(Feature)
 module.exports = Feature;

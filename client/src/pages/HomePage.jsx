@@ -1,36 +1,44 @@
 import FeatureIcon from "../components/FeatureIcon";
 import { useNavigate } from "react-router-dom";
 import ReviewLikes from "../components/ReviewLikes";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHomePage } from "../components/HomePageContext";
 import Popular from "../homepage/Popular";
 import { useUser } from "../components/UserContext";
 
 const HomePage = () => {
-    
-    const { popular, recentReviews, upcoming } = useHomePage();
+    const { recentReviews, upcoming } = useHomePage();
     const navigate = useNavigate();
     const [bgNumber, setBgNumber] = useState();
 
     useEffect(() => {
             function bgNumber(){
-                const number = Math.floor(Math.random() * 6);
+                const number = Math.floor(Math.random() * 3);
                 if(number == 0){
                     return number + 1;
                 } else {
                     return number
                 }
             }
+
             const rand = bgNumber()
             setBgNumber(() => rand);
-            
     },[]);
     
+    const cutContent = (content) => {
+        const maxLength = 100;
+        if (content.length > maxLength) {
+            return content.substring(0, maxLength) + "...";
+        } else {
+            return content;
+        }
+    }
+
     return ( 
         <>
             <div id="header-img-container">
                 {/* header image, change number to pick */}
-                {upcoming && bgNumber && <img id="header-img" onClick={() => navigate(`/feature/movie-${upcoming.results[bgNumber].id}`)} src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
+                {upcoming && bgNumber && <img id="header-img" onClick={() => navigate(`/feature/movie-${upcoming.results[bgNumber].id}`)} src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}>{console.log(upcoming)}</img>}
                 <div id="head-img-overlay"></div>
             </div>
             <div id="header-content-container"></div>
@@ -50,7 +58,7 @@ const HomePage = () => {
                         <div id="hp-rr-content">
                             <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
                             <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4>
-                            <p>{review.content}</p>
+                            <p>{cutContent(review.content)}</p>
                             <ReviewLikes
                                 review={review}
                             />

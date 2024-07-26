@@ -11,7 +11,7 @@ const Reviews = () => {
     const navigate = useNavigate();
 
     return ( 
-        <div id="rp-r-container">{/* {console.log(user)} */}
+        <div id="rp-r-container">
           <h2>reviews</h2>
           {user && user.currentUser.reviews.map((review, index) => (
             <div key={index} id="rp-r">

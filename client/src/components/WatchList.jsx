@@ -20,8 +20,6 @@ const WatchList = ({ title, type, featureId}) => {
 
         if (!response.ok) {
             const data = await response.json();
-            console.log(data)
-            
             return;
         }
     }
