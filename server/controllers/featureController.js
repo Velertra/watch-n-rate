@@ -116,7 +116,7 @@ const getFeatureReviews = async (req, res, next) => {
             path: 'reviews',
             populate:{ 
              path: 'author',
-             select: 'username'
+             select: ['username', 'imagePath']
          }   
         });
 

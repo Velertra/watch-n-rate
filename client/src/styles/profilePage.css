@@ -1,5 +1,17 @@
+#profile-body{
+    width: 780px;
+    border: 2px solid grey;
+    
+}
+
+#profile-content{
+    margin: 20px;
+}
+
 #profile-header{
     display: flex;
+    border-bottom: 2px solid grey;
+    padding: 20px;
 }
 
 #p-details-section{
@@ -10,6 +22,7 @@
 
 #p-follow-section{
     display: flex;
+    align-items: center;
     margin-left: auto;
 }
 
@@ -53,10 +66,18 @@
     align-items: center;
 }
 
-#pfd-user-details{
+#pfd-user{
     display: flex;
-    flex-direction: row;
-    
+    gap: 30px;
+    border: 2px solid grey;
+    padding: 10px;
+}
+
+#followers-header h4{
+    margin: auto;
+}
+
+#pfd-user-details{
 }
 
 #p-recent-reviews{

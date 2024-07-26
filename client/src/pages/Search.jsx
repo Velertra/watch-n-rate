@@ -73,39 +73,58 @@ const SearchPage = () => {
         navigate(`/feature/${(agent.media_type || agent.media_type)+ - + agent.id}`)
     }
 
+    const cutContent = (content) => {
+        const maxLength = 300;
+        if (content?.length > maxLength) {
+            return content.substring(0, maxLength) + "...";
+        } else {
+            return content;
+        }
+    }
+
     return ( 
-        <div>
-            {searchInfo?.userSearch
-            &&
-            <div onClick={() => navigate(`/profile/${searchInfo.userSearch?.username}`)}>
-                
-                <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={searchInfo.userSearch?.imagePath}/>
-                <h3>{searchInfo.userSearch?.username}</h3>
-                <div id="sp-content">
-                    <div>recent likes</div>
-                {searchInfo.userSearch?.liked.map((like, index) => (
-                    <div key={index}>
-                        <h6>{like.title}</h6>
+        <div id="search-body">
+            <div id="sp-profile-section">
+                {searchInfo?.userSearch
+                &&
+                <div id="sp-profile-container" onClick={() => navigate(`/profile/${searchInfo.userSearch?.username}`)}>
+                    
+                    <div id="sp-profile-img-container">
+                        <Image id="sp-profile-img" cloudName="dqckw3rn4" publicId={searchInfo.userSearch?.imagePath}/>
                     </div>
-                ))}
-                </div>
-            </div>}
-            {searchInfo?.featureSearch?.results && (searchInfo.featureSearch.results).map((movie, index) => {
-            return (
-                <div id="movie-content" style={{display: 'flex'}} onClick={() => handleContentClick(movie)} key={index}>
-                    <img style={{width: '15vh'}} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}></img>
-                    <div id="movie-details">
-                        <ul key={index}>
-                            <li> 
-                                <h3 style={{fontSize: '2vh'}}>{movie.title || movie.name}</h3>
-                                <p style={{width: '1vh'}}>{movie.popularity}</p>
-                                <p style={{fontSize: '1.5vh'}}>{movie.overview}</p>
-                            </li>
-                        </ul>
+                    <h3 id="sp-profile-name">{searchInfo.userSearch?.username}</h3>
+                    <div id="sp-content">
+                        <div><h4 id="sp-recent-label">Recents</h4></div>
+                    {searchInfo.userSearch?.liked.map((like, index) => (
+                        
+                            <h6 key={index}>{like.title}</h6>
+                        
+                    ))}
                     </div>
                 </div>
-            )
-        })}</div>
+                }
+            </div>
+
+            <div id="sp-feature-section">
+                {searchInfo?.featureSearch?.results && (searchInfo.featureSearch.results).map((movie, index) => {
+                return (
+                    <div id="movie-content" style={{display: 'flex'}} onClick={() => handleContentClick(movie)} key={index}>
+                        <img style={{width: '15vh'}} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}></img>
+                        <div id="movie-details">
+                            <ul key={index}>
+                                <li>
+                                    <h3 style={{fontSize: '2vh'}}>{movie.title || movie.name}</h3>
+                                    <p style={{fontSize: '3vh'}}>&#10025;{movie.vote_average}</p>
+                                    <p style={{fontSize: '1.5vh'}}>{cutContent(movie.overview)}</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                )
+                })}
+            </div>
+            
+        </div>
      );
 }
  

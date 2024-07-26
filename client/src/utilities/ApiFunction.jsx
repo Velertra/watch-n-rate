@@ -3,7 +3,7 @@ const apiKey = import.meta.env.VITE_REACT_APP_WATCHNRATE;
 export async function FeatureSearch(movieTitle) {
     try {
         const response = await fetch(
-            `https://api.themoviedb.org/3/search/multi?query=${movieTitle}&include_adult=false&language=en-US&page=1`,
+            `https://api.themoviedb.org/3/search/multi?query=${movieTitle}&include_adult=false&language=en-US&region=US&page=1`,
             {
                 method: 'GET',
                 headers: {

@@ -106,44 +106,44 @@ const Profile = () => {
               
             </div>
           </div>
-          <h3>Liked</h3>
-          <div id="p-liked-section">
-            {userProfile.profileUser.liked.map((feature, index) => (
-              <FeatureIcon 
-                key={index}
-                type={feature.type}
-                id={feature.featureId}
-              />
+          <div id="profile-content">
+            <h3>Liked</h3>
+            <div id="p-liked-section">
+              {userProfile.profileUser.liked.map((feature, index) => (
+                <FeatureIcon 
+                  key={index}
+                  type={feature.type}
+                  id={feature.featureId}
+                />
+              ))}
+            </div>
+          <h3>Watch List</h3>
+          <div id="p-watchlist-section">
+            {userProfile.profileUser.watchlist.map((feature, index) => (
+                <FeatureIcon 
+                  key={index}
+                  type={feature.type}
+                  id={feature.featureId}
+                />
             ))}
           </div>
-        <h3>Watch List</h3>
-        <div id="p-watchlist-section">
-          {userProfile.profileUser.watchlist.map((feature, index) => (
-              <FeatureIcon 
-                key={index}
-                type={feature.type}
-                id={feature.featureId}
-              />
-          ))}
-        </div>
-        <div id="p-recent-reviews">
-          {userProfile.profileUser.reviews.slice(0, 5).map((review, index) => (
-              <div id="hp-rr" onClick={() => navigate(`/review/${review._id}`)} key={index}>
+          <div id="p-recent-reviews">
+            {userProfile.profileUser.reviews.slice(0, 5).map((review, index) => (
+                <div id="hp-rr" onClick={() => navigate(`/review/${review._id}`)} key={index}>
 
-                  <FeatureIcon 
-                  id={review.feature[0].featureId}
-                  type={review.feature[0].type}
-                  />
-                  <div id="hp-rr-content">
-                    <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
-                    <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4>
-                    <p>{review.content}</p>
-                  </div>
-              </div>
-          ))
-          }
-
-        </div>
+                    <FeatureIcon 
+                    id={review.feature[0].featureId}
+                    type={review.feature[0].type}
+                    />
+                    <div id="hp-rr-content">
+                      <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
+                      <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4>
+                      <p>{review.content}</p>
+                    </div>
+                </div>
+            ))}
+          </div>
+          </div>
         </div>
       )}        
       </>

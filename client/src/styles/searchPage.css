@@ -1,3 +1,48 @@
-#sp-content{
+#sp-content h6{
+    margin: auto;
+}
+
+#search-body{
     display: flex;
+    padding: 40px;
+    width: 780px;
+}
+
+#movie-content{
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+#sp-recent-label{
+    margin: auto;
+    text-decoration-line: underline;
+}
+
+#sp-profile-section{
+}
+
+#sp-profile-container{
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+#sp-profile-img-container{
+    width: 130px; 
+    height: 130px; 
+    border-radius: 40%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sp-profile-img{
+    min-width: 100%;
+    min-height: 100%; 
+    object-fit: cover;
+}
+
+#sp-profile-name{
+    margin: auto;
+    color: rgb(103, 103, 103);
 }

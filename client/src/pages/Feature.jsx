@@ -40,6 +40,7 @@ const Feature = () => {
                     {featureInfo?.reviews
                     &&
                     <>
+                    {console.log(featureInfo)}
                     <FeaturePageReviews
                         reviews={featureInfo.reviews.feature.reviews}
                         user={user}

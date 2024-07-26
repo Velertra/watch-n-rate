@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ReviewLikes from "../components/ReviewLikes";
 import { useEffect, useState } from "react";
 import { useHomePage } from "../components/HomePageContext";
-import Popular from "../homepage/Popular";
+import Popular from "../components/homePage/Popular";
 import { useUser } from "../components/UserContext";
 
 const HomePage = () => {

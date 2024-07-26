@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { NavLink, Outlet, useLoaderData } from "react-router-dom";
 import NavBar from "../NavBar";
 import SearchBar from "../SearchBar";
 
@@ -8,7 +8,7 @@ const Header = () => {
         <>
             <header> 
                 <div id="header-container">
-                    <h1>watchNrate</h1>
+                    <NavLink style={{textDecorationLine: 'none'}} to="/"><h1>WatchNRate</h1></NavLink>
                     <NavBar />
                     <SearchBar />
                 </div>

@@ -57,8 +57,13 @@ const DisplayFollows = ({ userProfile }) => {
                 <div onClick={() => setDisplay(false)}>&times;</div>
                 {follows.map((user, index) => (
                     <div id="pfd-user" onClick={() => {navigate(`/profile/${user.username}`); setDisplay(() => false)}} key={index}>
-                        <Image style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={user.imagePath}/>
-                        <h4>{user.username}</h4>
+                        <div id="followers-header">
+                            <h4>{user.username}</h4>
+                            <div id="fp-profile-img-container">
+                                <Image id="fp-profile-img" style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={user.imagePath}/>
+                            </div>
+                        </div>
+                        
                         <div id="pfd-user-details">
                             {(user.liked.length >= 1) && <>recent likes</>}
                             {user.liked.map((like, index) => (
@@ -81,9 +86,7 @@ const DisplayFollows = ({ userProfile }) => {
                 }
 
                 <div id="followers-section" onClick={() => handleFollowClick(userProfile.profileUser?.followers)}>
-                    {console.log(followers)}
                     <p>followers {followers}</p>
-                    
                 </div>
                 <div id="following-section" onClick={() => handleFollowClick(userProfile.profileUser?.following)}>
                     <p>following {userProfile?.profileUser?.following.length}</p>

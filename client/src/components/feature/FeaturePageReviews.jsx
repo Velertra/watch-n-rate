@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import EditReview from "../EditReview";
 import { useFeature } from "./FeatureContext";
 import DeleteReview from "../DeleteReview";
+import { Image } from "cloudinary-react";
 
 const FeaturePageReviews = ({ reviews}) => {
     const token = JSON.parse(localStorage.getItem("user"));
@@ -24,12 +25,20 @@ const FeaturePageReviews = ({ reviews}) => {
             {featureReviews.map((review, index) => (
                 <div id="fr-container" key={index}>
                     <div id="fr-details-container" onClick={() => navigate(`/review/${review._id}`)}>
-                        <h5>{review?.author.length !== 0 ? review?.author[0].username : "User Deleted"}</h5>
-                        <p>{review?.content}</p>
-                        <ReviewLikes 
-                            review={review}
-                            user={user}
-                        />
+                        <div id="fr-header">
+                            
+                            <h5>{review?.author.length !== 0 ? review?.author[0].username : "User Deleted"}</h5>
+                            <div id="fp-profile-img-container">
+                                <Image id="fp-profile-img" cloudName="dqckw3rn4" publicId={review.author[0]?.imagePath}/>
+                            </div>
+                        </div>
+                        <div id="fr-details">
+                            <p>{review?.content}</p>
+                            <ReviewLikes 
+                                review={review}
+                                user={user}
+                            />
+                        </div>
                     </div>
                     <div id="fr-btns">
                         {user?.currentUser?.username == review?.author[0]?.username
@@ -45,7 +54,6 @@ const FeaturePageReviews = ({ reviews}) => {
                         />
                         </>}
                     </div>
-                    
                 </div>
             ))}
         </>

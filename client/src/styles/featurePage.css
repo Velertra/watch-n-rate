@@ -62,9 +62,9 @@
 #fm-header-tabs > li {
     margin-left: 2px;
     margin-right: 2px;
-    border-left: 2px solid red;
-    border-right: 2px solid red;
-    border-bottom: 2px solid red;
+    border-left: 5px solid rgb(5, 0, 72);
+    border-right: 5px solid rgb(5, 0, 72);
+    border-bottom: 5px solid rgb(5, 0, 72);
     border-top: none;
 }
 
@@ -87,6 +87,25 @@
     
 }
 
+#fr-header{
+    display: flex;
+}
+
+#fr-details-container{
+    display: flex;
+    gap: 10%;
+}
+
+#fr-details h6{ 
+    margin: auto;
+}
+
+#fr-btns{
+    display: flex;
+    justify-content: end;
+}
+
+
 /* REVIEW INPUT */
 #review-input-container{
     position: absolute;
@@ -108,6 +127,26 @@
     
 }
 
+#fr-container{
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+#fp-profile-img-container{
+    width: 130px; 
+    height: 130px; 
+    border-radius: 40%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#fp-profile-img{
+    min-width: 100%;
+    min-height: 100%; 
+    object-fit: cover;
+}
 /* @
 media (min-width: 800px) {
 

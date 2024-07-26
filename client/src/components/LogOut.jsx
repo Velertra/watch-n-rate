@@ -11,12 +11,11 @@ const LogOut = () => {
             currentUser: null,
             token: null
         })
-        //refreshUser();
         navigate('/')
     }
 
     return ( 
-        <NavLink onClick={handleLogOutClick}>logout</NavLink>
+        <NavLink onClick={handleLogOutClick}>LOGOUT</NavLink>
      );
 }
  
