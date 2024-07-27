@@ -255,6 +255,5 @@ const followList = async (req, res, next) => {
             res.json({ user })
         }
     }
-    
 
 module.exports = {signUpController, login, authUser, saveProfileImg, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList, searchThruUsers};

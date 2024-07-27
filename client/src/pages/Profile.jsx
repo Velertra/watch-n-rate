@@ -14,6 +14,7 @@ const Profile = () => {
   const token = JSON.parse(localStorage.getItem("user"));
   const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
   const { profileName } = useParams();
+  const cloudinaryImg = import.meta.env.VITE_IMG_ID;
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -47,9 +48,9 @@ const Profile = () => {
 
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
-    formData.append("upload_preset", "velertra43434343");
+    formData.append("upload_preset", cloudinaryImg);
 
-    const response = await fetch('https://api.cloudinary.com/v1_1/dqckw3rn4/image/upload', {
+    const response = await fetch('https://api.cloudinary.com/v1_1/dockrhn34n4/image/upload', {
       method: 'POST',
       body: formData,
     });
@@ -81,7 +82,7 @@ const Profile = () => {
               <Image
                 id='profile-img'
                 style={{"height": '20px', 'backgroundColor': "white"}} 
-                cloudName="dqckw3rn4" 
+                cloudName="dockrhn34n4" 
                 publicId={imgId}
               />
             </div>
