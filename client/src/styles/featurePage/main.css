@@ -8,6 +8,7 @@
     max-width: 1200px;
     z-index: 1;
     gap: 1vw;
+    margin-top: -5vw;
 }
 
 #details-content > div{
@@ -76,7 +77,7 @@
 #details-content{
     background: linear-gradient(to bottom, rgb(5, 0, 72, .12) 20%, rgb(5, 0, 72, .6) 90%);
     border-radius: 2%;
-    padding: 4vw;
+    padding: 1vw;
     display: flex;
     align-items: flex-start;
     gap: 1vw;

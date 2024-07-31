@@ -54,26 +54,29 @@ const DisplayFollows = ({ userProfile }) => {
             {display 
             && 
             <div id="profile-follows-display">
-                <div onClick={() => setDisplay(false)}>&times;</div>
-                {follows.map((user, index) => (
-                    <div id="pfd-user" onClick={() => {navigate(`/profile/${user.username}`); setDisplay(() => false)}} key={index}>
-                        <div id="followers-header">
-                            <h4>{user.username}</h4>
-                            <div id="fp-profile-img-container">
-                                <Image id="fp-profile-img" style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={user.imagePath}/>
+                <div id="profile-close-follows" onClick={() => setDisplay(false)}>&times;</div>
+                <div id="profile-follow-users">
+                    {follows.map((user, index) => (
+                        <div id="pfd-user" onClick={() => {navigate(`/profile/${user.username}`); setDisplay(() => false)}} key={index}>
+                            <div id="followers-header">
+                                <h4>{user.username}</h4>
+                                <div id="fp-profile-img-container">
+                                    <Image id="fp-profile-img" style={{"height": '70px', 'backgroundColor': "white", "borderRadius": "50%" }} cloudName="dqckw3rn4" publicId={user.imagePath}/>
+                                </div>
+                            </div>
+                            
+                            <div id="pfd-user-details">
+                                {(user.liked.length >= 1) && <>recent likes</>}
+                                {user.liked.map((like, index) => (
+                                    <div key={index}>
+                                        <h6>{like.title}</h6>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                        
-                        <div id="pfd-user-details">
-                            {(user.liked.length >= 1) && <>recent likes</>}
-                            {user.liked.map((like, index) => (
-                                <div key={index}>
-                                    <h6>{like.title}</h6>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
+                
             </div>
             }
             

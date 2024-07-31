@@ -28,6 +28,11 @@ html, body{
   /* overflow-x: hidden; */
 }
 
+#main-body{
+  display: flex;
+  flex-direction: column;
+}
+
 /*
 #root{
 }

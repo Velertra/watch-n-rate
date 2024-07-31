@@ -57,7 +57,7 @@ const HomePage = () => {
                         type={review.feature[0].type}
                         />
                         <div id="hp-rr-content">
-                            <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4>
+                            {/* <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4> */}
                             <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
                             <p>{cutContent(review.content)}</p>
                             <ReviewLikes

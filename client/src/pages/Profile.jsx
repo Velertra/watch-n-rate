@@ -81,7 +81,6 @@ const Profile = () => {
             <div id="profile-img-container">
               <Image
                 id='profile-img'
-                style={{"height": '20px', 'backgroundColor': "white"}} 
                 cloudName="dockrhn34n4" 
                 publicId={imgId}
               />
@@ -110,7 +109,7 @@ const Profile = () => {
           <div id="profile-content">
             <h3>Liked</h3>
             <div id="p-liked-section">
-              {userProfile.profileUser.liked.map((feature, index) => (
+              {userProfile.profileUser.liked.slice(0, 6).map((feature, index) => (
                 <FeatureIcon 
                   key={index}
                   type={feature.type}
@@ -120,7 +119,7 @@ const Profile = () => {
             </div>
           <h3>Watch List</h3>
           <div id="p-watchlist-section">
-            {userProfile.profileUser.watchlist.map((feature, index) => (
+            {userProfile.profileUser.watchlist.slice(0, 6).map((feature, index) => (
                 <FeatureIcon 
                   key={index}
                   type={feature.type}
