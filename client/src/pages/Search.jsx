@@ -57,7 +57,6 @@ const SearchPage = () => {
                 featureSearch: featureData,
                 userSearch: userData?.user
             })
-            
         }
 
         if(code) {

@@ -1,16 +1,61 @@
 #hp-body{
-    width: 780px;
+    margin: 5%;
 }
 
 #hp-popular-movies,
+#hp-popular-tv{
+    display: flex;
+    overflow: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid rgb(74, 74, 74);
+}
+
+#hp-popular-lists{
+    display: flex;
+}
+
+#hp-popular-lists > button{
+    background: radial-gradient(#00000080, transparent);
+    color: white;
+}
+
+#hp-popular-movies > div,
+#hp-popular-tv > div {
+    margin: .5%;
+}
+
+#hp-rr-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#hp-rr-content > h4{
+    margin: 0;
+}
+
+#hp-rr{
+    display: flex;
+    border:  2px solid rgb(74, 74, 74);
+    width: calc(96px + 39vw);
+    height: auto;
+    padding: 10px;
+}
+
+#hp-rr-content{
+    padding: 10px;
+}
+
+/* #hp-popular-movies,
 #hp-popular-tv {
     overflow-y: auto;
     scrollbar-width: none;
     
     border-bottom: 1px solid rgb(74, 74, 74);
-}
+} */
 
-#hp-popular-label{
+/* #hp-popular-label{
     border-bottom: 1px solid rgb(74, 74, 74);
 }
 
@@ -35,4 +80,4 @@
 
 #hp-rr-content{
     padding: 10px;
-}
+} */

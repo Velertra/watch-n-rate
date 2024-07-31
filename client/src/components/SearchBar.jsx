@@ -35,7 +35,7 @@ const SearchBar = ( ) => {
     }
 
     return ( 
-        <form /* Form method='post' action={'/search/' + text} */>
+        <form id='search-form'>
             <label htmlFor="search-bar"></label>
             <input
                 id='search-bar'
