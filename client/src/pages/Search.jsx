@@ -94,7 +94,7 @@ const SearchPage = () => {
                     <h3 id="sp-profile-name">{searchInfo.userSearch?.username}</h3>
                     <div id="sp-content">
                         <div><h4 id="sp-recent-label">Recents</h4></div>
-                    {searchInfo.userSearch?.liked.map((like, index) => (
+                    {searchInfo.userSearch?.liked.slice(0, 3).map((like, index) => (
                         
                             <h6 key={index}>{like.title}</h6>
                         
@@ -107,14 +107,14 @@ const SearchPage = () => {
             <div id="sp-feature-section">
                 {searchInfo?.featureSearch?.results && (searchInfo.featureSearch.results).map((movie, index) => {
                 return (
-                    <div id="movie-content" style={{display: 'flex'}} onClick={() => handleContentClick(movie)} key={index}>
-                        <img style={{width: '15vh'}} src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}></img>
+                    <div id="movie-content" onClick={() => handleContentClick(movie)} key={index}>
+                        <img id="sp-feature-img" src={"https://image.tmdb.org/t/p/w500" + movie.poster_path}></img>
                         <div id="movie-details">
                             <ul key={index}>
                                 <li>
-                                    <h3 style={{fontSize: '2vh'}}>{movie.title || movie.name}</h3>
-                                    <p style={{fontSize: '3vh'}}>&#10025;{movie.vote_average}</p>
-                                    <p style={{fontSize: '1.5vh'}}>{cutContent(movie.overview)}</p>
+                                    <h3>{movie.title || movie.name}</h3>
+                                    <p>&#10025;{movie.vote_average}</p>
+                                    <p>{cutContent(movie.overview)}</p>
                                 </li>
                             </ul>
                         </div>

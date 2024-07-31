@@ -23,6 +23,8 @@
 #hp-popular-movies > div,
 #hp-popular-tv > div {
     margin: .5%;
+    border-right: 1px solid rgb(74, 74, 74);
+    border-left: 1px solid rgb(74, 74, 74);
 }
 
 #hp-rr-container{
@@ -51,7 +53,7 @@
 
 #hp-rr-content{
     padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 10px;
 }
 
 /* #hp-popular-style{

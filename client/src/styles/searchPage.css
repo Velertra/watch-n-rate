@@ -4,8 +4,12 @@
 
 #search-body{
     display: flex;
-    padding: 40px;
-    width: 780px;
+    align-self: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    width: 90vw;
+    max-width: 1200px;
+    gap: 1vw;
 }
 
 #movie-content{
@@ -18,13 +22,25 @@
     text-decoration-line: underline;
 }
 
-#sp-profile-section{
-}
 
 #sp-profile-container{
     padding: 10px;
     border: 1px solid grey;
+    background-color: rgb(5, 0, 72);
 }
+
+#sp-feature-section{
+    display: flex;
+    gap: 1vw;
+    flex-direction: column;
+}
+
+#sp-feature-section > div{
+    padding: 10px;
+    border: 1px solid grey;
+    background-color: rgb(5, 0, 72);
+    display: flex;
+}   
 
 #sp-profile-img-container{
     width: 130px; 
@@ -36,6 +52,10 @@
     justify-content: center;
 }
 
+#sp-profile-section{
+    gap: 1vw;
+}
+
 #sp-profile-img{
     min-width: 100%;
     min-height: 100%; 
@@ -45,4 +65,8 @@
 #sp-profile-name{
     margin: auto;
     color: rgb(103, 103, 103);
+}
+
+#sp-feature-img{
+    height: 20vw;
 }

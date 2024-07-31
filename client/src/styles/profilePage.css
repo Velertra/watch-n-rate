@@ -91,6 +91,7 @@
 #p-watchlist-section,
 #p-liked-section{
     display: flex;
+    gap: 1vw;
 }
 
 #profile-follows-display{
