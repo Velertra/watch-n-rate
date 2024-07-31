@@ -3,10 +3,10 @@
 @import "reviewsPage.css";
 @import "featureReview.css";
 @import "login.css";
-@import "featurePage.css";
 @import "searchPage.css";
 @import "profilePage.css";
 @import "featureIcon.css";
+@import "../styles/featurePage/main.css";
 
 :root {
   font-family: Inter,  "Lucida Console", "Courier New", monospace;

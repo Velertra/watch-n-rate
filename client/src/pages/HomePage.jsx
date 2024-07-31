@@ -12,18 +12,19 @@ const HomePage = () => {
     const [bgNumber, setBgNumber] = useState();
 
     useEffect(() => {
-            function bgNumber(){
-                const number = Math.floor(Math.random() * 3);
-                if(number == 0){
-                    return number + 1;
-                } else {
-                    return number
-                }
+        function bgNumber(){
+            const number = Math.floor(Math.random() * 2);
+            if(number == 0){
+                return '0';
+            } else {
+                return number
             }
+        }
 
-            const rand = bgNumber()
-            setBgNumber(() => rand);
-    },[]);
+        const rand = bgNumber()
+        setBgNumber(() => rand);
+        
+    },[upcoming]);
     
     const cutContent = (content) => {
         const maxLength = 100;
@@ -38,8 +39,8 @@ const HomePage = () => {
         <>
             <div id="header-img-container">
                 {/* header image, change number to pick */}
-                {upcoming && bgNumber && <img id="header-img" onClick={() => navigate(`/feature/movie-${upcoming.results[bgNumber].id}`)} src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}>{console.log(upcoming)}</img>}
-                <div id="head-img-overlay"></div>
+                {upcoming && bgNumber && <img id="header-img" onClick={() => navigate(`/feature/movie-${upcoming.results[bgNumber].id}`)} src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
+                <div id="head-img-overlay//"></div>
             </div>
             <div id="header-content-container"></div>
             <div id="hp-body">

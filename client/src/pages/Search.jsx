@@ -89,7 +89,7 @@ const SearchPage = () => {
                 <div id="sp-profile-container" onClick={() => navigate(`/profile/${searchInfo.userSearch?.username}`)}>
                     
                     <div id="sp-profile-img-container">
-                        <Image id="sp-profile-img" cloudName="dqckw3rn4" publicId={searchInfo.userSearch?.imagePath}/>
+                        <Image id="sp-profile-img" cloudName="dockrhn34n4" publicId={searchInfo.userSearch?.imagePath}/>
                     </div>
                     <h3 id="sp-profile-name">{searchInfo.userSearch?.username}</h3>
                     <div id="sp-content">

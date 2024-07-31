@@ -31,19 +31,28 @@ const FeatureIcon = ({type, id}) => {
         }
     }, [])
 
-    const handleContentClick = (agent) => {
-        //navigate(`/feature/${type + - + agent.id}`)
-        
+    const cutContent = (content) => {
+        const maxLength = 17;
+        if (content.length > maxLength) {
+            return content.substring(0, maxLength) + "";
+        } else {
+            return content;
+        }
     }
 
     return ( 
         <>
             {details 
             && 
-                <div id="feature-icon" onClick={() => handleContentClick(details)}>
+            <div id="feature-icon-container">
+                <div id="feature-icon">
                     <Link to={`/feature/${type + - + details.id}`}><img id="feature-icon-img" src={"https://image.tmdb.org/t/p/w500" + details.poster_path}></img></Link>
                     {/* <h4>{details.title || details.name}</h4> */}
                 </div>
+                <div>
+                    <h6 id="feature-icon-name">{cutContent(details.title || details.name)}</h6>
+                </div>
+            </div>
             }
         </>
      );

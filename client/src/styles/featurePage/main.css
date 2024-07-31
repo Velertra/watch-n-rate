@@ -1,0 +1,95 @@
+@import './featureMeta.css'; 
+@import './featureReviews.css';
+
+#fp-content{
+    display: flex;
+    flex-direction: column;
+    width: 84vw;
+    max-width: 1200px;
+    z-index: 1;
+    gap: 1vw;
+}
+
+#details-content > div{
+    display: flex;
+    flex-direction: column;
+    /* background: linear-gradient(to bottom, rgb(5, 0, 72, .12) 20%, rgb(5, 0, 72, .7) 90%); */
+    /* background-color: linear-gradient(to bottom right, rgb(5, 0, 72, .9) 100%); */
+    /* border: 1px solid white; */
+    padding: 3vw;
+    border-radius: 2%;
+}
+
+
+
+#fp-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#feature-img-container{
+    display: flex;
+    background: black;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 97%;
+    
+    padding-top: 2vw;
+}
+
+#feature-img{
+    width: 800px;
+    display: flex;
+    justify-content: flex-end;
+    
+    width: 100%;
+    height: auto;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%,  rgba(0, 0, 0, 0.88) 5%, rgba(0, 0, 0, 1) 100%);
+    
+}
+
+#feature-img-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(130px + 42vw);
+    background: linear-gradient(to right, rgb(0, 0, 0) 24vw, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 70%, rgb(0, 0, 0) 91vw);
+    pointer-events: none;
+    z-index: 1;
+}
+
+#feature-img-container::after {
+    content: '';
+    position: absolute;
+    top: calc(-41px + 23vw);
+    left: 0;
+    width: 100%;
+    height: calc(500px + 23vw);
+    background:  linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%,  rgba(0, 0, 0, .6) 26%, rgba(0, 0, 0, .6) 24%,rgba(0, 0, 0) 44%, rgba(0, 0, 0, .95) 77%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none; 
+    z-index: 1;
+}
+
+#details-content{
+    background: linear-gradient(to bottom, rgb(5, 0, 72, .12) 20%, rgb(5, 0, 72, .6) 90%);
+    border-radius: 2%;
+    padding: 4vw;
+    display: flex;
+    align-items: flex-start;
+    gap: 1vw;
+}
+
+#fp-profile-img{
+    width: 10vh;
+}
+
+#split-feature-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 1vw;
+}

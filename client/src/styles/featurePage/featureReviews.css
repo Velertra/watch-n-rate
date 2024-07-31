@@ -1,0 +1,68 @@
+#feature-review-section{
+    width: 600px;
+    background-color: rgb(5, 0, 72, .32);
+    padding: 3vw;
+    border-radius: 2%;
+}
+
+#fr-header{
+    display: flex;
+}
+
+#fr-details-container{
+    display: flex;
+    gap: 10%;
+}
+
+#fr-details h6{ 
+    margin: auto;
+}
+
+#fr-btns{
+    display: flex;
+    justify-content: end;
+}
+
+#review-input-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    min-height: 100%;
+    opacity: 0.9;
+    background-color:  black;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#review-input{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#fr-container{
+    padding: 10px;
+    
+    background: linear-gradient(to bottom, rgba(72, 72, 72, 0.2) 20%, rgb(72, 72, 72, .64) 90%);
+    padding: 1vw;
+    border-radius: 2%;
+}
+
+#fp-profile-img-container{
+    width: 130px; 
+    height: 130px; 
+    border-radius: 40%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#fp-profile-img{
+    min-width: 100%;
+    min-height: 100%; 
+    object-fit: cover;
+}

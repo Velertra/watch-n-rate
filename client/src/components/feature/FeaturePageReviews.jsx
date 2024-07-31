@@ -20,6 +20,7 @@ const FeaturePageReviews = ({ reviews}) => {
         setFeatureReviews(() => newReviews);
     }
 
+
     return (
         <>
             {featureReviews.map((review, index) => (
@@ -28,8 +29,13 @@ const FeaturePageReviews = ({ reviews}) => {
                         <div id="fr-header">
                             
                             <h5>{review?.author.length !== 0 ? review?.author[0].username : "User Deleted"}</h5>
-                            <div id="fp-profile-img-container">
-                                <Image id="fp-profile-img" cloudName="dqckw3rn4" publicId={review.author[0]?.imagePath}/>
+                            <div id="fp-profile-img-container">{console.log(review.author[0]?.imagePath)}
+                                {<Image id="fp-profile-img" cloudName="dockrhn34n4" publicId={review.author[0]?.imagePath}/>
+                                ?
+                                <Image id="fp-profile-img" cloudName="dockrhn34n4" publicId={review.author[0]?.imagePath}/>
+                                :
+                                <img id="fp-profile-img" src="/client/public/TGsKci01 (1).svg"></img>
+                                }
                             </div>
                         </div>
                         <div id="fr-details">
