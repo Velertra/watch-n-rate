@@ -8,32 +8,21 @@ const useToken = require("../middleware/useAuth");
 
 router.get("/sign-up", (req, res) => res.render("./ejs/sign-up-form.ejs"));
 
-router.get("/log-out", (req, res, next) => {
-    req.logout((err) => {
-      if (err) {
-        return next(err);
-      }
-      res.redirect("/");
-    });
-});
 
-router.get("/", (req, res) => {
-    res.render("index", { user: req.user });
-});
-
-router.post("/sign-up", userController.signUpController);
 router.get("/authuser", verifyToken, userController.authUser);
 router.get("/checkusers/:username", userController.checkUsers);
+router.get("/searchthruusers/:user", userController.searchThruUsers);
 
 router.get("/getcurrentuserinfo", verifyToken, userController.getCurrentUserInfo);
 router.get("/getUserProfile/:username", useToken, userController.getUserProfile);
 
+router.post("/sign-up", userController.signUpController);
 router.post("add-fav", userController.addWatchList);
 router.post("/login", userController.login);
 router.post("/saveProfileImg", verifyToken, userController.saveProfileImg);
 router.patch("/followList", verifyToken, userController.followList);
 router.patch("/addtowatchList", verifyToken, userController.addToWatchList);
 
-router.get("/searchthruusers/:user", userController.searchThruUsers);
+
 
 module.exports = router;

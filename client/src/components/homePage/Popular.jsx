@@ -7,10 +7,10 @@ const Popular = () => {
     const moviesRef = useRef(null);
     const tvRef = useRef(null);
 
-    const handleScroll = (direction, refDic) => {
-        if (refDic.current) {
+    const handleScroll = (direction, refChoice) => {
+        if (refChoice.current) {
           const scrollAmount = direction === 'left' ? -283 : 283;
-          refDic.current.scrollBy({
+          refChoice.current.scrollBy({
             left: scrollAmount,
             behavior: 'smooth'
           });
@@ -23,7 +23,8 @@ const Popular = () => {
             &&
             <div id="popular-features">
                 
-                <h1 id="hp-popular-label">Movies</h1>
+                <h1 id="hp-popular-label">Popular Movies</h1>
+                <div id="hp-popular-style"></div>
                 <div id="hp-popular-lists">
                     <button  onClick={() => handleScroll('left', moviesRef)}>{'<'}</button>
                     <div id="hp-popular-movies" ref={moviesRef}>
@@ -40,7 +41,7 @@ const Popular = () => {
                     <button  onClick={() => handleScroll('right', moviesRef)}>{'>'}</button>
                 </div>
                 
-                <h1 id="hp-popular-label">Tv</h1>
+                <h1 id="hp-popular-label">Popular Tv</h1>
                 <div id="hp-popular-lists">
                 <button  onClick={() => handleScroll('left', tvRef)}>{'<'}</button>
                     <div id="hp-popular-tv" ref={tvRef}>

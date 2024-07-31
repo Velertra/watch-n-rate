@@ -8,7 +8,8 @@ router.get("/featureinfo", featureController.getFeatureInfo);
 router.get("/getfeaturereviews", featureController.getFeatureReviews);
 
 router.post("/addtouserliked", verifyToken, featureController.addToUserLiked);
-router.patch("/addtowatchlist", verifyToken, userController.addToWatchList);
 router.post("/addreview", verifyToken, featureController.addReview);
+
+router.patch("/addtowatchlist", verifyToken, userController.addToWatchList);
 
 module.exports = router;

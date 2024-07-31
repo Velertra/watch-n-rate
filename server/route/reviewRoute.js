@@ -10,6 +10,7 @@ router.get("/review/:mongoId", reviewController.getOneUserReview);
 router.get("/getrecentreviews", reviewController.getRecentReviews)
 
 router.put("/changereview/:reviewId", verifyToken, reviewController.editReview);
+
 router.delete("/deletereview/:reviewId", verifyToken, reviewController.deleteReview);
 
 module.exports = router;

@@ -12,6 +12,7 @@
 
 #hp-popular-lists{
     display: flex;
+    background: rgb(5, 0, 72);
 }
 
 #hp-popular-lists > button{
@@ -36,6 +37,7 @@
 }
 
 #hp-rr{
+    background: rgb(5, 0, 72);
     display: flex;
     border:  2px solid rgb(74, 74, 74);
     width: calc(96px + 39vw);
@@ -46,6 +48,16 @@
 #hp-rr-content{
     padding: 10px;
 }
+
+/* #hp-popular-style{
+    background: rgb(0, 0, 0);
+    width: 100%;
+    height: calc(100px + 10vw);
+    left: 0px;
+    border-right: 200px;
+    position: absolute;
+    z-index: -1;
+} */
 
 /* #hp-popular-movies,
 #hp-popular-tv {
