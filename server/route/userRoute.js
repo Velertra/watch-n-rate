@@ -12,6 +12,7 @@ router.get("/sign-up", (req, res) => res.render("./ejs/sign-up-form.ejs"));
 router.get("/authuser", verifyToken, userController.authUser);
 router.get("/checkusers/:username", userController.checkUsers);
 router.get("/searchthruusers/:user", userController.searchThruUsers);
+router.get("/getpopularusers", userController.getPopularUsers);
 
 router.get("/getcurrentuserinfo", verifyToken, userController.getCurrentUserInfo);
 router.get("/getUserProfile/:username", useToken, userController.getUserProfile);

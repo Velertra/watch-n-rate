@@ -166,3 +166,24 @@ export async function GetCredits(type, id){
             console.error('API Error:', response.status, response.statusText);
         }
 }
+
+
+
+export async function PopularActors(){
+    const url = 'https://api.themoviedb.org/3/trending/person/week?language=en-US';
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer '+ apiKey
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        return result
+    } catch (error) {
+        console.error(error);
+    }
+}

@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require('../utilities/passport');
 const User = require("../model/userModel");
+const Review = require("../model/reviewModel");
 const Feature = require('../model/featureModel')
 require('dotenv').config()
 
@@ -256,4 +257,37 @@ const followList = async (req, res, next) => {
         }
     }
 
-module.exports = {signUpController, login, authUser, saveProfileImg, checkUsers, getCurrentUserInfo, addToWatchList, addWatchList, getUserProfile, followList, searchThruUsers};
+    const getPopularUsers = async (req, res) => {
+        try {
+            // Fetch all reviews
+            const reviews = await Review.find({})
+                .populate('author')
+                .populate('feature')
+                .populate('comment')
+                .populate('likes')
+                .exec();
+    
+            // Sort reviews based on the number of likes in descending order
+            const sortedReviews = reviews.sort((a, b) => b.likes.length - a.likes.length);
+    
+            const uniqueReviewsMap = new Map();
+        for (const review of sortedReviews) {
+            const authorId = review.author[0]._id.toString();
+            if (!uniqueReviewsMap.has(authorId)) {
+                uniqueReviewsMap.set(authorId, review);
+            }
+        }
+
+        // Convert the map values to an array
+        const uniqueReviews = Array.from(uniqueReviewsMap.values());
+
+        // Send the sorted and filtered reviews as a response
+        res.status(200).json(uniqueReviews);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    };
+
+module.exports = {signUpController, login, authUser,
+saveProfileImg, checkUsers, getCurrentUserInfo, addToWatchList,
+addWatchList, getUserProfile, followList, searchThruUsers, getPopularUsers};

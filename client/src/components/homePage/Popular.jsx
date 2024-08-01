@@ -9,7 +9,7 @@ const Popular = () => {
 
     const handleScroll = (direction, refChoice) => {
         if (refChoice.current) {
-          const scrollAmount = direction === 'left' ? -283 : 283;
+          const scrollAmount = direction === 'left' ? -183 : 183;
           refChoice.current.scrollBy({
             left: scrollAmount,
             behavior: 'smooth'

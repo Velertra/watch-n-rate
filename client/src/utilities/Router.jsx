@@ -12,6 +12,7 @@ import Reviews from "../pages/Reviews";
 import FeatureReview from "../pages/FeatureReview";
 import { FeatureProvider } from "../components/feature/FeatureContext";
 import { HomePageProvider } from "../components/HomePageContext";
+import PopularPage from "../pages/PopularPage";
 
 const Router = () => {
 
@@ -22,6 +23,7 @@ const Router = () => {
                 { path:"search/:code", element: <Search /> },
                 { path:"sign-up", element: <SignUp /> },
                 { path:"logIn", element: <LogIn />},
+                { path:"popular", element: <PopularPage /> },
                 { path: "profile/:profileName", element:<Profile key={Math.random()}/>},
                 { path: "/feature/:content", element: <FeatureProvider key={Math.random()}><Feature /></FeatureProvider>},
                 { path: "/review/:mongoId", element: <FeatureProvider key={Math.random()}><FeatureReview /></FeatureProvider> },

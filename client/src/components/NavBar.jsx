@@ -23,12 +23,12 @@ const NavBar = () => {
     return ( 
       <>
           <nav>
-            <ul id="nav-list" style={{display:"flex",gap:"10px", listStyleType: "none"}}>
+            <ul id="nav-list">
               {!user && <li><NavLink to="login">LOGIN</NavLink></li>}
-              {!user && <li><NavLink to="sign-up">SIGN-UP</NavLink></li>}
+              {!user && <li><NavLink to="sign-up">SIGNUP</NavLink></li>}
               {user?.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>PROFILE</NavLink></li>}
               {user?.currentUser &&<li><NavLink to="review">REVIEWS</NavLink></li>}              
-              <li><NavLink>POPULAR</NavLink></li>
+              <li><NavLink to="popular">POPULAR</NavLink></li>
               {user?.currentUser && <li><LogOut /></li>}
             </ul>
           </nav>

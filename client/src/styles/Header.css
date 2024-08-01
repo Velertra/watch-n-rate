@@ -41,8 +41,9 @@
     justify-content: center;
     align-items: center;
     background-color: rgb(5, 0, 72);
-    width: 100%;
+    width: 100vw;
     z-index: 1000;
+    border-bottom: 2px groove gray;
 }
 
 #header-container a{
@@ -52,22 +53,48 @@
 
 #header-back{
     background-color: red;
-    height: 90px;
+    height: 50px;
+}
+
+#nav-list{
+    display: flex;
+    gap: 1vw;
+    padding-inline-start: 1em;  
+    list-style-type: none;  
 }
 
 #nav-list a{
     text-decoration-line: none;
+    font-size: 1.3vw;
+    font-weight: 700;
 }
 
 #search-bar{
-    margin-left: 10px;
+    width: 25vw;
+    max-width: 150px;
 }
 
 #home-btn{
-    margin-left: 10vw;
+    margin: auto;
+    font-size: 1em;
+    /* margin-left: 10vw;
     margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto; */
 }
 
 #search-form{
-    margin-right: 10vw
+    
 }
+
+@media (max-width: 600px){
+    #header-container{
+        position: relative;
+    }
+    #header-back{
+        height: 0;
+    }
+    #nav-list a{
+        font-size: 2.5vw;
+    }
+} 
