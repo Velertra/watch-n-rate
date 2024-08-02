@@ -259,7 +259,6 @@ const followList = async (req, res, next) => {
 
     const getPopularUsers = async (req, res) => {
         try {
-            // Fetch all reviews
             const reviews = await Review.find({})
                 .populate('author')
                 .populate('feature')
@@ -267,22 +266,19 @@ const followList = async (req, res, next) => {
                 .populate('likes')
                 .exec();
     
-            // Sort reviews based on the number of likes in descending order
             const sortedReviews = reviews.sort((a, b) => b.likes.length - a.likes.length);
     
             const uniqueReviewsMap = new Map();
-        for (const review of sortedReviews) {
-            const authorId = review.author[0]._id.toString();
-            if (!uniqueReviewsMap.has(authorId)) {
-                uniqueReviewsMap.set(authorId, review);
+            for (const review of sortedReviews) {
+                const authorId = review.author[0]._id.toString();
+                if (!uniqueReviewsMap.has(authorId)) {
+                    uniqueReviewsMap.set(authorId, review);
+                }
             }
-        }
 
-        // Convert the map values to an array
-        const uniqueReviews = Array.from(uniqueReviewsMap.values());
+            const uniqueReviews = Array.from(uniqueReviewsMap.values());
 
-        // Send the sorted and filtered reviews as a response
-        res.status(200).json(uniqueReviews);
+            res.status(200).json(uniqueReviews);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

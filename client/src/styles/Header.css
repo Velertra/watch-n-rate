@@ -34,8 +34,7 @@
     pointer-events: none; 
 }
 
-#header-container{
-
+#header-container{ 
     position: fixed;
     display: flex;
     justify-content: center;

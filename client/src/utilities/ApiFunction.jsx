@@ -187,3 +187,45 @@ export async function PopularActors(){
         console.error(error);
     }
 }
+
+
+
+export async function PersonSearch(page){
+    const response = await fetch(
+        `https://api.themoviedb.org/3/search/person?query=james%20dean&include_adult=false&language=en-US&page=${page}`,
+        {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer '+ apiKey 
+            }
+        }
+    )
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+            
+        } else {
+            console.error('API Error:', response.status, response.statusText);
+        }
+}
+
+export async function PersonsCredits(person){
+    const response = await fetch(
+        `https://api.themoviedb.org/3/person/${person}/movie_credits?language=en-US`,
+        {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer '+ apiKey 
+            }
+        }
+    )
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+            
+        } else {
+            console.error('API Error:', response.status, response.statusText);
+        }
+}
