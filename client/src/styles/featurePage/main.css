@@ -1,5 +1,6 @@
 @import './featureMeta.css'; 
 @import './featureReviews.css';
+@import './featureVid.css';
 
 #fp-content{
     display: flex;
@@ -89,8 +90,7 @@
 
 #split-feature-section{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 1vw;
+  gap: 1vw;
+  align-items: flex-start;
+  flex-wrap: wrap;
 }

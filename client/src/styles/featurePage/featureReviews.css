@@ -1,12 +1,13 @@
 #feature-review-section{
     width: 600px;
     background: linear-gradient(to bottom, rgb(5, 0, 72, .65) 10%, rgb(5, 0, 72, .2) 90%);
-    padding: 3vw;
+    padding: 1.5vw;
     border-radius: 2%;
 }
 
 #fr-header{
-    display: flex;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 #fr-details-container{
