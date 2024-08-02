@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FullDetails, GetCredits } from "../../utilities/ApiFunction";
+import { FeatureVideos, FullDetails, GetCredits } from "../../utilities/ApiFunction";
 
 const FeatureContext = createContext();
 
@@ -14,7 +14,8 @@ export const FeatureProvider = ({ children }) => {
         //setType(input);
         let credits,
         featureInfo,
-        reviews;
+        reviews,
+        featureVidId;
 
         async function getFeatureData() {
             if (featureParams && featureParams.content && (featureParams.content.includes("movie") || featureParams.content.includes("tv"))) {
@@ -48,7 +49,19 @@ export const FeatureProvider = ({ children }) => {
                     console.error('accessing feature credits is not working');
                     null
                 }
-                setFeatureInfo({ featureInfo, setFeatureInfo, credits,  reviews, type})
+
+                try {
+                    const featureVideoId = await FeatureVideos(id);
+                    console.log(featureVideoId.results[2].key)
+                    featureVidId = featureVideoId.results[2].key;
+
+                } catch {
+                    console.error('accessing feature details is not working');
+                    null
+
+                }
+
+                setFeatureInfo({ featureInfo, setFeatureInfo, credits,  reviews, featureVidId, type})
 
             } else {
                 let type,

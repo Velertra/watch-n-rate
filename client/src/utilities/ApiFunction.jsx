@@ -229,3 +229,23 @@ export async function PersonsCredits(person){
             console.error('API Error:', response.status, response.statusText);
         }
 }
+
+export async function FeatureVideos(featureId){
+    const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${featureId}/videos?language=en-US`,
+        {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer '+ apiKey 
+            }
+        }
+    )
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+            
+        } else {
+            console.error('API Error:', response.status, response.statusText);
+        }
+}

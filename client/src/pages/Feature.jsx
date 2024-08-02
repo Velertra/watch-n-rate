@@ -36,6 +36,21 @@ const Feature = () => {
                     <FeatureMetaData
                         feature={featureInfo.credits}
                     />}
+                    {featureInfo
+                    &&
+                    <div id="fp-youtube-spot">
+                        <iframe 
+                            width="560" 
+                            height="315" 
+                            src={`https://www.youtube.com/embed/${featureInfo.featureVidId}?si=oxwxJv6kq5A6Ewby`} 
+                            title="YouTube video player" 
+                            frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerPolicy="strict-origin-when-cross-origin" 
+                            allowFullScreen>
+
+                        </iframe>
+
+                    </div>}
                     <div id="feature-review-section">
                         {featureInfo?.reviews
                         &&
