@@ -3,7 +3,7 @@ const apiKey = import.meta.env.VITE_REACT_APP_WATCHNRATE;
 export async function FeatureSearch(movieTitle) {
     try {
         const response = await fetch(
-            `https://api.themoviedb.org/3/search/multi?query=${movieTitle}&include_adult=false&language=en-US&region=US&page=1`,
+            `https://api.themoviedb.org/3/search/multi?query=${movieTitle}&include_adult=true&language=en-US&region=US&page=1`,
             {
                 method: 'GET',
                 headers: {
@@ -101,7 +101,7 @@ export async function FullDetails(type, id){
      
 
     const response = await fetch(
-        `https://api.themoviedb.org/3/${type}/${id}?language=en-US`,
+        `https://api.themoviedb.org/3/${type}/${id}&include_adult=false&?language=en-USregion=US`,
         {
             method: 'GET',
             headers: {
@@ -122,8 +122,6 @@ export async function FullDetails(type, id){
 
 
 export async function MovieImages(id){
-     
-
     const response = await fetch(
         `https://api.themoviedb.org/3/movie/${id}/images?include_image_language=en`,
         {
@@ -146,10 +144,8 @@ export async function MovieImages(id){
 
 
 export async function GetCredits(type, id){
-    
-
     const response = await fetch(
-        `https://api.themoviedb.org/3/${type}/${id}/credits?language=en-US`,
+        `https://api.themoviedb.org/3/${type}/${id}/credits?&include_adult=false&language=en-US`,
         {
             method: 'GET',
             headers: {
@@ -170,7 +166,7 @@ export async function GetCredits(type, id){
 
 
 export async function PopularActors(){
-    const url = 'https://api.themoviedb.org/3/trending/person/week?language=en-US';
+    const url = 'https://api.themoviedb.org/3/person/popular?language=en-US&page=1';
     const options = {
         method: 'GET',
         headers: {

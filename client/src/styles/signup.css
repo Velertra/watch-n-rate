@@ -1,4 +1,4 @@
-#login-page{
+#signup-body{
     margin-top: 10vw;
     height: 90%;
     display: flex;
@@ -6,12 +6,12 @@
     align-items: center;
 }
 
-#login-section{
+#signup-section{
     padding: 20px;
     border: 2px solid;
 }
 
-#login-inputs{
+#signup-inputs{
     display: flex;
     flex-direction: column;
 }

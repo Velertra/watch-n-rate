@@ -14,6 +14,7 @@ const Feature = () => {
             {featureInfo 
             && 
             <>
+            {console.log(featureInfo)}
             <FeatureHeaderImg 
                 featureImg={featureInfo.featureInfo.backdrop_path}
             />
@@ -38,24 +39,38 @@ const Feature = () => {
                     />}
                     
                     <div id="extra-feature-details">
-                    {featureInfo
+                    {featureInfo?.featureVidId[0]?.key
                     &&
-                    <div id="fp-youtube-spot">
-                        <iframe 
-                            id="feature-vid"
-                            src={`https://www.youtube.com/embed/${featureInfo.featureVidId}?si=oxwxJv6kq5A6Ewby`} 
-                            title="YouTube video player" 
-                            frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            referrerPolicy="strict-origin-when-cross-origin" 
-                            allowFullScreen>
+                    <>
+                        <div id="fp-youtube-spot">
+                            <iframe 
+                                id="feature-vid"
+                                src={`https://www.youtube.com/embed/${featureInfo.featureVidId[0].key}?si=oxwxJv6kq5A6Ewby`} 
+                                title="YouTube video player" 
+                                frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerPolicy="strict-origin-when-cross-origin" 
+                                allowFullScreen>
+                            </iframe>
+                        </div>
+                        {featureInfo.featureVidId[1]?.key
+                        &&
+                        <div id="fp-youtube-spot">
+                            <iframe 
+                                id="feature-vid"
+                                src={`https://www.youtube.com/embed/${featureInfo.featureVidId[1].key}?si=oxwxJv6kq5A6Ewby`} 
+                                title="YouTube video player" 
+                                frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerPolicy="strict-origin-when-cross-origin" 
+                                allowFullScreen>
+                            </iframe>
 
-                        </iframe>
-
-                    </div>}
+                        </div>}
+                    </>
+                    }
                         {featureInfo?.reviews
                         &&
                         <div id="feature-review-section">
-                        Comments
+                        Reviews
                         <FeaturePageReviews
                             reviews={featureInfo.reviews.feature.reviews}
                             user={user}

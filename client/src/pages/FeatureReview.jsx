@@ -10,13 +10,13 @@ const FeatureReview = () => {
     const { featureInfo } = useFeature();
     
     return (
-      <>
+      <div id="frp-body">
         {/* {featureInfo 
         && 
         <FeatureHeaderImg 
             featureImg={featureInfo.featureInfo.backdrop_path}
         />} */}
-        <div id="feature-info">
+        <div id="frp-feature-info">
             {featureInfo?.reviews && 
             <> 
             <FeatureIcon 
@@ -30,13 +30,13 @@ const FeatureReview = () => {
             <h6>&#10084; {" " + featureInfo.reviews.review.likes.length}</h6>
             </>}
         </div>
-        <div id="comment-section">
+        <div id="frp-comment-section">
           <h3 style={{ borderBottom: "1px solid white" }}>{(featureInfo && featureInfo.reviews.review.comment.length) + " "}Comments</h3>
           <ReviewComments
             review={featureInfo?.reviews.review}
           />
         </div>
-      </>
+      </div>
     );
 }
  

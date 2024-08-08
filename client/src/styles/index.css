@@ -8,6 +8,8 @@
 @import "featureIcon.css";
 @import "popularPage.css";
 @import "personSearchPage.css";
+@import "frPage.css";
+@import "signup.css";
 @import "../styles/featurePage/main.css";
 
 :root {

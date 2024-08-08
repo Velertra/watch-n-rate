@@ -140,38 +140,42 @@ const SignUp = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          value={username}
-          minLength={2}
-          maxLength={15}
-          onChange={handleUsernameChange}
-          required
-        />
+    <div id='signup-body'>
+      <div id='signup-section'>
+        <form onSubmit={handleSubmit}>
+          <div id='signup-inputs'>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value={username}
+              minLength={2}
+              maxLength={15}
+              onChange={handleUsernameChange}
+              required
+            />
+          </div>
+          {hiddenText.isTyping && <>{hiddenText.text}</>}
+          
+          <div id='signup-inputs'>
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={password}
+              minLength={6}
+              maxLength={50}
+              placeholder='At least 6 characters'
+              onChange={handlePasswordChange}
+              required
+            />
+          </div>
+          <button type="submit">Sign Up</button>
+        </form>
       </div>
-      {hiddenText.isTyping && <>{hiddenText.text}</>}
-      
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          minLength={6}
-          maxLength={50}
-          placeholder='At least 6 characters'
-          onChange={handlePasswordChange}
-          required
-        />
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+    </div>
   );
 };
 

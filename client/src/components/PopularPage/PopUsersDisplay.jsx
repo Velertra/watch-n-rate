@@ -17,7 +17,6 @@ const PopUsersDisplay = () => {
                 });
     
                 let data = await topUserData.json();
-                console.log(data)
                 setTopUsers(data);
 
             } catch (error) {

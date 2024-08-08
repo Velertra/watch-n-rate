@@ -52,11 +52,11 @@ export const FeatureProvider = ({ children }) => {
 
                 try {
                     const featureVideoId = await FeatureVideos(id);
-                    console.log(featureVideoId.results[2].key)
-                    featureVidId = featureVideoId.results[2].key;
+                    //console.log(featureVideoId.results[2].key)
+                    featureVidId = featureVideoId.results;
 
                 } catch {
-                    console.error('accessing feature details is not working');
+                    console.error('accessing feature videos is not working');
                     null
 
                 }

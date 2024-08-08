@@ -1,5 +1,6 @@
 #feature-metadata{
-    width: 400px;
+    width: calc(242px + 10vw);
+    max-width: 430px;
     background: linear-gradient(to bottom, rgb(5, 0, 72, .65) 10%, rgb(5, 0, 72, .2) 90%);
     padding: 1vw;
     border-radius: 2%;
@@ -47,4 +48,5 @@
     margin-left: 2px;
     margin-right: 2px;
     border: #000 solid;
+    font-size: .9em;
 }

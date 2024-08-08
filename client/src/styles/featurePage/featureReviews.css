@@ -1,5 +1,6 @@
 #feature-review-section{
-    width: 600px;
+    width: 84vw;
+    max-width: 570px;
     background: linear-gradient(to bottom, rgb(5, 0, 72, .65) 10%, rgb(5, 0, 72, .2) 90%);
     padding: 1.5vw;
     border-radius: 2%;
@@ -13,6 +14,10 @@
 #fr-details-container{
     display: flex;
     gap: 10%;
+}
+
+#fr-details > p{
+    font-size: .8em;
 }
 
 #fr-details h6{ 

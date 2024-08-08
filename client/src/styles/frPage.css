@@ -1,0 +1,16 @@
+#frp-body{
+    align-self: center;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#frp-feature-info{
+    width: 84vw;
+    max-width: 520px;
+}
+
+#frp-comment-section{
+    width: 84vw;
+    max-width: 520px;
+}

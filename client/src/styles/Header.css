@@ -52,7 +52,7 @@
 
 #header-back{
     background-color: red;
-    height: 50px;
+    height: 55px;
 }
 
 #nav-list{
@@ -89,6 +89,7 @@
 @media (max-width: 600px){
     #header-container{
         position: relative;
+        width: 100%;
     }
     #header-back{
         height: 0;
