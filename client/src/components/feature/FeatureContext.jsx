@@ -51,7 +51,7 @@ export const FeatureProvider = ({ children }) => {
                 }
 
                 try {
-                    const featureVideoId = await FeatureVideos(id);
+                    const featureVideoId = await FeatureVideos(id, type);
                     //console.log(featureVideoId.results[2].key)
                     featureVidId = featureVideoId.results;
 

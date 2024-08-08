@@ -39,7 +39,7 @@ const Feature = () => {
                     />}
                     
                     <div id="extra-feature-details">
-                    {featureInfo?.featureVidId[0]?.key
+                    {featureInfo?.featureVidId && featureInfo?.featureVidId[0]?.key
                     &&
                     <>
                         <div id="fp-youtube-spot">
