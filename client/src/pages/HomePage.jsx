@@ -7,13 +7,13 @@ import Popular from "../components/homePage/Popular";
 import { useUser } from "../components/UserContext";
 
 const HomePage = () => {
-    const { recentReviews, upcoming } = useHomePage();
+    const { recentReviews, upcoming, popular } = useHomePage();
     const navigate = useNavigate();
     const [bgNumber, setBgNumber] = useState();
 
     useEffect(() => {
         function bgNumber(){
-            const number = Math.floor(Math.random() * 2);
+            const number = Math.floor(Math.random() * 12);
             if(number == 0){
                 return '0';
             } else {
@@ -39,7 +39,7 @@ const HomePage = () => {
         <>
             <div id="header-img-container">
                 {/* header image, change number to pick */}
-                {upcoming && bgNumber && <img id="header-img" onClick={() => navigate(`/feature/movie-${upcoming.results[bgNumber].id}`)} src={"https://image.tmdb.org/t/p/original" + upcoming.results[bgNumber].backdrop_path}></img>}
+                {popular && bgNumber && <img id="header-img" onClick={() => navigate(`/feature/movie-${popular.movies.results[bgNumber].id}`)} src={"https://image.tmdb.org/t/p/original" + popular.movies.results[bgNumber].backdrop_path}></img>}
                 <div id="head-img-overlay//"></div>
             </div>
             <div id="header-content-container"></div>
