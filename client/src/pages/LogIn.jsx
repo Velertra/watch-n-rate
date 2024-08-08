@@ -51,6 +51,7 @@ const LogIn = () => {
 
     return (
       <div id="login-page">
+
       <div id="login-section">
         <form onSubmit={handleLogIn}>
           <div id="login-inputs">
@@ -77,6 +78,15 @@ const LogIn = () => {
         <p>New to the site? <NavLink to="/sign-up">sign-up</NavLink></p>
       </div>
       </div>
+      <div id="trial-user">
+        <div>
+          Trial User: gizmo26
+        </div>
+        <div>
+          Password: 123456
+        </div>
+      </div>
+      
     </div>
   );
 }
