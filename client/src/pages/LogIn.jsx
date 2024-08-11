@@ -2,10 +2,6 @@ import { useState } from "react";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { useUser } from "../components/UserContext";
 
-export async function loader({request, params,}){
-  console.log('loader working') 
-}
-
 const LogIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

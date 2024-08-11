@@ -35,7 +35,7 @@ const ActorsDisplay = () => {
                     <div id="hp-popular-tv" ref={actorRef}>
                         {actorsList.results.map((actor, index) => 
                             
-                                <div key={index} id="feature-icon-container">{console.log(actor)}
+                                <div key={index} id="feature-icon-container">
                                     <div id="feature-icon">
                                         <Link to={`/searchpeople/${actor.id}`}><img id="feature-icon-img" src={"https://image.tmdb.org/t/p/w500" + actor.profile_path}></img></Link>
                                         {/* <h4>{actor.title || actor.name}</h4> */}

@@ -8,7 +8,7 @@ const Header = () => {
         <>
             <header> 
                 <div id="header-container">
-                    <NavLink  style={{textDecorationLine: 'none'}} to="/"><div id="home-btn">WatchNRate</div></NavLink>
+                    <NavLink  style={{textDecorationLine: 'none'}} to="/"><div id="home-btn"><img id="homepage-icon" type="image/svg+xml" src="/homeBtnImg.svg"></img><div id="home-btn-text">WatchNRate</div></div></NavLink>
                     <NavBar />
                     <SearchBar />
                 </div>

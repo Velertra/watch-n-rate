@@ -14,7 +14,6 @@ const Feature = () => {
             {featureInfo 
             && 
             <>
-            {console.log(featureInfo)}
             <FeatureHeaderImg 
                 featureImg={featureInfo.featureInfo.backdrop_path}
             />

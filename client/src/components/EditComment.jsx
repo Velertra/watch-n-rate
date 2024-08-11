@@ -46,6 +46,7 @@ const EditComment = ({ comment }) => {
                         cols={30}
                         rows={5}
                     ></textarea>
+                    <button type="submit">edit</button>
                 </form>
             </div>
             }

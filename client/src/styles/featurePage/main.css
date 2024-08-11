@@ -64,7 +64,7 @@
 #feature-img-container::after {
     content: '';
     position: absolute;
-    top: calc(-41px + 23vw);
+    top: calc(-131px + 23vw);
     left: 0;
     width: 100%;
     height: calc(500px + 23vw);

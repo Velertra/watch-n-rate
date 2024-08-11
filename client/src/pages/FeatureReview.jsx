@@ -5,9 +5,11 @@ import FeatureIcon from "../components/FeatureIcon";
 import ReviewComments from "../components/ReviewComments";
 import FeatureHeaderImg from "../components/header/FeatureHeadImg"
 import { useFeature } from "../components/feature/FeatureContext";
+import { useUser } from "../components/UserContext";
 
 const FeatureReview = () => {
     const { featureInfo } = useFeature();
+    const { user } = useUser();
     
     return (
       <div id="frp-body">
@@ -32,9 +34,11 @@ const FeatureReview = () => {
         </div>
         <div id="frp-comment-section">
           <h3 style={{ borderBottom: "1px solid white" }}>{(featureInfo && featureInfo.reviews.review.comment.length) + " "}Comments</h3>
+           
           <ReviewComments
             review={featureInfo?.reviews.review}
           />
+          
         </div>
       </div>
     );

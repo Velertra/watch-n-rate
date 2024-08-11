@@ -20,7 +20,6 @@ const FeatureIcon = ({type, id}) => {
                 setDetails(data);
             }
         }
-
         
         if(type =='movie' || type == 'tv' ){
             getDetails();

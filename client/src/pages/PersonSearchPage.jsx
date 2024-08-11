@@ -12,7 +12,6 @@ const PersonSearchPage = () => {
         async function fetchActors(){
             const personData = await PersonsCredits(person)
             setPersonList(() => personData);
-            console.log(personData)
         }
 
         if(person){

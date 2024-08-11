@@ -42,10 +42,6 @@ const Profile = () => {
 
 
   const handleImgUpload = async (e) => {
-    if (!e.target.files[0]) {
-      console.log('told ya')
-    }
-
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
     formData.append("upload_preset", cloudinaryImg);
