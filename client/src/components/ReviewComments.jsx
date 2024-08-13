@@ -84,15 +84,14 @@ const ReviewComments = ({ review }) => {
                 <div id="rc-container" key={index}>
                     <div id="rc-content">
                         <h4 id="rc-c-user">{comment.user[0].username}</h4>
-                        <p id="rc-c-comment">{comment.comment}</p>
+                        <p id="rc-c-date">{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</p>
+                        
                     </div>
-                    <CommentLikes 
-                        comment={comment}
-                    />
-                    <p id="rc-c-date">{new Date(comment.timestamp).toLocaleDateString('en-US', options)}</p>
-                    
-                    
-
+                    <p id="rc-c-comment">{comment.comment}</p>
+                    <div id="frp-comment-bottom">
+                        <CommentLikes 
+                            comment={comment}
+                        />
                         {user?.currentUser.username == comment.user[0].username 
                         &&
                         <div id="rc-btns">
@@ -104,6 +103,13 @@ const ReviewComments = ({ review }) => {
                             </div>
                         </div>
                         }
+                    </div>
+                        
+                    
+                    
+                    
+
+                        
                     
                 </div>
             ))}

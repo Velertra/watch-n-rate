@@ -29,14 +29,15 @@ const CommentLikes = ({ comment }) => {
 
     return (
         <div id="rc-like-section">
-            <h6 id="like-btn" onClick={handlelikeBtn}>
-                {isLiked ? 'Unlike' : 'Like'}
-            </h6>
             <div id="like-section">
-                <h6 style={{color: isLiked ? 'red' : ''}}>
+                <div style={{color: isLiked ? 'red' : ''}}>
                     &#10084; {likes} likes
-                </h6>
+                </div>
             </div>
+            <div id="like-btn" onClick={handlelikeBtn}>
+                {isLiked ? 'Unlike' : 'Like'}
+            </div>
+            
         </div>
     );
 }

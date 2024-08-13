@@ -3,14 +3,69 @@
     max-width: 1200px;
     display: flex;
     flex-wrap: wrap;
+    margin: 3vw;
 }
 
 #frp-feature-info{
     width: 84vw;
     max-width: 520px;
+    display: flex;
+}
+
+#frp-feature-info{
+    background-color: rgb(5, 0, 72);
+    border-radius: 2%;
+    padding: 1.5vw;
+}
+
+#frp-feature-title{
+    margin: auto;
 }
 
 #frp-comment-section{
     width: 84vw;
     max-width: 520px;
+}
+
+#frp-feature-details{
+    margin-left: 3vw;
+}
+
+#rc-section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#rc-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: rgb(5, 0, 72);
+    border-radius: 2%;
+    padding: 10px;
+    margin: 1.2vw;
+}
+
+#rc-content{
+    display: flex;
+    justify-content: space-between;
+}
+
+#rc-content > * {
+    margin: 1%;
+}
+
+#frp-comment-bottom{
+    display: flex;
+    justify-content: space-between;
+}
+
+#rc-like-comment{
+    display: flex;
+}
+
+#like-btn{
+    align-self: center;
+    
 }

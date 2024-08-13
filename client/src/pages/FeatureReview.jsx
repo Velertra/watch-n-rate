@@ -25,11 +25,14 @@ const FeatureReview = () => {
               id={featureInfo.reviews.review.feature[0].featureId}
               type={featureInfo.reviews.review.feature[0].type}
             />
-            <h3 id="review-feature-title">{featureInfo.reviews.review.feature[0].title || featureInfo.reviews.review.feature[0].name}</h3>
-            <h5>{featureInfo.reviews.review.author.length !== 0 ? featureInfo.reviews.review.author[0].username : "User Deleted"}</h5>
-            <h6>{new Date(featureInfo.reviews.review.timestamp).toLocaleDateString('en-US'/* , options */)}</h6>
-            <p>{featureInfo.reviews.review.content}</p>
-            <h6>&#10084; {" " + featureInfo.reviews.review.likes.length}</h6>
+            <div id="frp-feature-details">
+                {/* <h3 id="frp-feature-title">{featureInfo.reviews.review.feature[0].title || featureInfo.reviews.review.feature[0].name}</h3> */}
+              <p>{featureInfo.reviews.review.author.length !== 0 ? featureInfo.reviews.review.author[0].username : "User Deleted"}</p>
+              <p>{new Date(featureInfo.reviews.review.timestamp).toLocaleDateString('en-US'/* , options */)}</p>
+              <p>{featureInfo.reviews.review.content}</p>
+              <p>&#10084; {" " + featureInfo.reviews.review.likes.length}</p>
+            </div>
+            
             </>}
         </div>
         <div id="frp-comment-section">
