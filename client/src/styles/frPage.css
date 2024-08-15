@@ -4,12 +4,14 @@
     display: flex;
     flex-wrap: wrap;
     margin: 3vw;
+    gap: 1vw
 }
 
 #frp-feature-info{
     width: 84vw;
     max-width: 520px;
     display: flex;
+    align-self: baseline;
 }
 
 #frp-feature-info{

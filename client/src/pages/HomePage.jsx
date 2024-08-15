@@ -51,12 +51,12 @@ const HomePage = () => {
                 {recentReviews 
                 &&
                 recentReviews.reviews.slice(0, 5).map((review, index) => (
-                    <div id="hp-rr" onClick={() => navigate(`/review/${review._id}`)} key={index}>
+                    <div id="hp-rr" key={index}>
                         <FeatureIcon 
                         id={review.feature[0].featureId}
                         type={review.feature[0].type}
                         />
-                        <div id="hp-rr-content">
+                        <div id="hp-rr-content" onClick={() => navigate(`/review/${review._id}`)} >
                             {/* <h4 id="r-feature-title">{review.feature[0].title || review.feature[0].name}</h4> */}
                             <h5>{review.author.length !== 0 ? review.author[0].username : "User Deleted"}</h5>
                             <p>{cutContent(review.content)}</p>
