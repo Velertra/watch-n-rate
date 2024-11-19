@@ -75,9 +75,10 @@ nav {
     padding-top: 15px;
 }
 
-.right-head{
+nav #right-head{
     padding-top: 15px;
     padding-bottom: 15px;
+    float: right;
 }
 
 #pages > ul > li{
@@ -157,3 +158,4 @@ nav a {
         display: none;
     }
 } 
+

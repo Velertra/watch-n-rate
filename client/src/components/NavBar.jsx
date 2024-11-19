@@ -24,7 +24,7 @@ const NavBar = () => {
       <>
           <nav>
             <ul id="nav-list">
-              <li className="left-head">
+              <li id="left-head">
                 <NavLink  style={{textDecorationLine: 'none'}} to="/">
                   <div id="home-btn">
                     <img id="homepage-icon" type="image/svg+xml" src="/homeBtnImg.svg"></img>
@@ -42,7 +42,7 @@ const NavBar = () => {
                   {user?.currentUser && <li><LogOut /></li>}
                 </ul>
               </li>
-              <li className="right-head"><SearchBar /></li>
+              <li id="right-head"><SearchBar /></li>
             </ul>
           </nav>
       </>
