@@ -24,12 +24,25 @@ const NavBar = () => {
       <>
           <nav>
             <ul id="nav-list">
-              {!user && <li><NavLink to="login">LOGIN</NavLink></li>}
-              {!user && <li><NavLink to="sign-up">SIGNUP</NavLink></li>}
-              {user?.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>PROFILE</NavLink></li>}
-              {user?.currentUser &&<li><NavLink to="review">REVIEWS</NavLink></li>}              
-              <li><NavLink to="popular">POPULAR</NavLink></li>
-              {user?.currentUser && <li><LogOut /></li>}
+              <li className="left-head">
+                <NavLink  style={{textDecorationLine: 'none'}} to="/">
+                  <div id="home-btn">
+                    <img id="homepage-icon" type="image/svg+xml" src="/homeBtnImg.svg"></img>
+                    <div id="home-btn-text">WatchNRate</div>
+                  </div>
+                </NavLink>
+              </li>
+              <li id="pages">
+                <ul>
+                  {!user && <li><NavLink to="login">LOGIN</NavLink></li>}
+                  {!user && <li><NavLink to="sign-up">SIGNUP</NavLink></li>}
+                  {user?.currentUser && <li><NavLink to={`profile/` + user.currentUser.username}>PROFILE</NavLink></li>}
+                  {user?.currentUser &&<li><NavLink to="review">REVIEWS</NavLink></li>}              
+                  <li><NavLink to="popular">POPULAR</NavLink></li>
+                  {user?.currentUser && <li><LogOut /></li>}
+                </ul>
+              </li>
+              <li className="right-head"><SearchBar /></li>
             </ul>
           </nav>
       </>

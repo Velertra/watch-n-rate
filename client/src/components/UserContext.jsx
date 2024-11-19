@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         async function getData(){
+            
             try{
                 const response = await fetch(`${url}/getcurrentuserinfo`, {
                     method: 'GET',
@@ -31,11 +32,11 @@ export const UserProvider = ({ children }) => {
                     }))
                 }
             } catch {
+                
                 setCurrentUser(prevUser => ({
                     ...prevUser,
                     currentUser: null
                 }))
-                console.error('Failed to fetch user data');
             }
         }
         
