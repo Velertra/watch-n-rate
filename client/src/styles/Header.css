@@ -52,7 +52,6 @@ nav {
 }
 
 #header-back{
-    background-color: red;
     height: 55px;
 }
 
@@ -159,3 +158,12 @@ nav a {
     }
 } 
 
+@media (max-width: 400px){
+    nav #right-head{
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    #header-back{
+        height: 57px;
+    }
+}
