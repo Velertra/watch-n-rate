@@ -95,7 +95,7 @@
 }
 
 #profile-follows-display{
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -127,6 +127,10 @@
     max-width: 1200px;
 }
 
+#pfd-user h6 {
+    margin: 5px;
+}
+
 #followers-header h4{
     margin: auto;
 }
@@ -137,4 +141,9 @@
     align-items: center;
     margin-top: 7vw;
     gap: 1vw;
+}
+
+#follow-profile-img-container{
+    width: 90px;
+    height: 90px;
 }

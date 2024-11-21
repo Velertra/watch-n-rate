@@ -33,6 +33,7 @@ const Profile = () => {
       } else {
           let userInfo = await response.json();
           setUserProfile(() => userInfo);
+          console.log(userInfo.profileUser.imagePath)
           setImgId(() => userInfo.profileUser.imagePath)
       }
     }

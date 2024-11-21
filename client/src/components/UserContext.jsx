@@ -9,7 +9,6 @@ export const UserProvider = ({ children }) => {
 
     useEffect(() => {
         async function getData(){
-            
             try{
                 const response = await fetch(`${url}/getcurrentuserinfo`, {
                     method: 'GET',
@@ -40,9 +39,12 @@ export const UserProvider = ({ children }) => {
             }
         }
         
-        getData();
+        
+            getData();
+        
+        
      
-    }, [currentUser?.token?.token])
+    }, [currentUser.token?.token])
     
     return (
         <UserContext.Provider value={{ user: currentUser?.currentUser , setCurrentUser, }}>
