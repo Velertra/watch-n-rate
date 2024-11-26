@@ -13,11 +13,13 @@
 #hp-popular-lists{
     display: flex;
     background: rgb(5, 0, 72);
+    border-radius: 10px;
 }
 
 #hp-popular-lists > button{
     background: radial-gradient(#00000080, transparent);
     color: white;
+    border-radius: 5px;
 }
 
 #hp-popular-movies > div,
@@ -29,8 +31,8 @@
 
 #hp-rr-container{
     display: flex;
+    align-items: center;
     flex-direction: column;
-    align-items: start;
     gap: 1vw;
 }
 

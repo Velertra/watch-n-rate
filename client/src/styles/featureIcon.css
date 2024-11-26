@@ -1,7 +1,9 @@
 #feature-icon-img{
-    height: calc(72px + 7vw)
+    height: calc(72px + 7vw);
+    border-radius: 15px;
 }
 
 #feature-icon-name{
     margin: 0;
+    text-align: center;
 }
