@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useUser } from '../components/UserContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ const SignUp = () => {
   const { setCurrentUser } = useUser();
   const url = import.meta.env.VITE_NODE === 'production' ? import.meta.env.VITE_PORT_URL : 'http://localhost:3000';
   const navigate = useNavigate();
+  const renderName = useRef(null);
 
   const checkUserName = (name) => {
     const allowed = /^[a-zA-Z0-9_]*$/;
@@ -47,13 +48,11 @@ const SignUp = () => {
   };
 
   const handleUsernameChange = async (e) => {
-    //setTimeout(() => {
       setHiddenText(prev =>({ 
         ...prev,
         isTyping: true,
         text: 'Checking Users...' 
       }))
-    ////}, 700)
    
     const safeName = checkUserName(e.target.value);
     setUsername(safeName);
@@ -64,33 +63,43 @@ const SignUp = () => {
           isTyping: false,
           text: ''
         }))
+
+        
         return;
-    } else {
+
+
+    } if(safeName.length >= 1 && safeName.length <= 3){
+            
+        setHiddenText(prev => ({
+          ...prev,
+          isTyping: true,
+          text: "add more stuff"
+        }));  
+        return;
+      }
+        if (renderName.current) {
+          clearTimeout(renderName.current);
+        }
+      
+        renderName.current = setTimeout(async () => {
       try {
+        //await new Promise(resolve => setTimeout(resolve, 3000));
+
         const response = await fetch(`${url}/checkusers/${safeName}`, {
             method: 'GET'
         });
-
+        //console.log(response)
         if(response.ok){
           const data = await response.json(); 
-
+          console.log(data)
           if(!data && safeName.length > 3){
-            //setTimeout(() => {
               setHiddenText(prev => ({
                 ...prev,
                 isTyping: true,
                 text: "User already out there somewhere"
               }));  
-            //}, 700)
-          } else if(safeName.length >= 1 && safeName.length <= 3){
-            
-              setHiddenText(prev => ({
-                ...prev,
-                isTyping: true,
-                text: "add more stuff"
-              }));  
            
-          } else {
+          } else if(data){
             setTimeout(() => {
               setHiddenText(prev => ({
                 ...prev,
@@ -103,7 +112,8 @@ const SignUp = () => {
       } catch (error) {
           console.error('Error fetching user data:', error);
       }
-    }
+    }, 1000);
+    
 };
 
   const handleSubmit = async (e) => {
@@ -132,7 +142,9 @@ const SignUp = () => {
           navigate('/');
         }
       } catch (error) {
+        console.log("check")
         console.error('Error occurred:', error);
+        
       }
     } else {
       return;

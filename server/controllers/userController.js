@@ -96,8 +96,10 @@ const checkUsers = async (req, res, next) => {
     
     if(existingUser){
         res.json( false );
+        console.log("false")
     } else {
         res. json( true );
+        console.log("true")
     }
 
 }
