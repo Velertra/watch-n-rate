@@ -47,6 +47,8 @@ const SignUp = () => {
     setPassword(e.target.value);
   };
 
+//username isnt working properly, "this seems perfect for you!" shows up when you delete. fix username state
+
   const handleUsernameChange = async (e) => {
       setHiddenText(prev =>({ 
         ...prev,
@@ -83,12 +85,12 @@ const SignUp = () => {
       
         renderName.current = setTimeout(async () => {
       try {
-        //await new Promise(resolve => setTimeout(resolve, 3000));
+        
 
         const response = await fetch(`${url}/checkusers/${safeName}`, {
             method: 'GET'
         });
-        //console.log(response)
+        
         if(response.ok){
           const data = await response.json(); 
           console.log(data)
@@ -99,7 +101,8 @@ const SignUp = () => {
                 text: "User already out there somewhere"
               }));  
            
-          } else if(data){
+          } else if(data && safeName.length > 3){
+            console.log(username)
             setTimeout(() => {
               setHiddenText(prev => ({
                 ...prev,
@@ -156,7 +159,7 @@ const SignUp = () => {
       <div id='signup-section'>
         <form onSubmit={handleSubmit}>
           <div id='signup-inputs'>
-            <label htmlFor="username">Username:</label>
+            <label htmlFor="username">{/* Username: */}</label>
             <input
               type="text"
               name="username"
@@ -164,14 +167,15 @@ const SignUp = () => {
               value={username}
               minLength={2}
               maxLength={15}
+              placeholder='Username'
               onChange={handleUsernameChange}
               required
             />
           </div>
-          {hiddenText.isTyping && <>{hiddenText.text}</>}
+          {hiddenText.isTyping && <p class="auth-error">{hiddenText.text}</p>}
           
           <div id='signup-inputs'>
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">{/* Password: */}</label>
             <input
               type="password"
               name="password"
@@ -179,12 +183,12 @@ const SignUp = () => {
               value={password}
               minLength={6}
               maxLength={50}
-              placeholder='At least 6 characters'
+              placeholder='Password'
               onChange={handlePasswordChange}
               required
             />
           </div>
-          <button type="submit">Sign Up</button>
+          <button class="auth-btn" type="submit">Sign Up</button>
         </form>
       </div>
     </div>

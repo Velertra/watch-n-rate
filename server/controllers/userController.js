@@ -17,7 +17,7 @@ const signUpController = async (req, res) => {
     try {
         bcrypt.hash(password, 10, async ( err,  hashedPassword) => {
             if(err){
-                 console.log(err);
+                console.log(err);
             } 
             
             const user = new User({
@@ -31,7 +31,7 @@ const signUpController = async (req, res) => {
             res.json({ token: token });
         })
     } catch(err) {
-      return next(err);
+        return next(err);
     };
 }
 
@@ -42,6 +42,9 @@ const login = async (req, res, next) => {
                 return next(err); 
             }
             if (!user) {
+                
+        
+        console.log("bithc")
                 return res.status(401).json({ message: "Authentication failed" });
             }
             
@@ -96,10 +99,8 @@ const checkUsers = async (req, res, next) => {
     
     if(existingUser){
         res.json( false );
-        console.log("false")
     } else {
         res. json( true );
-        console.log("true")
     }
 
 }

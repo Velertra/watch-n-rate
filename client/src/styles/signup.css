@@ -8,7 +8,9 @@
 
 #signup-section{
     padding: 20px;
+    max-width: 200px;
     border: 2px solid;
+    border-radius: 10px;
 }
 
 #signup-inputs{
