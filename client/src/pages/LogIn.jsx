@@ -67,9 +67,10 @@ const LogIn = () => {
                 id="username"
                 value={username}
                 placeholder="Username"
+                autoComplete="username"
                 onChange={handleUsernameChange}
               />
-              {hiddenText.isTyping && <p class="auth-error">{hiddenText.text}</p>}
+              {hiddenText.isTyping && <p className="auth-error">{hiddenText.text}</p>}
             <label htmlFor="password">{/* Password: */}</label>
               <input
                 type="password"
@@ -80,7 +81,7 @@ const LogIn = () => {
                 onChange={handlePasswordChange}
               />
           </div>
-        <button class="auth-btn" type="submit">Log In</button>
+        <button className="auth-btn" type="submit">Log In</button>
       </form>
       {/* <div id="login-signup"> */}
         <p id="login-signup">New to the site? <NavLink to="/sign-up">sign-up</NavLink></p>
