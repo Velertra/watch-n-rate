@@ -38,9 +38,8 @@ const SignUp = () => {
       '"': '&quot;',
       "'": '&#x27',
       "/": '&#;',
-  }
-  
-  return name.replace(reg, (match) => (symbol[match]));
+    }
+    return name.replace(reg, (match) => (symbol[match]));
   }
 
   const handlePasswordChange = (e) => {
@@ -50,26 +49,104 @@ const SignUp = () => {
 //username isnt working properly, "this seems perfect for you!" shows up when you delete. fix username state
 
   const handleUsernameChange = async (e) => {
-      setHiddenText(prev =>({ 
-        ...prev,
-        isTyping: true,
-        text: 'Checking Users...' 
-      }))
-   
     const safeName = checkUserName(e.target.value);
     setUsername(safeName);
-      
-      if (safeName === '' || safeName.length <= 0) {
+
+    setTimeout(async () => {
+      if(e.target.value.length >= 1 && e.target.value.length <= 3){
+            
+        setHiddenText(prev => ({
+          ...prev,
+          isTyping: true,
+          text: "add more stuff"
+        }));  
+      } else if (safeName == '' || safeName.length <= 0) {
+        console.log(safeName)
         setHiddenText(prev =>({ 
           ...prev,
           isTyping: false,
           text: ''
         }))
+      return;
+      } else if (e.target.value.length > 3) {
+          setHiddenText(prev =>({ 
+            ...prev,
+            isTyping: true,
+            text: 'Checking Users...' 
+          }))
 
-        
-        return;
+          setTimeout(async () => {
+          const response = await fetch(`${url}/checkusers/${safeName}`, {
+            method: 'GET'
+          });
+
+          if (renderName.current) {
+            clearTimeout(renderName.current);
+          }
+          renderName.current = setTimeout(async () => {
+          if(response.ok){
+            const data = await response.json();
+            if(!data && e.target.value.length > 3){
+                setHiddenText(prev => ({
+                  ...prev,
+                  isTyping: true,
+                  text: "User already out there somewhere"
+                }));
+            } else if (data && e.target.value.length > 3) {
+                setHiddenText(prev => ({
+                  ...prev,
+                  isTyping: true,
+                  text: "This name seems perfect for you!"
+                }));
+            }
+          }
+          }, 1000)
+        },1000)
+      }
+    
+    }, 2000)
+    
+    
+    
+    /* console.log(safeName) */
+
+    
+   /*  if (renderName.current) {
+      clearTimeout(renderName.current);
+    } */
+  
+  
+    /* if (safeName == '' || safeName.length <= 0) {
+      console.log(safeName)
+      setHiddenText(prev =>({ 
+        ...prev,
+        isTyping: false,
+        text: ''
+      }))
+      return;
+    }  */
+  
+  }
 
 
+  const handleUsernameChange2 = async (e) => {
+    setHiddenText(prev =>({ 
+      ...prev,
+      isTyping: true,
+      text: 'Checking Users...' 
+    }))
+   
+    const safeName = checkUserName(e.target.value);
+    setUsername(safeName);
+      
+    if (safeName == '' || safeName.length <= 0) {
+      console.log(safeName)
+      setHiddenText(prev =>({ 
+        ...prev,
+        isTyping: false,
+        text: ''
+      }))
+    return;
     } if(safeName.length >= 1 && safeName.length <= 3){
             
         setHiddenText(prev => ({
@@ -92,8 +169,7 @@ const SignUp = () => {
         });
         
         if(response.ok){
-          const data = await response.json(); 
-          console.log(data)
+          const data = await response.json();
           if(!data && safeName.length > 3){
               setHiddenText(prev => ({
                 ...prev,
@@ -102,7 +178,6 @@ const SignUp = () => {
               }));  
            
           } else if(data && safeName.length > 3){
-            console.log(username)
             setTimeout(() => {
               setHiddenText(prev => ({
                 ...prev,
@@ -157,9 +232,8 @@ const SignUp = () => {
   return (
     <div id='signup-body'>
       <div id='signup-section'>
-        <form onSubmit={handleSubmit}>
-          <div id='signup-inputs'>
-            <label htmlFor="username">{/* Username: */}</label>
+        <form id="signup-form" onSubmit={handleSubmit}>
+            <label htmlFor="username"></label>
             <input
               type="text"
               name="username"
@@ -169,13 +243,11 @@ const SignUp = () => {
               maxLength={15}
               placeholder='Username'
               onChange={handleUsernameChange}
+              autoComplete='username'
               required
             />
-          </div>
-          {hiddenText.isTyping && <p class="auth-error">{hiddenText.text}</p>}
-          
-          <div id='signup-inputs'>
-            <label htmlFor="password">{/* Password: */}</label>
+          {hiddenText.isTyping && <p className="auth-error">{hiddenText.text}</p>}
+            <label htmlFor="password"></label>
             <input
               type="password"
               name="password"
@@ -187,8 +259,7 @@ const SignUp = () => {
               onChange={handlePasswordChange}
               required
             />
-          </div>
-          <button class="auth-btn" type="submit">Sign Up</button>
+          <button className="auth-btn" type="submit">Sign Up</button>
         </form>
       </div>
     </div>

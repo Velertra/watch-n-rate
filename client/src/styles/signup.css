@@ -13,7 +13,12 @@
     border-radius: 10px;
 }
 
-#signup-inputs{
+#signup-form{
     display: flex;
     flex-direction: column;
 }
+
+/* #signup-inputs{
+    display: flex;
+    flex-direction: column;
+} */

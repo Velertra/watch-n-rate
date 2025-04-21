@@ -43,8 +43,6 @@ const login = async (req, res, next) => {
             }
             if (!user) {
                 
-        
-        console.log("bithc")
                 return res.status(401).json({ message: "Authentication failed" });
             }
             
