@@ -14,6 +14,7 @@ import { FeatureProvider } from "../components/feature/FeatureContext";
 import { HomePageProvider } from "../components/HomePageContext";
 import PopularPage from "../pages/PopularPage";
 import PersonSearchPage from "../pages/PersonSearchPage";
+import BrowsePage from "../pages/BrowsePage";
 
 const Router = () => {
 
@@ -30,6 +31,7 @@ const Router = () => {
                 { path: "/feature/:content", element: <FeatureProvider key={Math.random()}><Feature /></FeatureProvider>},
                 { path: "/review/:mongoId", element: <FeatureProvider key={Math.random()}><FeatureReview /></FeatureProvider> },
                 { path: "review", element: <Reviews />},
+                { path: "browse", element: <BrowsePage />}
                 
             ]
         },
