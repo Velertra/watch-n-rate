@@ -8,7 +8,9 @@
 
 #login-section{
     padding: 20px;
+    max-width: 200px;
     border: 2px solid;
+    border-radius: 10px;
 }
 
 #login-inputs{
@@ -16,3 +18,32 @@
     flex-direction: column;
 }
 
+#username, #password{
+    height: 30px;
+    border-radius: 5px;
+}
+
+#password {
+    margin-top: 10px;
+}
+
+.auth-btn{
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    background-color: rgb(5, 0, 72);
+    color: white;
+    font-weight: 900;
+    border-radius: 5px;
+}
+
+.auth-error{
+    font-size: 10px;
+    color: red;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+#login-signup{
+    font-size: 11px;
+}
