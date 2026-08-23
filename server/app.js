@@ -21,21 +21,16 @@ require('dotenv').config()
 
 const mongoURI = process.env.DATABASE_URI;
 
-async function mongoDb(){
-  try{
-    await mongoose.connect(mongoURI)
-    const db = mongoose.connection;
-
-    db.on("error", (error) => {
-      console.error("MongoDb connection error:", error);
-    });
-    db.once("open", () => {
-      console.log("Connected to MongoDb!");
-    })
-  } catch(error) {
-    console.error("Error connection to MongoDB", error);
+async function mongoDb() {
+  try {
+    await mongoose.connect(mongoURI);
+    console.log("Connected to MongoDb!");
+  } catch (error) {
+    console.error("Error connecting to MongoDB", error);
+    process.exit(1);
   }
 }
+
 
 mongoDb()
 
