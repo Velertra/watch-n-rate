@@ -48,7 +48,7 @@
    npm run server
 2. Start the client:
    cd client
-   npm run dev
+   npm run client
    the development server should be running on localhost:3000, client on localhost: 5173;
 
 ## Features

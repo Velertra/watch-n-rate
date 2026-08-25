@@ -10,6 +10,7 @@ const HomePage = () => {
     const { recentReviews, upcoming, popular } = useHomePage();
     const navigate = useNavigate();
     const [bgNumber, setBgNumber] = useState();
+    const loadingDivs = [1,2,3];
 
     useEffect(() => {
         function bgNumber(){
@@ -49,7 +50,7 @@ const HomePage = () => {
                 <div  id="hp-rr-container">
                 <h3 style={{ textDecoration: "underline"}}>Recent Reviews</h3>
                 {recentReviews 
-                &&
+                ?
                 recentReviews.reviews.slice(0, 5).map((review, index) => (
                     <div id="hp-rr" key={index}>
                         <FeatureIcon 
@@ -66,6 +67,21 @@ const HomePage = () => {
                         </div>
                     </div>
                 ))
+                :
+                <div>
+                    loading.
+                    <span className="dot dot1">.</span>
+                    <span className="dot dot2">.</span>
+                {loadingDivs.map((reviewDiv, index) => (
+                    <div id="hp-rr" key={index}>
+                        <div id="hp-rr-content">
+                            
+                            <h5>{""}</h5>
+                            <p>{" "}</p>
+                        </div>
+                    </div>
+                ))}
+                </div>
                 }
                 </div>
             </div>

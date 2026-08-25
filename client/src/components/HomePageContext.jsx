@@ -28,10 +28,8 @@ export const HomePageProvider = ({ children }) => {
                         'Content-Type': 'application/json',
                     }
                 });
-    
                 let data = await featureDB.json();
                 setRecentReviews(data);
-
             } catch (error) {
                 console.error('Error fetching recent reviews:', error);
             }
